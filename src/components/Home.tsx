@@ -4,8 +4,24 @@ import { } from "react-dropdown"
 
 function Home() {
     const activities = ["Prints and Variables", "While and For loops", "Dictionaries"]
-    const activity1 = ["Activity 1", "Activity 2", "Activity 3"]
+    const activity1 = [
+        ["Activity 1", "Activity 2", "Activity 3"],
+        ["Activity 1", "Activity 2", "Activity 3"],
+        ["Activity 1", "Activity 2", "Activity 3"]
+    ]
     const [dropdownOn, setOn] = useState(false);
+    const [index, setIndex] = useState(0);
+
+    const openDrop = (key: number) => {
+        if (key == index) {
+            setOn(false)
+            setIndex(-1)
+        } else {
+            setOn(true)
+            setIndex(key)
+        }
+
+    }
 
     const username = "KyleCarbonell"
     return <>
@@ -25,14 +41,14 @@ function Home() {
                                         {activity}
                                     </div>
                                     <button className="Dropdown-Button" onClick={() => {
-                                        setOn(!dropdownOn)
-                                    }}>
+                                        openDrop(key)
+                                    }} key={key}>
                                         ^
                                     </button>
                                 </li>
-                                {(key == 0 && dropdownOn) ? <div className="Activities-Dropdown-Wrapper" style={{ height: "25%" }}>
+                                {(index == key && dropdownOn) ? <div className="Activities-Dropdown-Wrapper" style={{ height: "25%" }}>
                                     {
-                                        activity1.map((activity, key) => {
+                                        activity1[index].map((activity, key) => {
                                             var value = `Activity${key + 1}`;
                                             return (
                                                 <button className="Activity-Button" key={key} style={{ height: "40%", marginLeft: "10%" }} onClick={() => {
@@ -47,8 +63,11 @@ function Home() {
                                     : <></>}
 
                             </>
+
                         )
                     })}
+
+
                 </ul>
 
             </div >
