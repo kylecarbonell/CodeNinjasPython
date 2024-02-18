@@ -55,6 +55,7 @@ function Activity() {
         const data = await fetch("https://codeninjaspython.onrender.com/create");
         const json = await data.json();
         console.log(json)
+        console.log("Inside submit")
     }
     async function instructions() {
         await fetch("https://codeninjaspython.onrender.com/submit");
@@ -104,6 +105,7 @@ function Activity() {
                     Open Replit
                 </button>
                 <button className="Activity-Button-Container" onClick={() => {
+                    console.log("Outside submit")
                     submit();
                 }}>
                     Submit
