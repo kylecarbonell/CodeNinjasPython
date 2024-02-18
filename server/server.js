@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import bodyParser, { json } from "body-parser";
+import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
