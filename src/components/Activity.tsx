@@ -52,7 +52,7 @@ function Activity() {
     tic_tac_toe_game()`
 
     async function submit() {
-        const data = await fetch("https://codeninjaspython.onrender.com/create");
+        const data = await fetch("https://codeninjaspython.onrender.com/submit");
         const json = await data.json();
         console.log(json)
         console.log("Inside submit")
