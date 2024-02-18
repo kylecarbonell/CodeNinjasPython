@@ -58,9 +58,9 @@ function Activity() {
         await fetch("https://codeninjaspython.onrender.com/submit");
     }
 
-    async function create() {
-        await fetch("https://codeninjaspython.onrender.com/instructions");
-    }
+    // async function create() {
+    //     await fetch("https://codeninjaspython.onrender.com/instructions");
+    // }
 
 
     return <>
