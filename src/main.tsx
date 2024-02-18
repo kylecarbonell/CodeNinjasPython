@@ -7,8 +7,7 @@ import Activity from './components/Activity.tsx'
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
+
 } from "react-router-dom";
 
 const router = createBrowserRouter([

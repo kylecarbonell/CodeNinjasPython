@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { executablePath } from "puppeteer";
 
 const app = express();
 
