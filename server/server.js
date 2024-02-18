@@ -73,14 +73,14 @@ let i = 0;
 // });
 
 app.get("/submit", async (req, res) => {
-  res.send(i);
   i += 1;
-});
-app.get("/create", async (req, res) => {
-  res.send("Create");
+  res.send(i);
+
+  res.status(200);
 });
 app.get("/instructions", async (req, res) => {
   res.send("instructions");
+  res.status(200);
 });
 
 app.listen(PORT, () => {
