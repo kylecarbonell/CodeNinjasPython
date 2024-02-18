@@ -71,8 +71,14 @@ app.get("/Create", async (req, res) => {
   //Creates replit
 });
 
-app.get("/", async (req, res) => {
-  res.send("HERE");
+app.get("/submit", async (req, res) => {
+  res.send("submit");
+});
+app.get("/create", async (req, res) => {
+  res.send("Create");
+});
+app.get("/instructions", async (req, res) => {
+  res.send("instructions");
 });
 
 app.listen(PORT, () => {

@@ -51,9 +51,17 @@ function Activity() {
     
     tic_tac_toe_game()`
 
-    async function test() {
-        await fetch("https://codeninjaspython.onrender.com/");
+    async function submit() {
+        await fetch("https://codeninjaspython.onrender.com/create");
     }
+    async function instructions() {
+        await fetch("https://codeninjaspython.onrender.com/submit");
+    }
+
+    async function create() {
+        await fetch("https://codeninjaspython.onrender.com/instructions");
+    }
+
 
     return <>
 
@@ -94,11 +102,13 @@ function Activity() {
                     Open Replit
                 </button>
                 <button className="Activity-Button-Container" onClick={() => {
-                    test();
+                    submit();
                 }}>
                     Submit
                 </button>
-                <button className="Activity-Button-Container">
+                <button className="Activity-Button-Container" onClick={() => {
+                    instructions();
+                }}>
                     Open Instructions
                 </button>
             </div>
