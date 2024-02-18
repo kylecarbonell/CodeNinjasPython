@@ -18,6 +18,7 @@ puppeteer.use(StealthPlugin);
 
 dotenv.config();
 const PORT = 8000;
+let i = 0;
 
 // app.get("/Create", async (req, res) => {
 //   const myName = "KyleCarbonell";
@@ -72,7 +73,8 @@ const PORT = 8000;
 // });
 
 app.get("/submit", async (req, res) => {
-  res.send("submit");
+  res.send(i);
+  i += 1;
 });
 app.get("/create", async (req, res) => {
   res.send("Create");
