@@ -1,16 +1,17 @@
 import { useState } from "react";
 import "./Home.css"
 import { } from "react-dropdown"
+import { TiArrowSortedUp } from "react-icons/ti";
+import { activities, categories, links } from "../../data.tsx"
+
+import { Link } from "react-router-dom";
+
 
 function Home() {
-    const activities = ["Prints and Variables", "While and For loops", "Dictionaries"]
-    const activity1 = [
-        ["Activity 1", "Activity 2", "Activity 3"],
-        ["Activity 1", "Activity 2", "Activity 3"],
-        ["Activity 1", "Activity 2", "Activity 3"]
-    ]
+
     const [dropdownOn, setOn] = useState(false);
     const [index, setIndex] = useState(0);
+
 
     const openDrop = (key: number) => {
         if (key == index) {
@@ -33,29 +34,39 @@ function Home() {
             </div>
             <div className="Activities-Wrapper">
                 <ul className="Activities-List">
-                    {activities.map((activity, key) => {
+                    {categories.map((activity, key) => {
                         return (
                             <>
-                                <li className="Activity-Dropdown" key={key}>
+                                <li className="Activity-Dropdown" key={key}  >
                                     <div className="Activity-Name">
                                         {activity}
                                     </div>
-                                    <button className="Dropdown-Button" onClick={() => {
+                                    <button className="Dropdown-Button" key={key} onClick={() => {
                                         openDrop(key)
-                                    }} key={key}>
-                                        ^
+                                    }}>
+                                        <TiArrowSortedUp style={{ fontSize: "3rem" }} />
                                     </button>
                                 </li>
-                                {(index == key && dropdownOn) ? <div className="Activities-Dropdown-Wrapper" style={{ height: "25%" }}>
+                                {(index == key && index < activities.length && activities[index].length > 0 && dropdownOn) ? <div className="Activities-Dropdown-Wrapper" style={{ height: "25%" }}>
                                     {
-                                        activity1[index].map((activity, key) => {
-                                            var value = `Activity${key + 1}`;
+                                        activities[index].map((activity, key) => {
+                                            var value = links[index][key]
+                                            console.log(value)
                                             return (
-                                                <button className="Activity-Button" key={key} style={{ height: "40%", marginLeft: "10%" }} onClick={() => {
-                                                    window.open(`https://replit.com/@razorpooandpee/${username}-${value}`)
-                                                }}>
+                                                <Link
+                                                    className="Activity-Link"
+                                                    key={key}
+                                                    to={`/activity`}
+                                                    state={{
+                                                        name: activity,
+                                                        link: `${username}-${value}`
+                                                    }}
+                                                    style={{ height: "40%", marginLeft: "10%" }}
+                                                    onClick={() => {
+                                                        // window.open(`https://replit.com/@razorpooandpee/${username}-${value}`)
+                                                    }}>
                                                     {activity}
-                                                </button>
+                                                </Link>
                                             )
                                         })
                                     }

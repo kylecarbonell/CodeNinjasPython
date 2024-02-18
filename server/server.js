@@ -72,6 +72,10 @@ app.get("/Create", async (req, res) => {
   //Creates replit
 });
 
+app.get("/", async (req, res) => {
+  res.send("HERE");
+});
+
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });

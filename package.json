@@ -19,8 +19,11 @@
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "react": "^18.2.0",
+    "react-code-blocks": "^0.1.6",
     "react-dom": "^18.2.0",
     "react-dropdown": "^1.11.0",
+    "react-icons": "^5.0.1",
+    "react-router-dom": "^6.22.1",
     "replit-client": "^0.25.0",
     "selenium-webdriver": "^4.17.0",
     "vite-plugin-env-compatible": "^2.0.1"
