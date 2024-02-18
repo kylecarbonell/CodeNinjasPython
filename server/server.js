@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
+import bodyParser, { json } from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
@@ -74,9 +74,7 @@ let i = 0;
 
 app.get("/submit", async (req, res) => {
   i += 1;
-  res.send(`Hello number ${i}`);
-
-  res.status(200);
+  res.status(200).json({ number: i });
 });
 app.get("/instructions", async (req, res) => {
   res.send("instructions");
