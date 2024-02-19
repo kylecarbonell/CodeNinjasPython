@@ -1,6 +1,5 @@
 
 import './App.css'
-import dotenv from "dotenv";
 
 
 
