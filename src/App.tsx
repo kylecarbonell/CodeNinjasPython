@@ -8,8 +8,15 @@ function App() {
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
+    console.log("SUBMITTING")
 
+    const data = await fetch("https://codeninjaspython.onrender.com/login")
 
+    if (data.ok) {
+      // const json = await data.json();
+      console.log(data)
+
+    }
   }
 
   return (

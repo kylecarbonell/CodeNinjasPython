@@ -9,6 +9,13 @@ const app = express();
 
 import dotenv from "dotenv";
 
+import mongoose from "mongoose";
+mongoose.set("strictQuery", false);
+
+dotenv.config();
+
+const connectionString = process.env.REACT_APP_MONGO_CON;
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -74,6 +81,13 @@ let i = 0;
 //   //Creates replit
 // });
 
+app.post("/login", async (req, res) => {
+  const user = { username: "kyle.carbonell" };
+  const command = { $set: { signedIn: false } };
+  const login = await db.collection("Python").updateOne(user, command);
+  res.json({ login }).status(200);
+});
+
 app.get("/submit", async (req, res) => {
   i += 1;
   res.status(200).json({ number: i });
@@ -85,6 +99,15 @@ app.get("/instructions", async (req, res) => {
   res.status(200);
 });
 
-app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
-});
+const start = async () => {
+  try {
+    // await mongoose.connect(connectionString);
+    app.listen(PORT, () => {
+      console.log("Server running on port " + PORT);
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+start();
