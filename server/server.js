@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 puppeteer.use(StealthPlugin);
 
 dotenv.config();
+
+const con = process.env.REACT_APP_MONGO_CON;
 const PORT = 8000;
 let i = 0;
 
@@ -75,7 +77,9 @@ let i = 0;
 app.get("/submit", async (req, res) => {
   i += 1;
   res.status(200).json({ number: i });
+  console.log(con);
 });
+
 app.get("/instructions", async (req, res) => {
   res.send("instructions");
   res.status(200);

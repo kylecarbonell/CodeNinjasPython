@@ -9,11 +9,16 @@ import {
   RouterProvider,
 
 } from "react-router-dom";
+import Home from './components/Home.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
   {
     path: "/activity",

@@ -5,15 +5,109 @@
 .App{
   position: absolute;
 
+  height: 100%;
+  width: 100%;
+
   left: 0px;
   right: 0px;
   top: 0px;
   bottom: 0px;
 
-  background-color: white;
+  background-color: #2e3440;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.Home{
+.Login-Wrapper{
+  background-color: #363d4a;
+  height: 75%;
+  width: 40%;
+
+  border-radius: 25px;
+
+  /* padding: 1.5%; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid white
+  
+}
+
+.Login-Title{
+  height: 30%;
+  width: 100%;
+
+  /* background-color: red; */
+
+  border-radius: 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Login-Content{
+  height: 70%;
+  width: 100%;
+  /* background-color: blue; */
+
+  border-radius: 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+
+}
+
+.Login-Form{
   height: 100%;
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login-Input{
+  height: 15%;
+  width: 50%;
+
+  text-align: center;
+  font-size: 1rem;
+
+  border-radius: 10px;
+
+  border:0;
+  padding: 0;
+
+  margin-bottom: 4%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0px 0px 2px 2px grey;
+
+}
+
+.Login-Button{
+  width: 25%;
+  height: 15%;
+
+  border-radius: 15px;
+  font-size: 0.5rem;
+
+  background-color: white;
+  box-shadow: 0px 0px 2px 2px grey;
+
+  border:0;
 }
