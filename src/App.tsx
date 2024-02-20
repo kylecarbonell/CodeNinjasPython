@@ -15,7 +15,7 @@ function App() {
     console.log("SUBMITTING")
 
     const data = { username: name, signIn: signIn }
-    const post = await fetch("http://localhost:8000/login", {
+    await fetch("http://localhost:8000/login", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
