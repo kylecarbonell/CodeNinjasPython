@@ -10,12 +10,13 @@ function App() {
 
   const [name, setName] = useState("");
   const nav = useNavigate();
+
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
     console.log("SUBMITTING")
 
     const data = { username: name, signIn: signIn }
-    await fetch("http://localhost:8000/login", {
+    await fetch("https://codeninjaspython.onrender.com/login", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -43,7 +44,7 @@ function App() {
     console.log("SUBMITTING")
 
     const data = { username: window.sessionStorage.getItem("user"), signIn: signIn }
-    await fetch("http://localhost:8000/login", {
+    await fetch("https://codeninjaspython.onrender.com/login", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
