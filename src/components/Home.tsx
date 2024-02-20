@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Home.css"
 import { } from "react-dropdown"
 import { TiArrowSortedUp } from "react-icons/ti";
 import { activities, categories, links } from "../../data.tsx"
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function Home() {
 
     const [dropdownOn, setOn] = useState(false);
     const [index, setIndex] = useState(0);
-
+    const nav = useNavigate();
 
     const openDrop = (key: number) => {
         if (key == index) {
@@ -21,16 +21,50 @@ function Home() {
             setOn(true)
             setIndex(key)
         }
-
     }
 
-    const username = "KyleCarbonell"
+    const logout = async (e: any) => {
+        e.preventDefault();
+
+        const data = { username: window.sessionStorage.getItem("user"), signIn: false }
+        await fetch("https://codeninjaspython.onrender.com/login", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        } as RequestInit)
+            .then((res) => {
+                console.log("post request sent");
+                if (res.status == 200) {
+                    console.log("good")
+                    window.sessionStorage.setItem("user", "");
+                    nav("/", { replace: true })
+                } else if (res.status == 201) {
+                    console.log("Logged in already")
+                } else {
+                    console.log("bad username")
+                }
+                // console.log(res)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const [username, setUsername] = useState("");
+    useEffect(() => {
+        console.log(window.sessionStorage.getItem("user"))
+        setUsername(window.sessionStorage.getItem("user") || "");
+    }, [window.sessionStorage.getItem("user")])
+
     return <>
 
         <div className="Home">
             <div className="Bar">
-                <h1 id="Bar-Text" style={{ marginRight: "70%" }}>CodeNinjas Python</h1>
-                <h1 id="Bar-Text">Kyle.Carbonell</h1>
+                <h1 id="Bar-Text" style={{ marginRight: "70%" }}>Python</h1>
+                <h1 id="Bar-Text" style={{ marginRight: "2%" }}>{username}</h1>
+                <button onClick={(e) => {
+                    logout(e);
+                }}>Log Out</button>
             </div>
             <div className="Activities-Wrapper">
                 <ul className="Activities-List">
@@ -38,7 +72,7 @@ function Home() {
                         return (
                             <>
                                 <li className="Activity-Dropdown" key={key}  >
-                                    <div className="Activity-Name">
+                                    <div className="Activity-Name" >
                                         {activity}
                                     </div>
                                     <button className="Dropdown-Button" key={key} onClick={() => {

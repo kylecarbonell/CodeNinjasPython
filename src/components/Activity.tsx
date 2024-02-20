@@ -72,7 +72,7 @@ function Activity() {
         <div className="Activity">
 
             <div className="Activity-Title">
-                <Link className="BackButton" to={"/"}>
+                <Link className="BackButton" to={"/home"}>
                     <IoIosArrowBack />
                 </Link>
                 <div className="Activity-Title-Wrapper" >

@@ -6,7 +6,7 @@ dotenv.config();
 const connectionString = process.env.REACT_APP_MONGO_CON;
 const client = new MongoClient(connectionString);
 
-let conn = await client.connect();
+let conn = client.connect();
 try {
   conn = await client.connect();
   console.log("Connected");
@@ -14,4 +14,4 @@ try {
   console.error(e);
 }
 
-export const db = await con.db("Codeninjas");
+export const db = conn.db("Users");

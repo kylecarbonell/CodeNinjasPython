@@ -4,13 +4,11 @@ import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import { db } from "./Mongo.mjs";
 
 const app = express();
 
 import dotenv from "dotenv";
-
-import mongoose from "mongoose";
-mongoose.set("strictQuery", false);
 
 dotenv.config();
 
@@ -82,10 +80,22 @@ let i = 0;
 // });
 
 app.post("/login", async (req, res) => {
-  const user = { username: "kyle.carbonell" };
-  const command = { $set: { signedIn: false } };
+  console.log(req.body.username);
+  const user = { username: req.body.username };
+  const command = { $set: { signedIn: req.body.signIn } };
   const login = await db.collection("Python").updateOne(user, command);
-  res.json({ login }).status(200);
+  console.log(login);
+  if (login.modifiedCount == 1) {
+    console.log("good");
+    res.status(200);
+  } else if (login.modifiedCount == 0 && login.matchedCount == 1) {
+    console.log("Already good");
+    res.status(200);
+  } else {
+    console.log("bad");
+    res.status(202);
+  }
+  res.send();
 });
 
 app.get("/submit", async (req, res) => {
