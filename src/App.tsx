@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 function App() {
 
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const nav = useNavigate();
 
   const onSubmit = async (e: any, signIn: boolean) => {
@@ -27,12 +28,11 @@ function App() {
           console.log("good")
           window.sessionStorage.setItem("user", name);
           nav("/home", { replace: true })
-        } else if (res.status == 201) {
-          console.log("Logged in already")
+          setError("")
         } else {
           console.log("bad username")
+          setError("User not found: Please check if your username has been entered correctly")
         }
-        // console.log(res)
       })
       .catch((error) => {
         console.log(error);
@@ -55,12 +55,7 @@ function App() {
           console.log("good")
           window.sessionStorage.setItem("user", name);
           nav("/home", { replace: true })
-        } else if (res.status == 201) {
-          console.log("Logged in already")
-        } else {
-          console.log("bad username")
         }
-        // console.log(res)
       })
       .catch((error) => {
         console.log(error);
@@ -93,6 +88,13 @@ function App() {
                 setName(e.target.value)
               }}
             />
+            {error != "" ?
+              <div className='Error-Message'>
+                <h1>{error}</h1>
+              </div> :
+              null
+            }
+
             <button className='Login-Button'>
               <h1>Log in</h1>
             </button>

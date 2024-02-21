@@ -10,6 +10,7 @@ import {
 
 } from "react-router-dom";
 import Home from './components/Home.tsx';
+import Admin from './components/Admin.tsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     path: "/activity",
     element: <Activity />,
   },
+  {
+    path: "/admin",
+    element: <Admin />
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

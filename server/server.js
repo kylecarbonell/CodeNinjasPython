@@ -4,7 +4,8 @@ import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { db } from "./Mongo.mjs";
+import { db, act } from "./Mongo.mjs";
+import { activitySchema } from "./Schema.mjs";
 
 const app = express();
 
@@ -79,17 +80,25 @@ let i = 0;
 //   //Creates replit
 // });
 
+app.post("/create", async (req, res) => {
+  console.log("HERE");
+  const create = await act.createCollection("kyle.carbonell", {
+    name: "kyle.carbonell",
+  });
+  res.status(200).send("");
+});
+
 app.post("/login", async (req, res) => {
   console.log(req.body.username);
   const user = { username: req.body.username };
   const command = { $set: { signedIn: req.body.signIn } };
   const login = await db.collection("Python").updateOne(user, command);
   console.log(login);
-  if (login.modifiedCount == 1) {
+  if (
+    login.modifiedCount == 1 ||
+    (login.modifiedCount == 0 && login.matchedCount == 1)
+  ) {
     console.log("good");
-    res.status(200);
-  } else if (login.modifiedCount == 0 && login.matchedCount == 1) {
-    console.log("Already good");
     res.status(200);
   } else {
     console.log("bad");

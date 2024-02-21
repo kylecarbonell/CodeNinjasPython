@@ -111,3 +111,16 @@
 
   border:0;
 }
+
+.Error-Message{
+  height: 35%;
+  width: 50%;
+  background-color: white;
+  border-radius: 15px;
+
+
+  margin-bottom: 3%;
+  font-size: 0.75rem;
+
+  text-align: center;
+}

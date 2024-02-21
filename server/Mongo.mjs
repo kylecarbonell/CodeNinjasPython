@@ -15,3 +15,4 @@ try {
 }
 
 export const db = conn.db("Users");
+export const act = conn.db("Activities");
