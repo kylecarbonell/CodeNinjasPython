@@ -10,7 +10,8 @@ function Admin() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         } as RequestInit).then(async (res) => {
-            const text = await res.text()
+
+            const text = await res.text();
             console.log(text)
         });
     };
@@ -23,9 +24,13 @@ function Admin() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         } as RequestInit).then(async (res) => {
-            const text = await res.text()
-            console.log(text)
-            createDoc()
+            const status = await res.status;
+            if (status == 200) {
+                const text = await res.text()
+                console.log(text)
+                createDoc()
+            }
+
         });
     };
 
