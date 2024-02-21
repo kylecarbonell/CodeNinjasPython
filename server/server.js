@@ -116,11 +116,20 @@ app.post("/login", async (req, res) => {
  */
 app.post("/create", async (req, res) => {
   const username = req.body.username;
-  const test = await act.createCollection(username, {});
-  if (test.codeName == "NamespaceExists") {
-    res.status(400).send("username exists");
+
+  const names = await act.listCollections().toArray();
+  let found = false;
+  for (let j = 0; j < names.length; j += 1) {
+    found = true;
+    if (names[j].name == user) {
+      found = true;
+    }
+  }
+  if (!found) {
+    await act.createCollection(username, {});
+    res.status(200).send("Account created");
   } else {
-    res.status(200).send("Good");
+    res.status(400).send("Username exists already");
   }
 });
 
@@ -143,7 +152,9 @@ app.post("/createDoc", async (req, res) => {
     found = true;
     if (names[j].name == user) {
       for (let i = 1; i <= 32; i += 1) {
-        const addDoc = await act.collection(user).insertOne(activitySchema(i));
+        const addDoc = await act
+          .collection(user)
+          .insertOne(activitySchema(i, user));
       }
     }
   }

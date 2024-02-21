@@ -5,7 +5,7 @@ function Admin() {
         console.log("In the admin req");
         const data = { username: name };
 
-        await fetch(`https://codeninjaspython.onrender.com/createDoc`, {
+        await fetch("https://codeninjaspython.onrender.com/createDoc", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -22,7 +22,9 @@ function Admin() {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
-        } as RequestInit).then(async () => {
+        } as RequestInit).then(async (res) => {
+            const text = await res.text()
+            console.log(text)
             createDoc()
         });
     };
