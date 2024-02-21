@@ -1,26 +1,42 @@
 function Admin() {
-  const createDoc = async () => {
-    console.log("In the admin req");
-    const data = { username: "kyle.carbonell" };
+    const name = "shirley.nguyen"
 
-    await fetch("http://localhost:8000/createDoc", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    } as RequestInit);
-  };
+    const createDoc = async () => {
+        console.log("In the admin req");
+        const data = { username: name };
 
-  const createUser = async () => {
-    const data = { username: "kyle.carbonell" };
+        await fetch(`https://codeninjaspython.onrender.com/createDoc`, {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        } as RequestInit).then(async (res) => {
+            const text = await res.text()
+            console.log(text)
+        });
+    };
 
-    await fetch("http://localhost:8000/create", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    } as RequestInit).then(async () => {});
-  };
+    const createUser = async () => {
+        const data = { username: name };
 
-  return <button onClick={createUser}>create</button>;
+        await fetch("https://codeninjaspython.onrender.com/create", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        } as RequestInit).then(async () => {
+            createDoc()
+        });
+    };
+
+    return (
+        <>
+            <button onClick={createUser}>
+                create
+            </button>
+            <button onClick={createDoc}>
+                Docs
+            </button>
+        </>
+    );
 }
 
 export default Admin;

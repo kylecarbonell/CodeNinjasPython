@@ -3,7 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { db, act } from "./Mongo.mjs";
 import { activitySchema } from "./Schema.mjs";
 
@@ -13,19 +12,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const connectionString = process.env.REACT_APP_MONGO_CON;
-
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-puppeteer.use(StealthPlugin);
-
 dotenv.config();
 
 const con = process.env.REACT_APP_MONGO_CON;
-const PORT = 8000;
+const PORT = process.env.REACT_APP_SERVER_PORT;
 let i = 0;
 
 // app.get("/Create", async (req, res) => {
@@ -80,44 +75,6 @@ let i = 0;
 //   //Creates replit
 // });
 
-app.post("/create", async (req, res) => {
-  console.log("HERE");
-  const test = await act.createCollection("kyle.carbonell", {});
-  if (test.codeName == "NamespaceExists") {
-    res.status(400).send("username exists");
-  } else {
-    res.status(200).send("Good");
-  }
-});
-
-app.post("/createDoc", async (req, res) => {
-  console.log("Server doc");
-  const addDoc = await act.collection("kyle.carbonell").insertOne({
-    name: "kyle.carbonell",
-    code: "poopoo",
-    submitted: false,
-  });
-});
-
-app.post("/login", async (req, res) => {
-  console.log(req.body.username);
-  const user = { username: req.body.username };
-  const command = { $set: { signedIn: req.body.signIn } };
-  const login = await db.collection("Python").updateOne(user, command);
-  console.log(login);
-  if (
-    login.modifiedCount == 1 ||
-    (login.modifiedCount == 0 && login.matchedCount == 1)
-  ) {
-    console.log("good");
-    res.status(200);
-  } else {
-    console.log("bad");
-    res.status(202);
-  }
-  res.send();
-});
-
 app.get("/submit", async (req, res) => {
   i += 1;
   res.status(200).json({ number: i });
@@ -131,7 +88,6 @@ app.get("/instructions", async (req, res) => {
 
 const start = async () => {
   try {
-    // await mongoose.connect(connectionString);
     app.listen(PORT, () => {
       console.log("Server running on port " + PORT);
     });
