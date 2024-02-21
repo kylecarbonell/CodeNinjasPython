@@ -82,10 +82,21 @@ let i = 0;
 
 app.post("/create", async (req, res) => {
   console.log("HERE");
-  const create = await act.createCollection("kyle.carbonell", {
+  const test = await act.createCollection("kyle.carbonell", {});
+  if (test.codeName == "NamespaceExists") {
+    res.status(400).send("username exists");
+  } else {
+    res.status(200).send("Good");
+  }
+});
+
+app.post("/createDoc", async (req, res) => {
+  console.log("Server doc");
+  const addDoc = await act.collection("kyle.carbonell").insertOne({
     name: "kyle.carbonell",
+    code: "poopoo",
+    submitted: false,
   });
-  res.status(200).send("");
 });
 
 app.post("/login", async (req, res) => {
