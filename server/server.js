@@ -121,7 +121,7 @@ app.post("/create", async (req, res) => {
   let found = false;
   for (let j = 0; j < names.length; j += 1) {
     found = true;
-    if (names[j].name == user) {
+    if (names[j].name == username) {
       found = true;
     }
   }
@@ -144,13 +144,13 @@ app.post("/create", async (req, res) => {
  *
  */
 app.post("/createDoc", async (req, res) => {
-  const user = req.body.username;
+  const username = req.body.username;
 
   const names = await act.listCollections().toArray();
   let found = false;
   for (let j = 0; j < names.length; j += 1) {
     found = true;
-    if (names[j].name == user) {
+    if (names[j].name == username) {
       for (let i = 1; i <= 32; i += 1) {
         const addDoc = await act
           .collection(user)
