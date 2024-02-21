@@ -88,9 +88,9 @@ app.get("/instructions", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   console.log(req.body.username);
-  const user = { username: req.body.username };
+  const username = { username: req.body.username };
   const command = { $set: { signedIn: req.body.signIn } };
-  const login = await db.collection("Python").updateOne(user, command);
+  const login = await db.collection("Python").updateOne(username, command);
   console.log(login);
   if (
     login.modifiedCount == 1 ||
@@ -154,7 +154,7 @@ app.post("/createDoc", async (req, res) => {
       for (let i = 1; i <= 32; i += 1) {
         const addDoc = await act
           .collection(username)
-          .insertOne(activitySchema(i, user));
+          .insertOne(activitySchema(i, username));
       }
     }
   }
