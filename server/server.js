@@ -153,16 +153,16 @@ app.post("/createDoc", async (req, res) => {
     if (names[j].name == username) {
       for (let i = 1; i <= 32; i += 1) {
         const addDoc = await act
-          .collection(user)
+          .collection(username)
           .insertOne(activitySchema(i, user));
       }
     }
   }
 
   if (found) {
-    res.send(`Completed adding docs for user : ${user}`).status(200);
+    res.send(`Completed adding docs for user : ${username}`).status(200);
   } else {
-    res.send(`Could not find user: ${user}`).status(400);
+    res.send(`Could not find user: ${username}`).status(400);
   }
 });
 
