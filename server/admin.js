@@ -12,7 +12,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-app.use(cors());
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
