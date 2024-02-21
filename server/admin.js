@@ -40,16 +40,6 @@ app.post("/login", async (req, res) => {
   res.send();
 });
 
-const start = async () => {
-  try {
-    app.listen(PORT, () => {
-      console.log("Admin Server running on port " + PORT);
-    });
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-
 /**
  * Creates users account collection that
  * stores their activities
@@ -99,5 +89,15 @@ app.post("/createDoc", async (req, res) => {
     res.send(`Could not find user: ${user}`).status(400);
   }
 });
+
+const start = async () => {
+  try {
+    app.listen(PORT, () => {
+      console.log("Admin Server running on port " + PORT);
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 
 start();
