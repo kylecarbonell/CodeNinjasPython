@@ -1,9 +1,10 @@
-:root{
+:root {
   --darkBlue: #46719e;
   --lightBlue: #4e8dbc;
+  --green: #61a541;
 }
 
-.App{
+.App {
   position: absolute;
 
   height: 100%;
@@ -15,15 +16,21 @@
   bottom: 0px;
 
   background-color: var(--lightBlue);
-  background: linear-gradient(to bottom left, var(--lightBlue) 0%, var(--lightBlue) 55%, var(--darkBlue) 50%, var(--darkBlue) 100%);
+  background: linear-gradient(
+    to bottom left,
+    var(--lightBlue) 0%,
+    var(--lightBlue) 55%,
+    var(--darkBlue) 50%,
+    var(--darkBlue) 100%
+  );
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Login-Wrapper{
-  background-color: #363d4a;
+.Login-Wrapper {
+  /* background-color: #363d4a; */
   height: 75%;
   width: 65%;
 
@@ -36,15 +43,12 @@
   justify-content: center;
   align-items: center;
 
-  border: 1px solid white
-  
+  /* border: 1px solid white; */
 }
 
-.Login-Image-Wrapper{
+.Login-Image-Wrapper {
   height: 30%;
   width: 100%;
-
-  background-color: red;
 
   border-radius: 25px;
 
@@ -54,19 +58,37 @@
   align-items: center;
 }
 
-.Login-Image{
-  height:100%;
-  padding-top:2%;
+.Login-Image {
+  height: 100%;
+  padding-top: 2%;
 }
 
-.Title{
+.Title {
   font-size: 5rem;
+  width: 100%;
+  /* background-color: white; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.Login-Content{
+.Login-Title-Wrapper {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.Python-Text {
+  font-size: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.Login-Content {
   height: 50%;
   width: 100%;
-  background-color: blue;
+  /* background-color: blue; */
 
   border-radius: 25px;
 
@@ -74,34 +96,30 @@
   flex-direction: column;
   justify-content: end;
   align-items: center;
-
-
 }
 
-.Login-Form{
+.Login-Form {
   height: 100%;
   width: 100%;
 
   /* background-color: black; */
 
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
-.Login-Input{
-  height: 15%;
-  width: 50%;
+.Login-Input {
+  height: 30%;
+  width: 40%;
 
   text-align: center;
   font-size: 1rem;
 
   border-radius: 10px;
 
-  border:0;
+  border: 0;
   padding: 0;
 
   margin-bottom: 4%;
@@ -110,29 +128,32 @@
   justify-content: center;
   align-items: center;
 
-  box-shadow: 0px 0px 2px 2px grey;
+  box-shadow: 5px 5px 5px;
 
+  font-size: 2rem;
 }
 
-.Login-Button{
+.Login-Button {
   width: 25%;
-  height: 15%;
+  height: 25%;
 
   border-radius: 15px;
-  font-size: 0.5rem;
 
-  background-color: white;
-  box-shadow: 0px 0px 2px 2px grey;
+  background-color: var(--green);
+  color: white;
 
-  border:0;
+  font-size: 1rem;
+  text-align: center;
+
+  box-shadow: 3px 3px 5px black;
+  border: 0;
 }
 
-.Error-Message{
+.Error-Message {
   height: 35%;
   width: 50%;
   background-color: white;
   border-radius: 15px;
-
 
   margin-bottom: 3%;
   font-size: 0.75rem;
