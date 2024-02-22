@@ -75,11 +75,7 @@ let i = 0;
 //   //Creates replit
 // });
 
-app.get("/submit", async (req, res) => {
-  i += 1;
-  res.status(200).json({ number: i });
-  console.log(con);
-});
+app.get("/submit", async (req, res) => {});
 
 app.get("/instructions", async (req, res) => {
   res.send("instructions");
@@ -102,7 +98,7 @@ app.post("/login", async (req, res) => {
     console.log("bad");
     res.status(202);
   }
-  res.send();
+  res.send("Logged in successfully");
 });
 
 /**
@@ -127,6 +123,7 @@ app.post("/create", async (req, res) => {
   }
   if (!found) {
     await act.createCollection(username, {});
+    await db.insertOne();
     res.status(200).send("Account created");
   } else {
     res.status(400).send("Username exists already");

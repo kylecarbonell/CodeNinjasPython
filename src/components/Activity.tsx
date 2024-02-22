@@ -2,9 +2,11 @@ import { Link, useLocation } from "react-router-dom";
 import "./Activity.css"
 import { IoIosArrowBack } from "react-icons/io";
 import { CodeBlock, nord } from "react-code-blocks";
+import { useState } from "react";
 
 function Activity() {
     var { state } = useLocation()
+    var [instructOpen, setInstructOpen] = useState(false)
     var temp = `board = [' ' for _ in range(9)]
 
     def print_board():
@@ -67,6 +69,15 @@ function Activity() {
 
 
     return <>
+        {instructOpen ?
+            <div className="Instructions-Wrapper" onClick={() => {
+                setInstructOpen(false)
+            }}>
+                <div className="Instructions">
+                    <iframe className="Instruction-Pdf" src="../../public/Resume2024.pdf#toolbar=0&navpanes=0" />
+                </div>
+            </div> :
+            <></>}
 
 
         <div className="Activity">
@@ -92,8 +103,9 @@ function Activity() {
 
 
                 </div>
-                <div className="Activity-Instructions">
+                <div className="Activity-Grading">
                     <h1>Graded by Sensei Kyle</h1>
+
                 </div>
             </div>
             <div className="Activity-Buttons">
@@ -111,7 +123,7 @@ function Activity() {
                     Submit
                 </button>
                 <button className="Activity-Button-Container" onClick={() => {
-                    instructions();
+                    setInstructOpen(true)
                 }}>
                     Open Instructions
                 </button>

@@ -3,8 +3,20 @@ const activitySchema = (i, username) => {
     submitted: false,
     code: "",
     author: username,
-    activity: `Activity ${i}`,
+    activity: `Activity${i}`,
+
+    grade: -1,
+    sensei: "",
+    comments: "",
+    incomplete: true,
   };
   return temp;
 };
+
+const userSchema = (user) => {
+  const temp = {
+    username: user,
+  };
+};
+
 export { activitySchema };

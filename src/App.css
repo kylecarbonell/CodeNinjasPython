@@ -1,6 +1,7 @@
-/* *{
-  background-color: white;
-} */
+:root{
+  --darkBlue: #46719e;
+  --lightBlue: #4e8dbc;
+}
 
 .App{
   position: absolute;
@@ -13,7 +14,8 @@
   top: 0px;
   bottom: 0px;
 
-  background-color: #2e3440;
+  background-color: var(--lightBlue);
+  background: linear-gradient(to bottom left, var(--lightBlue) 0%, var(--lightBlue) 55%, var(--darkBlue) 50%, var(--darkBlue) 100%);
 
   display: flex;
   justify-content: center;
@@ -23,7 +25,7 @@
 .Login-Wrapper{
   background-color: #363d4a;
   height: 75%;
-  width: 40%;
+  width: 65%;
 
   border-radius: 25px;
 
@@ -38,11 +40,11 @@
   
 }
 
-.Login-Title{
+.Login-Image-Wrapper{
   height: 30%;
   width: 100%;
 
-  /* background-color: red; */
+  background-color: red;
 
   border-radius: 25px;
 
@@ -50,19 +52,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
 
+.Login-Image{
+  height:100%;
+  padding-top:2%;
+}
+
+.Title{
+  font-size: 5rem;
 }
 
 .Login-Content{
-  height: 70%;
+  height: 50%;
   width: 100%;
-  /* background-color: blue; */
+  background-color: blue;
 
   border-radius: 25px;
 
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: end;
   align-items: center;
 
 
@@ -72,9 +82,14 @@
   height: 100%;
   width: 100%;
 
+  /* background-color: black; */
+
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
 }
 
 .Login-Input{

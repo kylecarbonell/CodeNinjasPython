@@ -30,7 +30,6 @@ function Admin() {
                 console.log(text)
                 createDoc()
             }
-
         });
     };
 

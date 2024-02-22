@@ -74,11 +74,14 @@ function App() {
   return (
     <div className='App'>
       <div className='Login-Wrapper'>
-        <div className='Login-Title'>
-          <h1 style={{ color: "white" }}>Python</h1>
+        <div className='Login-Image-Wrapper'>
+          <img className="Login-Image" src="../public/Images/pythonLogo.png"></img>
+        </div>
+        <div className='Login-Title-Wrapper'>
+          <h1 className="Title" style={{ color: "white" }}>Python</h1>
         </div>
         <div className='Login-Content'>
-          <h1 style={{ color: "white", fontSize: "1.5rem" }}>Ready to code?</h1>
+
           <form className='Login-Form' onSubmit={(e) => onSubmit(e, true)}>
             <input
               className='Login-Input'

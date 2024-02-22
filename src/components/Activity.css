@@ -62,10 +62,11 @@
 
 }
 
-.Activity-Instructions{
+.Activity-Grading{
     width: 35%;
     padding-left: 2%;
     border-left: 0.5px solid white;
+    background-color: white;
 }
 
 .Activity-Code{
@@ -117,4 +118,40 @@
 	padding: 0;
 	cursor: pointer;
 	outline: inherit;
+}
+
+.Instructions-Wrapper{
+    /* background-color: black; */
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Instructions{
+    width: 55%;
+    height: 100%;
+    background-color: black;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Instruction-Pdf{
+    height: 100%;
+    width: 100%;
+}
+
+@media (max-width: 700px) and (min-width: 500px) {
+    .Instructions{
+        width: 100%;
+    }
 }
