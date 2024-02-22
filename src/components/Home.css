@@ -1,135 +1,174 @@
-.Home{
-    background-color: green;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+.Home {
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 
-    position: absolute;
+  position: absolute;
 
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
 }
 
-.Bar{
-    height: 15%;
-    background-color: #2e3440;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    color: white;
+.Bar {
+  height: 15%;
+  /* background-color: #2e3440; */
+  display: flex;
+  align-items: center;
+  color: white;
+}
 
+.Bar-Left {
+  height: 100%;
+  width: 40%;
 
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  background-color: var(--darkBlue);
+}
+
+.Bar-Middle {
+  height: 100%;
+  width: 20%;
+  background: linear-gradient(
+    to top right,
+    var(--darkBlue) 0%,
+    var(--darkBlue) 50%,
+    var(--lightBlue) 10%,
+    var(--lightBlue) 90%
+  );
+}
+
+.Bar-Right {
+  height: 100%;
+  width: 40%;
+
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  padding-right: 2%;
+
+  background-color: var(--lightBlue);
+}
+
+.Signout-Button {
+  height: 40%;
+  width: 15%;
+
+  border-radius: 15px;
+
+  font-size: 1rem;
+
+  border: 0;
+}
+
+.Python-Image {
+  height: 75%;
+  padding-left: 5%;
 }
 
 .Activities-Wrapper {
-    height: 90%;
-    width: 100%;
+  height: 90%;
+  width: 100%;
 
-    margin-left: 0;
-    padding-left: 0;
+  margin-left: 0;
+  padding-left: 0;
 
-    overflow-y: hidden;
+  overflow-y: hidden;
 
-    background-color: white;
+  background-color: white;
 }
 
-.Activities-List{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
+.Activities-List {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 
-    background-color: white;
+  background-color: white;
 }
 
-.Activities-List{
-    margin-left: 0;
-    padding-left: 0;
+.Activities-List {
+  margin-left: 0;
+  padding-left: 0;
 
-    padding-top: 1%;
+  padding-top: 1%;
 }
 
+.Activity-Dropdown {
+  background-color: white;
+  height: 12%;
+  width: 80%;
 
+  padding: 0;
+  margin-bottom: 0.5%;
 
-.Activity-Dropdown{
-    background-color: white;
-    height: 12%;
-    width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    padding: 0;
-    margin-bottom: 0.5%;
+  list-style: none;
+  border-radius: 15px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-
-    list-style: none;
-    border-radius: 15px;
-
-    border: 1px solid black;
-    box-shadow: 0px 0px 3px 1.5px grey;
-
+  border: 1px solid black;
+  box-shadow: 0px 0px 3px 1.5px grey;
 }
 
-.Activity-Name{
-    width:50%;
-    font-size: 1.5rem;
-    margin-left: 2%;
+.Activity-Name {
+  width: 50%;
+  font-size: 1.5rem;
+  margin-left: 2%;
 }
 
-.Dropdown-Button{
-    margin-right: 2%;
-    height: 50%;
-    width: 5%;
-    border:0;
-
-    
+.Dropdown-Button {
+  margin-right: 2%;
+  height: 50%;
+  width: 5%;
+  border: 0;
 }
 
-.Activities-Dropdown-Wrapper{
-    height: 0;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    justify-content: space-around;
+.Activities-Dropdown-Wrapper {
+  height: 0;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-around;
 }
 
-.Activity-Link{
-    width: 90%;
-    border-radius: 20px;
-    border: 0;
-    margin-bottom: 1%;
+.Activity-Link {
+  width: 90%;
+  border-radius: 20px;
+  border: 0;
+  margin-bottom: 1%;
 
-    font-size: 2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 
-    background-color: white;
-    text-decoration: none;
-    color: black;
+  background-color: white;
+  text-decoration: none;
+  color: black;
 
-    border-radius: 15px;
+  border-radius: 15px;
 
-    border: 1px solid black;
-    box-shadow: 0px 0px 3px 1.5px grey;
+  border: 1px solid black;
+  box-shadow: 0px 0px 3px 1.5px grey;
 
-    padding-left: 1.5%;
-    
+  padding-left: 1.5%;
 }
-
 
 /************************/
 
-
-#Bar-Text{
-    font-size: 1.5rem;
+#Bar-Text {
+  font-size: 1.5rem;
 }

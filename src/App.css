@@ -18,10 +18,10 @@
   background-color: var(--lightBlue);
   background: linear-gradient(
     to bottom left,
-    var(--lightBlue) 0%,
-    var(--lightBlue) 55%,
-    var(--darkBlue) 50%,
-    var(--darkBlue) 100%
+    var(--darkBlue) 0%,
+    var(--darkBlue) 55%,
+    var(--lightBlue) 50%,
+    var(--lightBlue) 100%
   );
 
   display: flex;
