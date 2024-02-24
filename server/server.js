@@ -116,7 +116,6 @@ app.post("/create", async (req, res) => {
   const names = await act.listCollections().toArray();
   let found = false;
   for (let j = 0; j < names.length; j += 1) {
-    found = true;
     if (names[j].name == username) {
       found = true;
     }
