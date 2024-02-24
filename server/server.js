@@ -122,7 +122,6 @@ app.post("/create", async (req, res) => {
   }
   if (!found) {
     await act.createCollection(username, {});
-    await db.insertOne();
     res.status(200).send("Account created");
   } else {
     res.status(401).send("Username exists already");
