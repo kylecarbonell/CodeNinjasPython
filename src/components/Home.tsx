@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./Home.css";
-import {} from "react-dropdown";
+import { } from "react-dropdown";
 import { TiArrowSortedUp } from "react-icons/ti";
-import { activities, categories, links } from "../../data.tsx";
+import { activities, categories, links } from "../../server/Data/data.tsx";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -101,9 +101,9 @@ function Home() {
                     </button>
                   </li>
                   {index == key &&
-                  index < activities.length &&
-                  activities[index].length > 0 &&
-                  dropdownOn ? (
+                    index < activities.length &&
+                    activities[index].length > 0 &&
+                    dropdownOn ? (
                     <div
                       className="Activities-Dropdown-Wrapper"
                       style={{ height: "25%" }}
@@ -115,7 +115,7 @@ function Home() {
                           <Link
                             className="Activity-Link"
                             key={key}
-                            to={`/activity`}
+                            to={`/activity?name=Activity1`}
                             state={{
                               name: activity,
                               link: `${username}-${value}`,
