@@ -126,7 +126,7 @@ app.post("/create", async (req, res) => {
     await db.insertOne();
     res.status(200).send("Account created");
   } else {
-    res.status(400).send("Username exists already");
+    res.status(401).send("Username exists already");
   }
 });
 
