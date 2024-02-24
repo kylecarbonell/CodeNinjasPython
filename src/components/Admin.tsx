@@ -17,7 +17,7 @@ function Admin() {
 
     const createUser = async () => {
         const data = { username: name };
-
+        console.log("Working on creating user")
         await fetch("https://codeninjaspython.onrender.com/create", {
             method: "post",
             headers: { "Content-Type": "application/json" },
