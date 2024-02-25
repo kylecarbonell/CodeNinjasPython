@@ -79,7 +79,7 @@ function Activity() {
           <div className="Instructions">
             <iframe
               className="Instruction-Pdf"
-              src="../../public/Resume2024.pdf#toolbar=0&navpanes=0"
+              src="Instructions/PrintingAndVariables/Resume2024.pdf#toolbar=0&navpanes=0"
             />
           </div>
         </div>

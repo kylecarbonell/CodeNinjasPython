@@ -121,9 +121,6 @@ function Home() {
                               link: `${username}-${value}`,
                             }}
                             style={{ height: "40%", marginLeft: "10%" }}
-                            onClick={() => {
-                              // window.open(`https://replit.com/@razorpooandpee/${username}-${value}`)
-                            }}
                           >
                             {activity}
                           </Link>
