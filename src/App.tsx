@@ -11,12 +11,13 @@ function App() {
   const test = "Hi";
 
   async function getActivity() {
+    console.log("In Activity");
     const data = await fetch(
       "https://codeninjaspython.onrender.com/getActivities"
     );
     const json = await data.json();
     setActivities(json);
-    console.log(json);
+    console.log(activities);
   }
 
   const onSubmit = async (e: any, signIn: boolean) => {
@@ -34,9 +35,10 @@ function App() {
         if (res.status == 200) {
           console.log("good");
           window.sessionStorage.setItem("user", name);
-          getActivity();
+
           nav("/home", { replace: true, state: { activities, test } });
           setError("");
+          getActivity();
         } else {
           console.log("bad username");
           setError(
