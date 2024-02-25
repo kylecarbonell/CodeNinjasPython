@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import { db, act } from "./Mongo.mjs";
-import { activitySchema } from "./Schema.mjs";
+import { activitySchema } from "./Data/Schema.mjs";
 
 const app = express();
 
@@ -116,17 +116,15 @@ app.post("/create", async (req, res) => {
   const names = await act.listCollections().toArray();
   let found = false;
   for (let j = 0; j < names.length; j += 1) {
-    found = true;
     if (names[j].name == username) {
       found = true;
     }
   }
   if (!found) {
     await act.createCollection(username, {});
-    await db.insertOne();
     res.status(200).send("Account created");
   } else {
-    res.status(400).send("Username exists already");
+    res.status(401).send("Username exists already");
   }
 });
 
@@ -161,6 +159,10 @@ app.post("/createDoc", async (req, res) => {
   } else {
     res.send(`Could not find user: ${username}`).status(400);
   }
+});
+
+app.get("/getActivities", async (req, res) => {
+  res.json({ Module1: ["Activity1", "Activity2"] });
 });
 
 const start = async () => {

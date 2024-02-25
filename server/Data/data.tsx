@@ -1,3 +1,5 @@
+import { onEffect, useEffect } from "react"
+
 var categories = [
     "Prints and Variables",
     "While and For loops",
@@ -15,6 +17,7 @@ const links = [
     ["Activity4", "Activity5", "Activity6"],
     ["Activity7", "Activity8", "Activit9"],
 ]
+
 
 
 export { categories, activities, links }

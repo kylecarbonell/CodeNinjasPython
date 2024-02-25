@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import "./Activity.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { CodeBlock, nord } from "react-code-blocks";
@@ -6,6 +6,7 @@ import { useState } from "react";
 
 function Activity() {
   var { state } = useLocation();
+  var [params, setParams] = useSearchParams();
   var [instructOpen, setInstructOpen] = useState(false);
   var temp = `board = [' ' for _ in range(9)]
 
@@ -59,13 +60,6 @@ function Activity() {
     console.log(json);
     console.log("Inside submit");
   }
-  // async function instructions() {
-  //     await fetch("https://codeninjaspython.onrender.com/submit");
-  // }
-
-  // async function create() {
-  //     await fetch("https://codeninjaspython.onrender.com/instructions");
-  // }
 
   return (
     <>

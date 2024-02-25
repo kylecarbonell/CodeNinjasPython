@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,17 @@ function App() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const nav = useNavigate();
+  const [activities, setActivities] = useState([]);
+  const test = "Hi";
+
+  async function getActivity() {
+    const data = await fetch("http://localhost:8000/getActivities");
+    const json = await data.json();
+    console.log(json);
+  }
+  useEffect(() => {
+    getActivity();
+  }, []);
 
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
@@ -23,7 +34,7 @@ function App() {
         if (res.status == 200) {
           console.log("good");
           window.sessionStorage.setItem("user", name);
-          nav("/home", { replace: true });
+          nav("/home", { replace: true, state: { activities, test } });
           setError("");
         } else {
           console.log("bad username");
