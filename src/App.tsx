@@ -33,12 +33,11 @@ function App() {
       .then((res) => {
         console.log("post request sent");
         if (res.status == 200) {
+          getActivity();
           console.log("good");
           window.sessionStorage.setItem("user", name);
-
           nav("/home", { replace: true, state: { activities, test } });
           setError("");
-          getActivity();
         } else {
           console.log("bad username");
           setError(
