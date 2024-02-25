@@ -32,8 +32,8 @@ function App() {
     } as RequestInit)
       .then((res) => {
         console.log("post request sent");
+        getActivity();
         if (res.status == 200) {
-          getActivity();
           console.log("good");
           window.sessionStorage.setItem("user", name);
           nav("/home", { replace: true, state: { activities, test } });
