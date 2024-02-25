@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 import { useNavigate } from "react-router-dom";
@@ -13,11 +13,9 @@ function App() {
   async function getActivity() {
     const data = await fetch("http://localhost:8000/getActivities");
     const json = await data.json();
+    setActivities(json);
     console.log(json);
   }
-  useEffect(() => {
-    getActivity();
-  }, []);
 
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
@@ -34,6 +32,7 @@ function App() {
         if (res.status == 200) {
           console.log("good");
           window.sessionStorage.setItem("user", name);
+          getActivity();
           nav("/home", { replace: true, state: { activities, test } });
           setError("");
         } else {

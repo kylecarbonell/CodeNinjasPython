@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Home.css";
-import { } from "react-dropdown";
+import {} from "react-dropdown";
 import { TiArrowSortedUp } from "react-icons/ti";
 import { activities, categories, links } from "../../server/Data/data.tsx";
 
@@ -62,10 +62,7 @@ function Home() {
       <div className="Home">
         <div className="Bar">
           <div className="Bar-Left">
-            <img
-              className="Python-Image"
-              src="../public/Images/pythonLogo.png"
-            ></img>
+            <img className="Python-Image" src="/Images/pythonLogo.png"></img>
           </div>
           <div className="Bar-Middle"></div>
 
@@ -101,9 +98,9 @@ function Home() {
                     </button>
                   </li>
                   {index == key &&
-                    index < activities.length &&
-                    activities[index].length > 0 &&
-                    dropdownOn ? (
+                  index < activities.length &&
+                  activities[index].length > 0 &&
+                  dropdownOn ? (
                     <div
                       className="Activities-Dropdown-Wrapper"
                       style={{ height: "25%" }}
