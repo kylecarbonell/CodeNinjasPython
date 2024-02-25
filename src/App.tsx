@@ -15,9 +15,11 @@ function App() {
     const data = await fetch(
       "https://codeninjaspython.onrender.com/getActivities"
     );
-    const json = await data.json();
-    setActivities(json);
-    console.log(activities);
+    const json = await data.json().then((res) => {
+      setActivities(res);
+      console.log(json);
+      console.log(activities);
+    });
   }
 
   const onSubmit = async (e: any, signIn: boolean) => {
@@ -32,12 +34,14 @@ function App() {
     } as RequestInit)
       .then((res) => {
         console.log("post request sent");
-        getActivity();
+
         if (res.status == 200) {
           console.log("good");
           window.sessionStorage.setItem("user", name);
           nav("/home", { replace: true, state: { activities, test } });
           setError("");
+
+          getActivity();
         } else {
           console.log("bad username");
           setError(
