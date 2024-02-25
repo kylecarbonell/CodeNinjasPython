@@ -1,4 +1,3 @@
-import { onEffect, useEffect } from "react"
 
 var categories = [
     "Prints and Variables",
