@@ -11,7 +11,9 @@ function App() {
   const test = "Hi";
 
   async function getActivity() {
-    const data = await fetch("http://localhost:8000/getActivities");
+    const data = await fetch(
+      "https://codeninjaspython.onrender.com/getActivities"
+    );
     const json = await data.json();
     setActivities(json);
     console.log(json);
