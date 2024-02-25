@@ -4,12 +4,14 @@ import {} from "react-dropdown";
 import { TiArrowSortedUp } from "react-icons/ti";
 import { activities, categories, links } from "../../server/Data/data.tsx";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Home() {
   const [dropdownOn, setOn] = useState(false);
   const [index, setIndex] = useState(0);
+  const [topics, setTopics] = useState([]);
   const nav = useNavigate();
+  const loc = useLocation();
 
   const openDrop = (key: number) => {
     if (key == index) {
@@ -55,6 +57,7 @@ function Home() {
   useEffect(() => {
     console.log(window.sessionStorage.getItem("user"));
     setUsername(window.sessionStorage.getItem("user") || "");
+    console.log("loc", Object.keys(loc.state.topicList));
   }, [window.sessionStorage.getItem("user")]);
 
   return (
@@ -82,7 +85,7 @@ function Home() {
         </div>
         <div className="Activities-Wrapper">
           <ul className="Activities-List">
-            {categories.map((activity, key) => {
+            {Object.keys(loc.state.topicList).map((activity, key) => {
               return (
                 <>
                   <li className="Activity-Dropdown" key={key}>
@@ -116,6 +119,7 @@ function Home() {
                             state={{
                               name: activity,
                               link: `${username}-${value}`,
+                              topicList: loc.state.topicList,
                             }}
                             style={{ height: "40%", marginLeft: "10%" }}
                           >

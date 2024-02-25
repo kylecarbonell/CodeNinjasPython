@@ -7,19 +7,17 @@ function App() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const nav = useNavigate();
-  const [activities, setActivities] = useState([]);
-  const test = "Hi";
 
   async function getActivity() {
     console.log("In Activity");
-    const data = await fetch(
-      "https://codeninjaspython.onrender.com/getActivities"
-    );
+    const data = await fetch("http://localhost:8000/getActivities");
     const json = await data.json().then((res) => {
-      setActivities(res);
-      console.log(json);
-      console.log(activities);
+      console.log("Inside");
+      console.log(res);
+      nav("/home", { replace: true, state: { topicList: res } });
     });
+
+    return json;
   }
 
   const onSubmit = async (e: any, signIn: boolean) => {
@@ -38,7 +36,7 @@ function App() {
         if (res.status == 200) {
           console.log("good");
           window.sessionStorage.setItem("user", name);
-          nav("/home", { replace: true, state: { activities, test } });
+
           setError("");
 
           getActivity();

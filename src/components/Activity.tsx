@@ -54,6 +54,8 @@ function Activity() {
     
     tic_tac_toe_game()`;
 
+  var loc = useLocation();
+
   async function submit() {
     const data = await fetch("https://codeninjaspython.onrender.com/submit");
     const json = await data.json();
@@ -83,7 +85,11 @@ function Activity() {
 
       <div className="Activity">
         <div className="Activity-Title">
-          <Link className="BackButton" to={"/home"}>
+          <Link
+            className="BackButton"
+            to={"/home"}
+            state={{ topicList: loc.state.topicList }}
+          >
             <IoIosArrowBack />
           </Link>
           <div className="Activity-Title-Wrapper">
