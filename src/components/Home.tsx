@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import "./Home.css";
 import {} from "react-dropdown";
 import { TiArrowSortedUp } from "react-icons/ti";
-import { activities, categories, links } from "../../server/Data/data.tsx";
+import { activities, links } from "../../server/Data/data.tsx";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Home() {
   const [dropdownOn, setOn] = useState(false);
   const [index, setIndex] = useState(0);
-  const [topics, setTopics] = useState([]);
+  // const [topics, setTopics] = useState([]);
   const nav = useNavigate();
   const loc = useLocation();
 
