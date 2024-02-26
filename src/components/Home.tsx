@@ -2,16 +2,21 @@ import { useEffect, useState } from "react";
 import "./Home.css";
 import {} from "react-dropdown";
 import { TiArrowSortedUp } from "react-icons/ti";
-import { activities, links } from "../../server/Data/data.tsx";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { activities, topics } from "../Data";
 
 function Home() {
   const [dropdownOn, setOn] = useState(false);
-  const [index, setIndex] = useState(0);
-  // const [topics, setTopics] = useState([]);
+  const [index, setIndex] = useState(-1);
+
+  const [username, setUsername] = useState("");
+
+  // const [topics, setTopics] = useState<String[]>([]);
+  // const [activities, setActivities] = useState<String[][]>([[]]);
+
   const nav = useNavigate();
-  const loc = useLocation();
 
   const openDrop = (key: number) => {
     if (key == index) {
@@ -53,11 +58,12 @@ function Home() {
       });
   };
 
-  const [username, setUsername] = useState("");
   useEffect(() => {
-    console.log(window.sessionStorage.getItem("user"));
     setUsername(window.sessionStorage.getItem("user") || "");
-    console.log("loc", Object.keys(loc.state.topicList));
+
+    // setTopics(Object.keys(loc.state.topicList));
+
+    // setActivities(Object.values(loc.state.topicList));
   }, [window.sessionStorage.getItem("user")]);
 
   return (
@@ -84,12 +90,19 @@ function Home() {
           </div>
         </div>
         <div className="Activities-Wrapper">
-          <ul className="Activities-List">
-            {Object.keys(loc.state.topicList).map((activity, key) => {
+          <ul
+            className="Activities-List"
+            style={
+              dropdownOn
+                ? { height: `${800 + 100 * activities[index].length}px` }
+                : { height: "900px" }
+            }
+          >
+            {topics.map((topic, key) => {
               return (
                 <>
                   <li className="Activity-Dropdown" key={key}>
-                    <div className="Activity-Name">{activity}</div>
+                    <div className="Activity-Name">{topic}</div>
                     <button
                       className="Dropdown-Button"
                       key={key}
@@ -101,29 +114,29 @@ function Home() {
                     </button>
                   </li>
                   {index == key &&
-                  index < activities.length &&
                   activities[index].length > 0 &&
                   dropdownOn ? (
                     <div
                       className="Activities-Dropdown-Wrapper"
-                      style={{ height: "25%" }}
+                      style={{ height: `${115 * activities[index].length}px` }}
                     >
-                      {activities[index].map((activity, key) => {
-                        var value = links[index][key];
-                        console.log(value);
+                      {activities[index].map((activity: any, key: number) => {
                         return (
                           <Link
                             className="Activity-Link"
                             key={key}
                             to={`/activity?name=Activity1`}
                             state={{
-                              name: activity,
-                              link: `${username}-${value}`,
-                              topicList: loc.state.topicList,
+                              name: activity.activity,
+                              link: activity.link,
+                              topicList: topics,
                             }}
-                            style={{ height: "40%", marginLeft: "10%" }}
+                            style={{
+                              height: `${100 / activities[index].length}%`,
+                              marginLeft: "10%",
+                            }}
                           >
-                            {activity}
+                            {activity.activity}
                           </Link>
                         );
                       })}

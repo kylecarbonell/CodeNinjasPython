@@ -1,24 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import { useNavigate } from "react-router-dom";
+import { topics, activities } from "./Data";
 
 function App() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const nav = useNavigate();
 
-  async function getActivity() {
-    console.log("In Activity");
-    const data = await fetch("http://localhost:8000/getActivities");
-    const json = await data.json().then((res) => {
-      console.log("Inside");
-      console.log(res);
-      nav("/home", { replace: true, state: { topicList: res } });
-    });
-
-    return json;
-  }
+  useEffect(() => {
+    console.log("INSIDE APP NOW: Topics: ", topics);
+    console.log("INSIDE APP NOW: Activities: ", activities);
+  }, []);
 
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
@@ -38,8 +32,7 @@ function App() {
           window.sessionStorage.setItem("user", name);
 
           setError("");
-
-          getActivity();
+          nav("/home", { replace: true });
         } else {
           console.log("bad username");
           setError(

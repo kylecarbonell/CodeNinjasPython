@@ -162,28 +162,30 @@ app.post("/createDoc", async (req, res) => {
 });
 
 app.get("/getActivities", async (req, res) => {
-  const topic = await act
+  const topics = await act
     .collection("ActivityList")
     .findOne({ topicList: { $exists: true } });
+
   const docs = act
     .collection("ActivityList")
     .find({ topicList: { $exists: false } });
-  console.log(topic.topicList);
+
+  // console.log(topic.topicList);
   const topicList = {};
 
-  for (const i of topic.topicList) {
+  for (const i of topics.topicList) {
     topicList[i] = [];
   }
 
-  console.log(topicList);
+  // console.log(topicList);
 
   for await (const doc of docs) {
     topicList[doc.group].push(doc);
-    console.log("THIS IS DICT");
-    console.log(topicList);
+    // console.log("THIS IS DICT");
+    // console.log(topicList);
   }
 
-  res.json(topicList);
+  res.json({ topics: topicList });
 });
 
 const start = async () => {
