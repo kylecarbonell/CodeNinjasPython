@@ -20,7 +20,7 @@ async function getData() {
 }
 let topics = null;
 let activities = null;
-const data = getData().then((data) => {
+getData().then((data) => {
   topics = data.topics;
   activities = data.activities;
 });
