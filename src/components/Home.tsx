@@ -5,7 +5,7 @@ import { TiArrowSortedUp } from "react-icons/ti";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { activities, topics } from "../Data";
+import { activities, topics } from "../App";
 
 function Home() {
   const [dropdownOn, setOn] = useState(false);
@@ -98,7 +98,7 @@ function Home() {
                 : { height: "900px" }
             }
           >
-            {topics.map((topic, key) => {
+            {topics.map((topic: any, key: number) => {
               return (
                 <>
                   <li className="Activity-Dropdown" key={key}>
