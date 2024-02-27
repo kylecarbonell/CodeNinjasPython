@@ -134,11 +134,9 @@ function Home() {
                           <Link
                             className="Activity-Link"
                             key={key}
-                            to={`/activity?name=Activity1`}
+                            to={`/activity?name=${activity.link}`}
                             state={{
-                              name: activity.activity,
-                              link: activity.link,
-                              topicList: topics,
+                              name: activity.name,
                             }}
                             style={{
                               height: `${100 / activities[index].length}%`,

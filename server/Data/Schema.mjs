@@ -3,7 +3,8 @@ const activitySchema = (i, username) => {
     submitted: false,
     code: "",
     author: username,
-    activity: `Activity${i}`,
+    name: `Activity ${i}`,
+    link: `activity${i}`,
 
     grade: -1,
     sensei: "",

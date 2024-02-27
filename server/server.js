@@ -189,6 +189,17 @@ app.get("/getActivities", async (req, res) => {
   res.json({ topics: topicList });
 });
 
+app.get("/getUser", async (req, res) => {
+  const username = req.query.name;
+  console.log(username);
+
+  const activity = await act
+    .collection(username)
+    .findOne({ activity: "Activity1" });
+
+  res.json(activity);
+});
+
 const start = async () => {
   try {
     app.listen(PORT, () => {
