@@ -5,7 +5,7 @@ import { TiArrowSortedUp } from "react-icons/ti";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { activities, topics } from "../App";
+import { getData } from "../Data";
 
 function Home() {
   const [dropdownOn, setOn] = useState(false);
@@ -13,8 +13,10 @@ function Home() {
 
   const [username, setUsername] = useState("");
 
+  const [topics, setTopics] = useState<any>([]);
+
   // const [topics, setTopics] = useState<String[]>([]);
-  // const [activities, setActivities] = useState<String[][]>([[]]);
+  const [activities, setActivities] = useState<String[][]>([[]]);
 
   const nav = useNavigate();
 
@@ -66,6 +68,13 @@ function Home() {
     // setActivities(Object.values(loc.state.topicList));
   }, [window.sessionStorage.getItem("user")]);
 
+  useEffect(() => {
+    console.log("RUNNING HOME");
+    getData().then((data) => {
+      setTopics(data.topics);
+      setActivities(data.activities);
+    });
+  }, []);
   return (
     <>
       <div className="Home">
@@ -93,7 +102,7 @@ function Home() {
           <ul
             className="Activities-List"
             style={
-              dropdownOn
+              dropdownOn && activities[index].length > 0
                 ? { height: `${800 + 100 * activities[index].length}px` }
                 : { height: "900px" }
             }

@@ -162,6 +162,7 @@ app.post("/createDoc", async (req, res) => {
 });
 
 app.get("/getActivities", async (req, res) => {
+  console.log("HERE IN ACT");
   const topics = await act
     .collection("ActivityList")
     .findOne({ topicList: { $exists: true } });
