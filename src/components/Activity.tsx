@@ -11,7 +11,7 @@ function Activity() {
   var [activity, setActivities] = useState<any>({});
 
   async function submit() {
-    console.log(state.activity);
+    // console.log(state.activity);
     const data = await fetch("https://codeninjaspython.onrender.com/submit");
     const json = await data.json();
     console.log(json);
@@ -22,7 +22,7 @@ function Activity() {
     const data = await fetch(
       `http://localhost:8000/getUser?name=${window.sessionStorage.getItem(
         "user"
-      )}`
+      )}&activity=${window.sessionStorage.getItem("link")}`
     );
 
     const json = await data.json();
@@ -31,6 +31,7 @@ function Activity() {
   }
 
   useEffect(() => {
+    console.log(state);
     getUser();
   }, []);
 
@@ -60,7 +61,7 @@ function Activity() {
             <IoIosArrowBack />
           </Link>
           <div className="Activity-Title-Wrapper">
-            <h1>{activity.activity}</h1>
+            <h1>{activity.name}</h1>
           </div>
         </div>
         <div className="Activity-Content">

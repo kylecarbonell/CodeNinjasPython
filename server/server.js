@@ -191,11 +191,10 @@ app.get("/getActivities", async (req, res) => {
 
 app.get("/getUser", async (req, res) => {
   const username = req.query.name;
-  console.log(username);
+  const actNum = req.query.activity;
+  console.log(actNum);
 
-  const activity = await act
-    .collection(username)
-    .findOne({ activity: "Activity1" });
+  const activity = await act.collection(username).findOne({ link: actNum });
 
   res.json(activity);
 });

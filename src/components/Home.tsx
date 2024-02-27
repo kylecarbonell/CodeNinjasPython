@@ -136,11 +136,17 @@ function Home() {
                             key={key}
                             to={`/activity?name=${activity.link}`}
                             state={{
-                              name: activity.name,
+                              link: activity.link,
                             }}
                             style={{
                               height: `${100 / activities[index].length}%`,
                               marginLeft: "10%",
+                            }}
+                            onClick={() => {
+                              window.sessionStorage.setItem(
+                                "link",
+                                activity.link
+                              );
                             }}
                           >
                             {activity.activity}
