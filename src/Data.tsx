@@ -18,8 +18,8 @@ async function getData() {
   const activities: any = data.activities;
   return { topics, activities };
 }
-let topics = null;
-let activities = null;
+let topics: any = null;
+let activities: any = null;
 getData().then((data) => {
   topics = data.topics;
   activities = data.activities;
