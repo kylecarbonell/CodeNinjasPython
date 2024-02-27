@@ -11,13 +11,18 @@ async function getActivity() {
   return json;
 }
 
-function getData() {
+async function getData() {
   console.log("STARTING CALL");
-  return getActivity();
+  const data = await getActivity();
+  const topics = data.topics;
+  const activities: any = data.activities;
+  return { topics, activities };
 }
-
-const data = await getData();
-const topics = data.topics;
-const activities: any = data.activities;
+let topics = null;
+let activities = null;
+const data = getData().then((data) => {
+  topics = data.topics;
+  activities = data.activities;
+});
 
 export { topics, activities };
