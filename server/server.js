@@ -99,6 +99,7 @@ app.post("/login", async (req, res) => {
     console.log(names[j]);
     if (names[j].name == username) {
       res.status(200).send("Account Found");
+      found = true;
     }
   }
   if (!found) {
