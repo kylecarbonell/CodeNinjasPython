@@ -8,7 +8,7 @@ const activitySchema = (i, username) => {
     name: `Activity ${i}`,
     link: `activity${i}`,
 
-    grade: Double(-1.0),
+    grade: new Double(-1.0),
     sensei: "",
     comments: "",
     incomplete: true,
