@@ -11,6 +11,7 @@ const activitySchema = (i, username) => {
     comments: "",
     incomplete: true,
   };
+
   return temp;
 };
 

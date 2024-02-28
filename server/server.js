@@ -82,22 +82,40 @@ app.get("/instructions", async (req, res) => {
   res.status(200);
 });
 
+/**
+ * Checks if the user exists in the database
+ * Logs them in, if they exist
+ */
 app.post("/login", async (req, res) => {
-  console.log(req.body.username);
-  const username = { username: req.body.username };
-  const command = { $set: { signedIn: req.body.signIn } };
-  const login = await db.collection("Python").updateOne(username, command);
-  console.log(login);
-  if (
-    login.modifiedCount == 1 ||
-    (login.modifiedCount == 0 && login.matchedCount == 1)
-  ) {
-    console.log("good");
-    res.status(200);
-  } else {
-    console.log("bad");
-    res.status(202);
+  // console.log(req.body.username);
+  // const getUser = { username: req.body.username };
+  // const command = { $set: { signedIn: req.body.signIn } };
+  // const login = await db.collection("Python").updateOne(getUser, command);
+
+  const username = req.body.username;
+  const names = await act.listCollections().toArray();
+  let found = false;
+  for (let j = 0; j < names.length; j += 1) {
+    console.log(names[j]);
+    if (names[j].name == username) {
+      res.status(200).send("Account Found");
+    }
   }
+  if (!found) {
+    res.status(202).send("User not found");
+  }
+
+  console.log(login);
+  // if (
+  //   login.modifiedCount == 1 ||
+  //   (login.modifiedCount == 0 && login.matchedCount == 1)
+  // ) {
+  //   console.log("good");
+  //   res.status(200);
+  // } else {
+  //   console.log("bad");
+  //   res.status(202);
+  // }
   res.send("Logged in successfully");
 });
 
