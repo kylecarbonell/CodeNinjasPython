@@ -151,6 +151,7 @@ app.post("/createDoc", async (req, res) => {
         const addDoc = await act
           .collection(username)
           .insertOne(activitySchema(i, username));
+        console.log("ADDING DOC ", i);
       }
     }
   }
@@ -198,6 +199,25 @@ app.get("/getUser", async (req, res) => {
   const activity = await act.collection(username).findOne({ link: actNum });
 
   res.json(activity);
+});
+
+app.get("/getStars", async (req, res) => {
+  const username = req.query.name;
+  const grades = {};
+
+  const activity = act.collection(username).find({});
+  for await (const doc of activity) {
+    // console.log("THIS IS DICT");
+    // console.log(doc.grade);
+    grades[doc.link] = doc.grade;
+  }
+
+  // for (const [key, val] of Object.entries(grades)) {
+  //   console.log(key, ", ", val  );
+  // }
+  console.log(Object.entries(grades));
+
+  res.send(grades);
 });
 
 const start = async () => {

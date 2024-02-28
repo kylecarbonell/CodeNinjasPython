@@ -1,3 +1,5 @@
+import { Double } from "bson";
+
 const activitySchema = (i, username) => {
   const temp = {
     submitted: false,
@@ -6,7 +8,7 @@ const activitySchema = (i, username) => {
     name: `Activity ${i}`,
     link: `activity${i}`,
 
-    grade: -1,
+    grade: -1.0,
     sensei: "",
     comments: "",
     incomplete: true,

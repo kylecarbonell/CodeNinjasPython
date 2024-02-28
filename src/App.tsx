@@ -8,6 +8,8 @@ function App() {
   const [error, setError] = useState("");
   const nav = useNavigate();
 
+
+
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
     console.log("SUBMITTING");
@@ -20,10 +22,11 @@ function App() {
     } as RequestInit)
       .then((res) => {
         console.log("post request sent");
-
         if (res.status == 200) {
           console.log("good");
           window.sessionStorage.setItem("user", name);
+
+
 
           setError("");
           nav("/home", { replace: true });
@@ -39,37 +42,37 @@ function App() {
       });
   };
 
-  const logout = async (e: any, signIn: boolean) => {
-    e.preventDefault();
-    console.log("SUBMITTING");
+  // const logout = async (e: any, signIn: boolean) => {
+  //   e.preventDefault();
+  //   console.log("SUBMITTING");
 
-    const data = {
-      username: window.sessionStorage.getItem("user"),
-      signIn: signIn,
-    };
-    await fetch("https://codeninjaspython.onrender.com/login", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    } as RequestInit)
-      .then((res) => {
-        console.log("post request sent");
-        if (res.status == 200) {
-          console.log("good");
-          window.sessionStorage.setItem("user", name);
-          nav("/home", { replace: true });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  //   const data = {
+  //     username: window.sessionStorage.getItem("user"),
+  //     signIn: signIn,
+  //   };
+  //   await fetch("https://codeninjaspython.onrender.com/login", {
+  //     method: "post",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   } as RequestInit)
+  //     .then((res) => {
+  //       console.log("post request sent");
+  //       if (res.status == 200) {
+  //         console.log("good");
+  //         window.sessionStorage.setItem("user", name);
+  //         nav("/home", { replace: true });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-  window.addEventListener("beforeunload", (e) => {
-    e.preventDefault();
-    logout(e, false);
-    return (e.returnValue = "Are sure?");
-  });
+  // window.addEventListener("beforeunload", (e) => {
+  //   e.preventDefault();
+  //   logout(e, false);
+  //   return (e.returnValue = "Are sure?");
+  // });
 
   return (
     <div className="App">
