@@ -154,7 +154,7 @@ function Home() {
 
                             <div className="Link-Stars">
                               {
-                                stars.map((act: any, key: number) => {
+                                stars.map((act: any) => {
                                   var [link, grade] = act
                                   if (link == activity.link) {
                                     console.log("Grade of ", link, " is ", grade)
