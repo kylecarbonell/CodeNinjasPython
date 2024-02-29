@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Home.css";
-import { } from "react-dropdown";
-import { TiArrowSortedUp, TiArrowSortedDown, } from "react-icons/ti";
-import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
-
-
+import {} from "react-dropdown";
+import { TiArrowSortedUp } from "react-icons/ti";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,7 +14,7 @@ function Home() {
   const [username, setUsername] = useState("");
 
   const [topics, setTopics] = useState<any>([]);
-  const [stars, setStars] = useState<any>([]);
+
   // const [topics, setTopics] = useState<String[]>([]);
   const [activities, setActivities] = useState<String[][]>([[]]);
 
@@ -33,24 +30,34 @@ function Home() {
     }
   };
 
-  async function getStars() {
-    const data = await fetch(
-      `http://localhost:8000/getStars?name=${window.sessionStorage.getItem(
-        "user"
-      )}`
-    );
-
-    const json = await data.json();
-    console.log("THIS IS STARS", json);
-
-    setStars(Object.entries(json));
-  }
-
-
   const logout = async (e: any) => {
     e.preventDefault();
-    window.sessionStorage.setItem("user", "");
-    nav("/", { replace: true });
+
+    const data = {
+      username: window.sessionStorage.getItem("user"),
+      signIn: false,
+    };
+    await fetch("https://codeninjaspython.onrender.com/login", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    } as RequestInit)
+      .then((res) => {
+        console.log("post request sent");
+        if (res.status == 200) {
+          console.log("good");
+          window.sessionStorage.setItem("user", "");
+          nav("/", { replace: true });
+        } else if (res.status == 201) {
+          console.log("Logged in already");
+        } else {
+          console.log("bad username");
+        }
+        // console.log(res)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -61,17 +68,13 @@ function Home() {
     // setActivities(Object.values(loc.state.topicList));
   }, [window.sessionStorage.getItem("user")]);
 
-
-
   useEffect(() => {
-    console.log("GETTING ALL DATA");
+    console.log("RUNNING HOME");
     getData().then((data) => {
       setTopics(data.topics);
       setActivities(data.activities);
     });
-    getStars();
   }, []);
-
   return (
     <>
       <div className="Home">
@@ -108,7 +111,7 @@ function Home() {
               return (
                 <>
                   <li className="Activity-Dropdown" key={key}>
-                    <div className="Activity-Name" key={topic}>{topic}</div>
+                    <div className="Activity-Name">{topic}</div>
                     <button
                       className="Dropdown-Button"
                       key={key}
@@ -116,13 +119,12 @@ function Home() {
                         openDrop(key);
                       }}
                     >
-                      {(dropdownOn ? <TiArrowSortedUp style={{ fontSize: "3rem" }} /> : <TiArrowSortedDown style={{ fontSize: "3rem" }} />)}
-
+                      <TiArrowSortedUp style={{ fontSize: "3rem" }} />
                     </button>
-                  </li >
+                  </li>
                   {index == key &&
-                    activities[index].length > 0 &&
-                    dropdownOn ? (
+                  activities[index].length > 0 &&
+                  dropdownOn ? (
                     <div
                       className="Activities-Dropdown-Wrapper"
                       style={{ height: `${115 * activities[index].length}px` }}
@@ -147,57 +149,20 @@ function Home() {
                               );
                             }}
                           >
-                            <div className="Link-Title">
-                              {activity.activity}
-                            </div>
-
-
-                            <div className="Link-Stars">
-                              {
-                                stars.map((act: any) => {
-                                  var [link, grade] = act
-                                  if (link == activity.link) {
-                                    console.log("Grade of ", link, " is ", grade)
-                                    // console.log("IN MAP", act)
-                                    let stars = []
-                                    for (let i = 0; i < 3; i++) {
-
-                                      console.log(grade)
-                                      if (grade >= 1) {
-                                        stars.push(<FaStar />)
-                                      } else if (grade < 1 && grade > 0) {
-                                        stars.push(<FaStarHalfAlt />)
-                                      }
-                                      else {
-                                        stars.push(<FaRegStar />)
-                                      }
-
-                                      grade -= 1
-                                    }
-                                    return stars
-                                  }
-
-                                })
-                              }
-                              {/* <FaStar className="Star" />
-                              <FaStarHalfAlt className="Star" />
-                              <FaRegStar className="Star" /> */}
-                            </div>
-
+                            {activity.activity}
                           </Link>
                         );
                       })}
                     </div>
                   ) : (
                     <></>
-                  )
-                  }
+                  )}
                 </>
               );
             })}
           </ul>
         </div>
-      </div >
+      </div>
     </>
   );
 }

@@ -30,6 +30,31 @@ function Activity() {
     setActivities(json);
   }
 
+  const execute = async () => {
+    const code = `
+def ip(w):
+  cleaned_word = w.lower()
+    
+  return cleaned_word == cleaned_word[::-1]
+
+input_word = a
+if ip(input_word):
+    print(f"{input_word} is a palindrome!")
+else:
+    print(f"{input_word} is not a palindrome.")
+`;
+
+    console.log(code);
+    const data = { code: code };
+
+    const test = await fetch(`http://127.0.0.1:5000/execute`, {
+      method: "post",
+      body: JSON.stringify(data),
+    });
+    const json = await test.json();
+    console.log(json);
+  };
+
   useEffect(() => {
     console.log(state);
     getUser();
@@ -81,15 +106,14 @@ function Activity() {
           <button
             className="Activity-Button-Container"
             onClick={() => {
-              window.open(`https://replit.com/@razorpooandpee/${state.link}`);
+              execute();
             }}
           >
-            Open Replit
+            Run
           </button>
           <button
             className="Activity-Button-Container"
             onClick={() => {
-              console.log("Outside submit");
               submit();
             }}
           >

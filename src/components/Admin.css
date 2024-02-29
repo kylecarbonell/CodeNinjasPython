@@ -1,18 +1,24 @@
 .Admin {
-    background-color: green;
-    display: flex;
-    justify-content: start;
-  
-    position: absolute;
-  
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
+  background-color: green;
+  display: flex;
+  justify-content: start;
+
+  position: absolute;
+
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
 }
 
-.Admin-Bar{
-    width: 7%;
-    background-color: black;
-    height: 100%;
+.Admin-Bar {
+  width: 7%;
+  background-color: black;
+  height: 100%;
+}
+
+.Admin-Content {
+  width: 93%;
+  height: 100%;
+  background-color: blue;
 }
