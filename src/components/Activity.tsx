@@ -1,34 +1,38 @@
-import { Link, useLocation } from "react-router-dom";
-import "./Activity.css";
-import { IoIosArrowBack } from "react-icons/io";
-import { CodeBlock, nord } from "react-code-blocks";
-import { useEffect, useState } from "react";
+import "./Admin.css";
 
-function Activity() {
-  var { state } = useLocation();
-  // var [params, setParams] = useSearchParams();
-  var [instructOpen, setInstructOpen] = useState(false);
-  var [activity, setActivities] = useState<any>({});
+function Admin() {
+  const name = "kyle.carbonell";
 
-  async function submit() {
-    // console.log(state.activity);
-    const data = await fetch("https://codeninjaspython.onrender.com/submit");
-    const json = await data.json();
-    console.log(json);
-    console.log("Inside submit");
-  }
+  const createDoc = async () => {
+    console.log("In the admin req");
+    const data = { username: name };
 
-  async function getUser() {
-    const data = await fetch(
-      `http://localhost:8000/getUser?name=${window.sessionStorage.getItem(
-        "user"
-      )}&activity=${window.sessionStorage.getItem("link")}`
-    );
+    await fetch("https://codeninjaspython.onrender.com/createDoc", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    } as RequestInit).then(async (res) => {
+      const text = await res.text();
+      console.log(text);
+    });
+  };
 
-    const json = await data.json();
-    console.log(json);
-    setActivities(json);
-  }
+  const createUser = async () => {
+    const data = { username: name };
+    console.log("Working on creating user");
+    await fetch("https://codeninjaspython.onrender.com/create", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    } as RequestInit).then(async (res) => {
+      const status = await res.status;
+      if (status == 200) {
+        const text = await res.text();
+        console.log(text);
+        createDoc();
+      }
+    });
+  };
 
   const execute = async () => {
     const code = `
@@ -47,85 +51,27 @@ else:
     console.log(code);
     const data = { code: code };
 
-    const test = await fetch(`http://127.0.0.1:5000/execute`, {
-      method: "post",
-      body: JSON.stringify(data),
-    });
+    const test = await fetch(
+      `https://codeninjaspython-j08d.onrender.com/execute`,
+      {
+        method: "post",
+        body: JSON.stringify(data),
+      }
+    );
     const json = await test.json();
     console.log(json);
   };
 
-  useEffect(() => {
-    console.log(state);
-    getUser();
-  }, []);
-
   return (
     <>
-      {instructOpen ? (
-        <div
-          className="Instructions-Wrapper"
-          onClick={() => {
-            setInstructOpen(false);
-          }}
-        >
-          <div className="Instructions">
-            <iframe
-              className="Instruction-Pdf"
-              src="Instructions/PrintingAndVariables/Resume2024.pdf#toolbar=0&navpanes=0"
-            />
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
-
-      <div className="Activity">
-        <div className="Activity-Title">
-          <Link className="BackButton" to={"/home"}>
-            <IoIosArrowBack />
-          </Link>
-          <div className="Activity-Title-Wrapper">
-            <h1>{activity.name}</h1>
-          </div>
-        </div>
-        <div className="Activity-Content">
-          <div className="Activity-Code">
-            <CodeBlock
-              text={activity.code}
-              language="python"
-              showLineNumbers={true}
-              theme={nord}
-            />
-          </div>
-          <div className="Activity-Grading">
-            <h1>Graded by {activity.sensei}</h1>
-          </div>
-        </div>
-        <div className="Activity-Buttons">
-          <button
-            className="Activity-Button-Container"
-            onClick={() => {
-              execute();
-            }}
-          >
-            Run
-          </button>
-          <button
-            className="Activity-Button-Container"
-            onClick={() => {
-              submit();
-            }}
-          >
-            Submit
-          </button>
-          <button
-            className="Activity-Button-Container"
-            onClick={() => {
-              setInstructOpen(true);
-            }}
-          >
-            Open Instructions
+      <button onClick={createUser}>create</button>
+      <button onClick={createDoc}>Docs</button>
+      <div className="Admin">
+        <div className="Admin-Bar">This is bar</div>
+        <div className="Admin-Content">
+          This is me
+          <button onClick={execute} style={{ height: "50%", width: "20%" }}>
+            Run Python
           </button>
         </div>
       </div>
@@ -133,4 +79,4 @@ else:
   );
 }
 
-export default Activity;
+export default Admin;
