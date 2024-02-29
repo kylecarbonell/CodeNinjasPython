@@ -173,7 +173,6 @@ app.get("/getActivities", async (req, res) => {
     .collection("ActivityList")
     .find({ topicList: { $exists: false } });
 
-  // console.log(topic.topicList);
   const topicList = {};
 
   for (const i of topics.topicList) {
@@ -215,9 +214,40 @@ app.get("/getStars", async (req, res) => {
   // for (const [key, val] of Object.entries(grades)) {
   //   console.log(key, ", ", val  );
   // }
-  console.log(Object.entries(grades));
 
   res.send(grades);
+});
+
+app.post("/compile", async (req, res) => {
+  //getting the required data from the request
+  console.log("RUNNING COMPILER");
+
+  let code = req.body.code;
+  let language = req.body.language;
+  let input = req.body.input;
+
+  if (language === "python") {
+    language = "py";
+  }
+
+  let data = {
+    code: code,
+  };
+
+  //calling the code compilation API
+  const test = await fetch("https://api-run-code.herokuapp.com/execute", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data,
+  })
+    .then((response) => {})
+    .catch((error) => {
+      console.log(error);
+    });
+
+  console.log(test);
 });
 
 const start = async () => {
