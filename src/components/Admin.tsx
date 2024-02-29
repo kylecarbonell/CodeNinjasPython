@@ -51,10 +51,13 @@ else:
     console.log(code);
     const data = { code: code };
 
-    const test = await fetch(`http://127.0.0.1:5000/execute`, {
-      method: "post",
-      body: JSON.stringify(data),
-    });
+    const test = await fetch(
+      `https://codeninjaspython-j08d.onrender.com/execute`,
+      {
+        method: "post",
+        body: JSON.stringify(data),
+      }
+    );
     const json = await test.json();
     console.log(json);
   };
