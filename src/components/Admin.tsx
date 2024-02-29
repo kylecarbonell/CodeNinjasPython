@@ -48,8 +48,6 @@ else:
     print(f"{input_word} is not a palindrome.")
 `;
 
-    const code2 = "print('hellow orld')";
-
     console.log(code);
     const data = { code: code };
 
