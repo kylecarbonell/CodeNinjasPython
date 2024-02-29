@@ -74,6 +74,8 @@ function Home() {
       setTopics(data.topics);
       setActivities(data.activities);
     });
+
+    getStars();
   }, []);
   return (
     <>
