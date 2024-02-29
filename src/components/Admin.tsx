@@ -34,6 +34,33 @@ function Admin() {
     });
   };
 
+  const execute = async () => {
+    const code = `
+def ip(w):
+  cleaned_word = w.lower()
+    
+  return cleaned_word == cleaned_word[::-1]
+
+input_word = a
+if ip(input_word):
+    print(f"{input_word} is a palindrome!")
+else:
+    print(f"{input_word} is not a palindrome.")
+`;
+
+    const code2 = "print('hellow orld')";
+
+    console.log(code);
+    const data = { code: code };
+
+    const test = await fetch(`http://127.0.0.1:5000/execute`, {
+      method: "post",
+      body: JSON.stringify(data),
+    });
+    const json = await test.json();
+    console.log(json);
+  };
+
   return (
     <>
       <button onClick={createUser}>create</button>
@@ -42,9 +69,9 @@ function Admin() {
         <div className="Admin-Bar">This is bar</div>
         <div className="Admin-Content">
           This is me
-          {/* <button onClick={test} style={{ height: "50%", width: "20%" }}>
+          <button onClick={execute} style={{ height: "50%", width: "20%" }}>
             Run Python
-          </button> */}
+          </button>
         </div>
       </div>
     </>
