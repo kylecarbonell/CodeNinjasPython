@@ -206,48 +206,25 @@ app.get("/getStars", async (req, res) => {
 
   const activity = act.collection(username).find({});
   for await (const doc of activity) {
-    // console.log("THIS IS DICT");
-    // console.log(doc.grade);
     grades[doc.link] = doc.grade;
   }
-
-  // for (const [key, val] of Object.entries(grades)) {
-  //   console.log(key, ", ", val  );
-  // }
 
   res.send(grades);
 });
 
-app.post("/compile", async (req, res) => {
-  //getting the required data from the request
-  console.log("RUNNING COMPILER");
+app.post("/saveCode", async (req, res) => {
+  const newCode = req.body.code;
+  const link = req.body.link;
+  const username = req.body.user;
+  console.log("HJERERE");
 
-  let code = req.body.code;
-  let language = req.body.language;
-  let input = req.body.input;
+  console.log("CODE NEW", newCode);
+  console.log("LINK", link);
 
-  if (language === "python") {
-    language = "py";
-  }
-
-  let data = {
-    code: code,
-  };
-
-  //calling the code compilation API
-  const test = await fetch("https://api-run-code.herokuapp.com/execute", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: data,
-  })
-    .then((response) => {})
-    .catch((error) => {
-      console.log(error);
-    });
-
-  console.log(test);
+  const push = await act
+    .collection(username)
+    .updateOne({ link: link }, { $set: { code: newCode } });
+  console.log(push);
 });
 
 const start = async () => {

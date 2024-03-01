@@ -18,6 +18,7 @@ function Activity(this: any) {
   var [activity, setActivities] = useState<any>({});
 
   var [code, setCode] = useState("");
+  var [output, setOutput] = useState<string>();
 
   var [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -27,6 +28,21 @@ function Activity(this: any) {
     const json = await data.json();
     console.log(json);
     console.log("Inside submit");
+  }
+
+  async function refresh(e: Event) {
+    e.preventDefault();
+    console.log("OUTPUT", window.localStorage.getItem("code"));
+    const data = {
+      user: window.sessionStorage.getItem("user"),
+      link: window.sessionStorage.getItem("link"),
+      code: window.localStorage.getItem("code"),
+    };
+    await fetch("http://localhost:8000/saveCode", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
   }
 
   async function getUser() {
@@ -54,17 +70,39 @@ function Activity(this: any) {
       body: JSON.stringify(data),
     });
     const json = await test.json();
-    console.log(json);
+    console.log(Object(json));
+
+    setOutput(json);
   };
 
   useEffect(() => {
-    console.log(tabIndex);
-  }, [tabIndex]);
+    console.log(activity);
+    setCode(activity.code);
+  }, [activity]);
+
+  useEffect(() => {
+    window.localStorage.setItem("code", code || "");
+  }, [code]);
 
   useEffect(() => {
     console.log(state);
     getUser();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", refresh);
+
+    return window.removeEventListener("beforeunload", () => {
+      console.log("REMOVED");
+    });
+  }, []);
+
+  onkeydown = async (e: any) => {
+    if (e.ctrlKey && e.keyCode == "S".charCodeAt(0)) {
+      e.preventDefault();
+      refresh(e);
+    }
+  };
 
   return (
     <>
@@ -82,11 +120,10 @@ function Activity(this: any) {
             <Editor
               height="90vh"
               language="python"
-              defaultValue="test"
+              defaultValue={code || ""}
               theme="vs-dark"
               onChange={(e: any) => {
                 setCode(e || "");
-                // console.log(code)
               }}
             />
           </div>
@@ -121,11 +158,13 @@ function Activity(this: any) {
               </li>
             </ul>
 
+            {/* CONSOLE LOG OUTPUT */}
             {tabIndex == 0 && (
-              <div className="Tab-Panel" style={{ visibility: "visible" }}>
-                <h1 style={{ backgroundColor: "pink" }}>console</h1>
+              <div className="Output-Panel" style={{ visibility: "visible" }}>
+                <pre>{output}</pre>
               </div>
             )}
+            {/* Instructions */}
             {tabIndex == 1 && (
               <div className="Tab-Panel">
                 <iframe
@@ -134,6 +173,7 @@ function Activity(this: any) {
                 />
               </div>
             )}
+            {/* Grading */}
             {tabIndex == 2 && (
               <div className="Tab-Panel">
                 <h1>Grade</h1>
