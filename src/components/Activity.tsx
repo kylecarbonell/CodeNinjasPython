@@ -43,8 +43,8 @@ function Activity(this: any) {
 
   const execute = async () => {
     console.log(code);
-    const call = "http://127.0.0.1:5000/execute";
-    // const call =`https://codeninjaspython-j08d.onrender.com/execute`
+    // const call = "http://127.0.0.1:5000/execute";
+    const call = `https://codeninjaspython-j08d.onrender.com/execute`;
 
     // console.log(code);
     const data = { code: code };
