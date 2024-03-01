@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, jsonify, request
 import sys
 from io import StringIO
@@ -47,11 +48,11 @@ def execute():
     try:
         f = StringIO()
         with redirect_stdout(f):
-            # print("HELLO\n")
+            now = datetime.now()
+            date = now.strftime("%d/%m/%Y %H:%M:%S")
             exec(code, {'a':  "poopoop"})
-            # print("\nDONE")
             s = f.getvalue()
-            res = jsonify(s)
+            res = jsonify({"output": s, "time": date})
             res.headers.add('Access-Control-Allow-Origin', '*')
             return res
     except Exception as e:
