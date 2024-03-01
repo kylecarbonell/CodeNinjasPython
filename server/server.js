@@ -225,6 +225,8 @@ app.post("/saveCode", async (req, res) => {
     .collection(username)
     .updateOne({ link: link }, { $set: { code: newCode } });
   console.log(push);
+
+  res.send("");
 });
 
 const start = async () => {

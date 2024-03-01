@@ -49,7 +49,7 @@ def execute():
         f = StringIO()
         with redirect_stdout(f):
             now = datetime.now()
-            date = now.strftime("%d/%m/%Y %H:%M:%S")
+            date = now.strftime("%m/%d/%Y %H:%M:%S")
             exec(code, {'a':  "poopoop"})
             s = f.getvalue()
             res = jsonify({"output": s, "time": date})

@@ -77,6 +77,8 @@
 
   padding: 0;
   margin: 0;
+
+  border-bottom: 2px solid black;
 }
 
 .Tab {
@@ -109,17 +111,28 @@
   flex-direction: column;
 
   border-top: 2px black;
+
+  overflow: scroll;
+}
+.Output-Wrapper {
+  background-color: var(--darkBlue);
+  /* height: 50%; */
+
+  display: inline-block;
+  /* flex-direction: column; */
 }
 
 .Output-Runtime {
-  height: 5%;
+  height: 2rem;
 
-  background-color: black;
+  background-color: var(--darkBlue);
   font-size: 0.5rem;
 
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+
+  border-bottom: 2px solid black;
 }
 
 .Output {
@@ -129,11 +142,13 @@
   margin-top: 0;
 
   padding-left: 1%;
-  padding-top: 1%;
-  padding-bottom: 1%;
+  /* padding-top: 1%; */
+  /* padding-bottom: 1%; */
 
   /* background-color: blue; */
   border-bottom: 2px solid black;
+
+  overflow-y: auto;
 }
 
 .Tabs-Wrapper {
@@ -237,6 +252,13 @@
 .Instruction-Pdf {
   height: 100%;
   width: 100%;
+}
+
+.Trash-Button {
+  background-color: transparent;
+  border: 0;
+  font-size: 1rem;
+  color: black;
 }
 
 @media (max-width: 700px) and (min-width: 500px) {

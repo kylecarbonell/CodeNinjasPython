@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Activity.css";
 import { IoIosArrowBack } from "react-icons/io";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 import Editor from "@monaco-editor/react";
 import "monaco-themes/themes/Nord.json";
@@ -13,9 +14,12 @@ function Activity(this: any) {
   var [activity, setActivities] = useState<any>({});
 
   var [code, setCode] = useState("");
-  var [output, setOutput] = useState<string>();
+  var [run, setRun] = useState<any>([]);
 
   var [tabIndex, setTabIndex] = useState<number>(0);
+  var [loading, setLoading] = useState<boolean>(false);
+
+  const nav = useNavigate();
 
   async function submit() {
     // console.log(state.activity);
@@ -25,19 +29,27 @@ function Activity(this: any) {
     console.log("Inside submit");
   }
 
-  async function refresh(e: Event) {
-    e.preventDefault();
+  async function saveCode() {
     console.log("OUTPUT", window.localStorage.getItem("code"));
     const data = {
       user: window.sessionStorage.getItem("user"),
       link: window.sessionStorage.getItem("link"),
       code: window.localStorage.getItem("code"),
     };
+    setLoading(true);
     await fetch("http://localhost:8000/saveCode", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    });
+    })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+
+    setCode(data.code || "");
   }
 
   async function getUser() {
@@ -48,7 +60,7 @@ function Activity(this: any) {
     );
 
     const json = await data.json();
-    console.log(json);
+    console.log("HERE IN JSON", json);
     setActivities(json);
   }
 
@@ -65,19 +77,25 @@ function Activity(this: any) {
       body: JSON.stringify(data),
     });
     const json = await test.json();
-    console.log(Object(json));
+    const obj = Object(json);
+    console.log("OBJECT", obj);
+    console.log("code", obj.output);
 
-    setOutput(json);
+    setRun([...run, Object(json)]);
   };
 
   useEffect(() => {
-    console.log(activity);
-    setCode(activity.code);
-  }, [activity]);
+    console.log(run);
+  }, [run]);
 
   useEffect(() => {
-    window.localStorage.setItem("code", code || "");
+    window.localStorage.setItem("code", code);
   }, [code]);
+
+  useEffect(() => {
+    console.log("HERE IN ACTIVITY", activity);
+    setCode(activity.code);
+  }, [activity]);
 
   useEffect(() => {
     console.log(state);
@@ -85,17 +103,20 @@ function Activity(this: any) {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("beforeunload", refresh);
+    window.addEventListener("beforeunload", (e) => {
+      e.preventDefault();
+      saveCode();
+    });
 
-    return window.removeEventListener("beforeunload", () => {
-      console.log("REMOVED");
+    window.addEventListener("onunload", () => {
+      window.sessionStorage.setItem("code", "");
     });
   }, []);
 
   onkeydown = async (e: any) => {
     if (e.ctrlKey && e.keyCode == "S".charCodeAt(0)) {
       e.preventDefault();
-      refresh(e);
+      saveCode();
     }
   };
 
@@ -103,9 +124,17 @@ function Activity(this: any) {
     <>
       <div className="Activity">
         <div className="Activity-Title">
-          <Link className="BackButton" to={"/home"}>
+          <button
+            className="BackButton"
+            onClick={async () => {
+              saveCode();
+              if (!loading) {
+                nav("/home", { replace: true });
+              }
+            }}
+          >
             <IoIosArrowBack />
-          </Link>
+          </button>
           <div className="Activity-Title-Wrapper">
             <h1>{activity.name}</h1>
           </div>
@@ -115,11 +144,11 @@ function Activity(this: any) {
             <Editor
               height="90vh"
               language="python"
-              defaultValue={code || ""}
               theme="vs-dark"
               onChange={(e: any) => {
-                setCode(e || "");
+                setCode(e);
               }}
+              value={activity.code}
             />
           </div>
           <div className="Activity-Tabs">
@@ -137,6 +166,14 @@ function Activity(this: any) {
                 }
               >
                 Console
+                <button
+                  className="Trash-Button"
+                  onClick={() => {
+                    setRun([]);
+                  }}
+                >
+                  <FaRegTrashCan />
+                </button>
               </li>
               <li
                 className="Tab"
@@ -168,26 +205,42 @@ function Activity(this: any) {
               </li>
             </ul>
 
-            {/* CONSOLE LOG OUTPUT */}
-            {tabIndex == 0 && (
-              <>
-                <div className="Output-Panel" style={{ visibility: "visible" }}>
-                  <div className="Output-Runtime">
-                    <h1 style={{ width: "50%", paddingLeft: "1%" }}>Run</h1>
-                    <h1
-                      style={{
-                        width: "50%",
-                        textAlign: "end",
-                        paddingRight: "1%",
-                      }}
-                    >
-                      51ms on 01:24:38, 03/01
-                    </h1>
-                  </div>
-                  <pre className="Output">{output}</pre>
-                </div>
-              </>
-            )}
+            <div className="Output-Panel" style={{ visibility: "visible" }}>
+              {/* CONSOLE LOG OUTPUT */}
+              {tabIndex == 0 &&
+                run.map((r: any) => {
+                  return (
+                    <>
+                      <div className="Output-Wrapper">
+                        <div className="Output-Runtime">
+                          <h1 style={{ width: "50%", paddingLeft: "1%" }}>
+                            Run
+                          </h1>
+                          <h1
+                            style={{
+                              width: "50%",
+                              textAlign: "end",
+                              paddingRight: "1%",
+                            }}
+                          >
+                            {r.time}
+                          </h1>
+                        </div>
+                        <div className="Output">
+                          <pre
+                            style={{
+                              fontFamily: "'Times New Roman', Times, serif",
+                              fontSize: "1rem",
+                            }}
+                          >
+                            {r.output}
+                          </pre>
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
+            </div>
             {/* Instructions */}
             {tabIndex == 1 && (
               <div className="Tab-Panel">
