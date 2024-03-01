@@ -1,14 +1,27 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Activity.css";
 import { IoIosArrowBack } from "react-icons/io";
-import { CodeBlock, nord } from "react-code-blocks";
+
+
+// import AceEditor from "react-ace";
+// import "ace-builds/src-noconflict/mode-java";
+// import "ace-builds/src-noconflict/theme-tomorrow_night";
+// import "ace-builds/src-noconflict/ext-language_tools"
+
+import Editor from '@monaco-editor/react';
+
+
 import { useEffect, useState } from "react";
 
-function Activity() {
+function Activity(this: any) {
   var { state } = useLocation();
   // var [params, setParams] = useSearchParams();
-  var [instructOpen, setInstructOpen] = useState(false);
+  // var [instructOpen, setInstructOpen] = useState(false);
   var [activity, setActivities] = useState<any>({});
+
+  var [code, setCode] = useState("")
+
+  var [tabIndex, setTabIndex] = useState<number>(0);
 
   async function submit() {
     // console.log(state.activity);
@@ -31,24 +44,14 @@ function Activity() {
   }
 
   const execute = async () => {
-    const code = `
-def ip(w):
-  cleaned_word = w.lower()
-    
-  return cleaned_word == cleaned_word[::-1]
+    const call = "http://127.0.0.1:5000/execute"
+    // const call =`https://codeninjaspython-j08d.onrender.com/execute`
 
-input_word = a
-if ip(input_word):
-    print(f"{input_word} is a palindrome!")
-else:
-    print(f"{input_word} is not a palindrome.")
-`;
-
-    console.log(code);
+    // console.log(code);
     const data = { code: code };
 
     const test = await fetch(
-      `https://codeninjaspython-j08d.onrender.com/execute`,
+      call,
       {
         method: "post",
         body: JSON.stringify(data),
@@ -56,7 +59,14 @@ else:
     );
     const json = await test.json();
     console.log(json);
+
+
   };
+
+  useEffect(() => {
+    console.log(tabIndex)
+
+  }, [tabIndex])
 
   useEffect(() => {
     console.log(state);
@@ -65,23 +75,6 @@ else:
 
   return (
     <>
-      {instructOpen ? (
-        <div
-          className="Instructions-Wrapper"
-          onClick={() => {
-            setInstructOpen(false);
-          }}
-        >
-          <div className="Instructions">
-            <iframe
-              className="Instruction-Pdf"
-              src="Instructions/PrintingAndVariables/Resume2024.pdf#toolbar=0&navpanes=0"
-            />
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
 
       <div className="Activity">
         <div className="Activity-Title">
@@ -94,16 +87,47 @@ else:
         </div>
         <div className="Activity-Content">
           <div className="Activity-Code">
-            <CodeBlock
-              text={activity.code}
+            <Editor
+              height="90vh"
               language="python"
-              showLineNumbers={true}
-              theme={nord}
+              defaultValue="test"
+              theme="vs-dark"
+              onChange={(e) => {
+                setCode(e || "")
+                // console.log(code)
+              }}
             />
+
           </div>
-          <div className="Activity-Grading">
-            <h1>Graded by {activity.sensei}</h1>
+          <div className="Activity-Tabs" >
+            <ul className="Activity-Tabs-List">
+              <li className="Tab" value={0} onClick={(e) => { setTabIndex(e.currentTarget.value) }} >Console</li>
+              <li className="Tab" onClick={(e) => { setTabIndex(e.currentTarget.value) }} value={1}>Instructions</li>
+              <li className="Tab" onClick={(e) => { setTabIndex(e.currentTarget.value) }} value={2}>Grading</li>
+            </ul>
+
+            {tabIndex == 0 &&
+              <div className="Tab-Panel" style={{ visibility: "visible" }}>
+                <h1 style={{ backgroundColor: "pink" }}>console</h1>
+              </div>
+            }
+            {tabIndex == 1 &&
+              <div className="Tab-Panel" >
+                <iframe
+                  className="Instruction-Pdf"
+                  src="Instructions/PrintingAndVariables/Resume2024.pdf#toolbar=0&navpanes=0"
+                />
+              </div>
+            }
+            {tabIndex == 2 &&
+              <div className="Tab-Panel">
+                <h1>Grade</h1>
+              </div>
+            }
+
           </div>
+
+
         </div>
         <div className="Activity-Buttons">
           <button
@@ -124,9 +148,7 @@ else:
           </button>
           <button
             className="Activity-Button-Container"
-            onClick={() => {
-              setInstructOpen(true);
-            }}
+
           >
             Open Instructions
           </button>
