@@ -32,10 +32,11 @@ function Home() {
   };
 
   async function getStars() {
+    // const call = "http://localhost:8000";
+    const call = "https://codeninjaspython.onrender.com";
+
     const data = await fetch(
-      `http://localhost:8000/getStars?name=${window.sessionStorage.getItem(
-        "user"
-      )}`
+      `${call}/getStars?name=${window.sessionStorage.getItem("user")}`
     );
 
     const json = await data.json();
