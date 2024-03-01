@@ -59,3 +59,5 @@ def execute():
         res.headers.add('Access-Control-Allow-Origin', '*')
         return res
 
+if __name__ == "__main__":
+    app.run()
