@@ -18,11 +18,10 @@
   height: 100%;
   width: 100%;
 
-  /* background-color: blue; */
   overflow: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  background-color: #2e3440;
+  background-color: var(--lightBlue);
 
   /* background-image: url("../../public/codeninjasBg.svg"); */
 }
@@ -38,7 +37,6 @@
 }
 
 .Activity-Title-Wrapper {
-  /* background-color: blue; */
   width: 80%;
   height: 80%;
   border-radius: 20px;
@@ -82,7 +80,7 @@
 }
 
 .Tab {
-  background-color: blue;
+  background-color: var(--lightBlue);
   list-style-type: none;
   width: 20%;
   height: 100%;
@@ -105,16 +103,50 @@
   width: 100%;
 
   /* position: absolute; */
-  background-color: gray;
+  background-color: var(--darkBlue);
 
   display: flex;
   flex-direction: column;
+
+  border-top: 2px black;
+}
+
+.Output-Runtime {
+  height: 5%;
+
+  background-color: black;
+  font-size: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.Output {
+  font-size: 1rem;
+  font-family: "Times New Roman", Times, serif;
+
+  margin-top: 0;
+
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+
+  /* background-color: blue; */
+  border-bottom: 2px solid black;
 }
 
 .Tabs-Wrapper {
   height: 100%;
   width: 35%;
   background-color: green;
+}
+
+.Grade-Panel {
+  height: 100%;
+  width: 100%;
+
+  background-color: var(--darkBlue);
 }
 
 .Activity-Code {

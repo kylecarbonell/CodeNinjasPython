@@ -1,15 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Activity.css";
 import { IoIosArrowBack } from "react-icons/io";
 
-// import AceEditor from "react-ace";
-// import "ace-builds/src-noconflict/mode-java";
-// import "ace-builds/src-noconflict/theme-tomorrow_night";
-// import "ace-builds/src-noconflict/ext-language_tools"
-
 import Editor from "@monaco-editor/react";
-
-import { useEffect, useState } from "react";
+import "monaco-themes/themes/Nord.json";
 
 function Activity(this: any) {
   var { state } = useLocation();
@@ -135,6 +130,11 @@ function Activity(this: any) {
                 onClick={(e) => {
                   setTabIndex(e.currentTarget.value);
                 }}
+                style={
+                  tabIndex == 0
+                    ? { backgroundColor: "var(--darkBlue)" }
+                    : { backgroundColor: "var(--lightBlue)" }
+                }
               >
                 Console
               </li>
@@ -144,6 +144,11 @@ function Activity(this: any) {
                   setTabIndex(e.currentTarget.value);
                 }}
                 value={1}
+                style={
+                  tabIndex == 1
+                    ? { backgroundColor: "var(--darkBlue)" }
+                    : { backgroundColor: "var(--lightBlue)" }
+                }
               >
                 Instructions
               </li>
@@ -153,6 +158,11 @@ function Activity(this: any) {
                   setTabIndex(e.currentTarget.value);
                 }}
                 value={2}
+                style={
+                  tabIndex == 2
+                    ? { backgroundColor: "var(--darkBlue)" }
+                    : { backgroundColor: "var(--lightBlue)" }
+                }
               >
                 Grading
               </li>
@@ -160,9 +170,23 @@ function Activity(this: any) {
 
             {/* CONSOLE LOG OUTPUT */}
             {tabIndex == 0 && (
-              <div className="Output-Panel" style={{ visibility: "visible" }}>
-                <pre>{output}</pre>
-              </div>
+              <>
+                <div className="Output-Panel" style={{ visibility: "visible" }}>
+                  <div className="Output-Runtime">
+                    <h1 style={{ width: "50%", paddingLeft: "1%" }}>Run</h1>
+                    <h1
+                      style={{
+                        width: "50%",
+                        textAlign: "end",
+                        paddingRight: "1%",
+                      }}
+                    >
+                      51ms on 01:24:38, 03/01
+                    </h1>
+                  </div>
+                  <pre className="Output">{output}</pre>
+                </div>
+              </>
             )}
             {/* Instructions */}
             {tabIndex == 1 && (
@@ -175,7 +199,7 @@ function Activity(this: any) {
             )}
             {/* Grading */}
             {tabIndex == 2 && (
-              <div className="Tab-Panel">
+              <div className="Grade-Panel">
                 <h1>Grade</h1>
               </div>
             )}
