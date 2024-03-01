@@ -8,6 +8,7 @@ import sys
 from io import StringIO
 import contextlib
 from contextlib import redirect_stdout
+from waitress import serve
 
 
 
@@ -60,4 +61,4 @@ def execute():
         return res
 
 if __name__ == "__main__":
-    app.run()
+    serve(app, host="0.0.0.0", port=8080)
