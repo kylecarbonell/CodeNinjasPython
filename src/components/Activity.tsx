@@ -36,8 +36,12 @@ function Activity(this: any) {
       link: window.sessionStorage.getItem("link"),
       code: window.localStorage.getItem("code"),
     };
+
+    // const call = "http://localhost:8000";
+    const call = "https://codeninjaspython.onrender.com";
+    console.log(call);
     setLoading(true);
-    await fetch("http://localhost:8000/saveCode", {
+    await fetch(`${call}/saveCode`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -53,8 +57,10 @@ function Activity(this: any) {
   }
 
   async function getUser() {
+    // const call = "http://localhost:8000";
+    const call = "https://codeninjaspython.onrender.com";
     const data = await fetch(
-      `http://localhost:8000/getUser?name=${window.sessionStorage.getItem(
+      `${call}/getUser?name=${window.sessionStorage.getItem(
         "user"
       )}&activity=${window.sessionStorage.getItem("link")}`
     );

@@ -67,7 +67,6 @@ function Home() {
     });
 
     getStars();
-    getStars();
   }, []);
 
   return (
