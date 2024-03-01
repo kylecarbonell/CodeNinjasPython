@@ -14,4 +14,4 @@ from contextlib import redirect_stdout
 
 app = create_app()
 
-app.run()
+# app.run()
