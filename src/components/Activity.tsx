@@ -149,6 +149,7 @@ function Activity(this: any) {
                 setCode(e);
               }}
               value={activity.code}
+              options={{ minimap: { enabled: false } }}
             />
           </div>
           <div className="Activity-Tabs">
