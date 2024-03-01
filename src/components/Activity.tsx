@@ -2,14 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import "./Activity.css";
 import { IoIosArrowBack } from "react-icons/io";
 
-
 // import AceEditor from "react-ace";
 // import "ace-builds/src-noconflict/mode-java";
 // import "ace-builds/src-noconflict/theme-tomorrow_night";
 // import "ace-builds/src-noconflict/ext-language_tools"
 
-import Editor from '@monaco-editor/react';
-
+import Editor from "@monaco-editor/react";
 
 import { useEffect, useState } from "react";
 
@@ -19,7 +17,7 @@ function Activity(this: any) {
   // var [instructOpen, setInstructOpen] = useState(false);
   var [activity, setActivities] = useState<any>({});
 
-  var [code, setCode] = useState("")
+  var [code, setCode] = useState("");
 
   var [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -44,29 +42,24 @@ function Activity(this: any) {
   }
 
   const execute = async () => {
-    const call = "http://127.0.0.1:5000/execute"
+    console.log(code);
+    const call = "http://127.0.0.1:5000/execute";
     // const call =`https://codeninjaspython-j08d.onrender.com/execute`
 
     // console.log(code);
     const data = { code: code };
 
-    const test = await fetch(
-      call,
-      {
-        method: "post",
-        body: JSON.stringify(data),
-      }
-    );
+    const test = await fetch(call, {
+      method: "post",
+      body: JSON.stringify(data),
+    });
     const json = await test.json();
     console.log(json);
-
-
   };
 
   useEffect(() => {
-    console.log(tabIndex)
-
-  }, [tabIndex])
+    console.log(tabIndex);
+  }, [tabIndex]);
 
   useEffect(() => {
     console.log(state);
@@ -75,7 +68,6 @@ function Activity(this: any) {
 
   return (
     <>
-
       <div className="Activity">
         <div className="Activity-Title">
           <Link className="BackButton" to={"/home"}>
@@ -92,42 +84,62 @@ function Activity(this: any) {
               language="python"
               defaultValue="test"
               theme="vs-dark"
-              onChange={(e) => {
-                setCode(e || "")
+              onChange={(e: any) => {
+                setCode(e || "");
                 // console.log(code)
               }}
             />
-
           </div>
-          <div className="Activity-Tabs" >
+          <div className="Activity-Tabs">
             <ul className="Activity-Tabs-List">
-              <li className="Tab" value={0} onClick={(e) => { setTabIndex(e.currentTarget.value) }} >Console</li>
-              <li className="Tab" onClick={(e) => { setTabIndex(e.currentTarget.value) }} value={1}>Instructions</li>
-              <li className="Tab" onClick={(e) => { setTabIndex(e.currentTarget.value) }} value={2}>Grading</li>
+              <li
+                className="Tab"
+                value={0}
+                onClick={(e) => {
+                  setTabIndex(e.currentTarget.value);
+                }}
+              >
+                Console
+              </li>
+              <li
+                className="Tab"
+                onClick={(e) => {
+                  setTabIndex(e.currentTarget.value);
+                }}
+                value={1}
+              >
+                Instructions
+              </li>
+              <li
+                className="Tab"
+                onClick={(e) => {
+                  setTabIndex(e.currentTarget.value);
+                }}
+                value={2}
+              >
+                Grading
+              </li>
             </ul>
 
-            {tabIndex == 0 &&
+            {tabIndex == 0 && (
               <div className="Tab-Panel" style={{ visibility: "visible" }}>
                 <h1 style={{ backgroundColor: "pink" }}>console</h1>
               </div>
-            }
-            {tabIndex == 1 &&
-              <div className="Tab-Panel" >
+            )}
+            {tabIndex == 1 && (
+              <div className="Tab-Panel">
                 <iframe
                   className="Instruction-Pdf"
                   src="Instructions/PrintingAndVariables/Resume2024.pdf#toolbar=0&navpanes=0"
                 />
               </div>
-            }
-            {tabIndex == 2 &&
+            )}
+            {tabIndex == 2 && (
               <div className="Tab-Panel">
                 <h1>Grade</h1>
               </div>
-            }
-
+            )}
           </div>
-
-
         </div>
         <div className="Activity-Buttons">
           <button
@@ -146,10 +158,7 @@ function Activity(this: any) {
           >
             Submit
           </button>
-          <button
-            className="Activity-Button-Container"
-
-          >
+          <button className="Activity-Button-Container">
             Open Instructions
           </button>
         </div>

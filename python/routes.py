@@ -1,30 +1,22 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
 import sys
 from io import StringIO
 import json
 from tkinter import *
-from ast import literal_eval
 
 import sys
 from io import StringIO
 import contextlib
 from contextlib import redirect_stdout
 
-app = Flask(__name__)
+main = Blueprint('main', __name__)
 
-
-
-
-@app.route("/test", methods=['GET', 'POST'])
+@main.route("/test", methods=['GET', 'POST'])
 def test():
     data = json.loads(request.data)
     print(data['code'])
 
     loc = {}
-    # exec(code, None, loc)
-    # print(loc['ab'])
-    # print(loc['b'])
-
     response = jsonify({})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
@@ -38,7 +30,7 @@ def stdoutIO(stdout=None):
     yield stdout
     sys.stdout = old
 
-@app.route('/execute', methods=["GET", "POST"])
+@main.route('/execute', methods=["GET", "POST"])
 def execute():
     data = json.loads(request.data)
     code = data['code']
@@ -63,7 +55,4 @@ def execute():
         res = jsonify("Error: " + str(e))
         res.headers.add('Access-Control-Allow-Origin', '*')
         return res
-    
 
-if __name__ == '__main__':
-    app.run()
