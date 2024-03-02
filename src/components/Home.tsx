@@ -53,10 +53,6 @@ function Home() {
 
   useEffect(() => {
     setUsername(window.sessionStorage.getItem("user") || "");
-
-    // setTopics(Object.keys(loc.state.topicList));
-
-    // setActivities(Object.values(loc.state.topicList));
   }, [window.sessionStorage.getItem("user")]);
 
   useEffect(() => {
@@ -74,7 +70,10 @@ function Home() {
       <div className="Home">
         <div className="Bar">
           <div className="Bar-Left">
-            <img className="Python-Image" src="/Images/pythonLogo.png"></img>
+            <img
+              className="Python-Image"
+              src="/public/Images/pythonLogo.png"
+            ></img>
           </div>
           <div className="Bar-Middle"></div>
 

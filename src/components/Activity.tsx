@@ -72,8 +72,8 @@ function Activity(this: any) {
 
   const execute = async () => {
     console.log(code);
-    const call = "http://127.0.0.1:5000/execute";
-    // const call = `https://codeninjaspythonserver.onrender.com/execute`;
+    // const call = "http://127.0.0.1:5000/execute";
+    const call = `https://codeninjaspythonserver.onrender.com/execute`;
 
     // console.log(code);
     const data = { code: code };
@@ -211,7 +211,10 @@ function Activity(this: any) {
               </li>
             </ul>
 
-            <div className="Output-Panel" style={{ visibility: "visible" }}>
+            <div
+              className="Panels"
+              style={tabIndex == 1 ? { overflowY: "hidden" } : {}}
+            >
               {/* CONSOLE LOG OUTPUT */}
               {tabIndex == 0 &&
                 run.map((r: any) => {
@@ -246,22 +249,24 @@ function Activity(this: any) {
                     </>
                   );
                 })}
+
+              {/* Instructions */}
+              {tabIndex == 1 && (
+                <div className="Instructions-Panel">
+                  <iframe
+                    className="Instruction-Pdf"
+                    src="/public/Instructions/PrintingAndVariables/Resume2024.pdf#toolbar=0&navpanes=0"
+                  />
+                </div>
+              )}
+
+              {/* Grading */}
+              {tabIndex == 2 && (
+                <div className="Grade-Panel">
+                  <h1>Grade</h1>
+                </div>
+              )}
             </div>
-            {/* Instructions */}
-            {tabIndex == 1 && (
-              <div className="Tab-Panel">
-                <iframe
-                  className="Instruction-Pdf"
-                  src="Instructions/PrintingAndVariables/Resume2024.pdf#toolbar=0&navpanes=0"
-                />
-              </div>
-            )}
-            {/* Grading */}
-            {tabIndex == 2 && (
-              <div className="Grade-Panel">
-                <h1>Grade</h1>
-              </div>
-            )}
           </div>
         </div>
         <div className="Activity-Buttons">
@@ -269,6 +274,7 @@ function Activity(this: any) {
             className="Activity-Button-Container"
             onClick={() => {
               execute();
+              setTabIndex(0);
             }}
           >
             Run
@@ -280,9 +286,6 @@ function Activity(this: any) {
             }}
           >
             Submit
-          </button>
-          <button className="Activity-Button-Container">
-            Open Instructions
           </button>
         </div>
       </div>

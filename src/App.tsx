@@ -8,8 +8,6 @@ function App() {
   const [error, setError] = useState("");
   const nav = useNavigate();
 
-
-
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
     console.log("SUBMITTING");
@@ -26,8 +24,6 @@ function App() {
           console.log("good");
           window.sessionStorage.setItem("user", name);
 
-
-
           setError("");
           nav("/home", { replace: true });
         } else {
@@ -42,45 +38,13 @@ function App() {
       });
   };
 
-  // const logout = async (e: any, signIn: boolean) => {
-  //   e.preventDefault();
-  //   console.log("SUBMITTING");
-
-  //   const data = {
-  //     username: window.sessionStorage.getItem("user"),
-  //     signIn: signIn,
-  //   };
-  //   await fetch("https://codeninjaspython.onrender.com/login", {
-  //     method: "post",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(data),
-  //   } as RequestInit)
-  //     .then((res) => {
-  //       console.log("post request sent");
-  //       if (res.status == 200) {
-  //         console.log("good");
-  //         window.sessionStorage.setItem("user", name);
-  //         nav("/home", { replace: true });
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  // window.addEventListener("beforeunload", (e) => {
-  //   e.preventDefault();
-  //   logout(e, false);
-  //   return (e.returnValue = "Are sure?");
-  // });
-
   return (
     <div className="App">
       <div className="Login-Wrapper">
         <div className="Login-Image-Wrapper">
           <img
             className="Login-Image"
-            src="../public/Images/pythonLogo.png"
+            src="/public/Images/pythonLogo.png"
           ></img>
         </div>
         <div className="Login-Title-Wrapper">

@@ -1,7 +1,7 @@
 import "./Admin.css";
 
 function Admin() {
-  const name = "kyle.carbonell";
+  const name = "shirley.nguyen";
 
   const createDoc = async () => {
     console.log("In the admin req");
@@ -34,45 +34,14 @@ function Admin() {
     });
   };
 
-  const execute = async () => {
-    const code = `
-def ip(w):
-  cleaned_word = w.lower()
-    
-  return cleaned_word == cleaned_word[::-1]
-
-input_word = a
-if ip(input_word):
-    print(f"{input_word} is a palindrome!")
-else:
-    print(f"{input_word} is not a palindrome.")
-`;
-
-    console.log(code);
-    const data = { code: code };
-
-    const test = await fetch(
-      `https://codeninjaspython-j08d.onrender.com/execute`,
-      {
-        method: "post",
-        body: JSON.stringify(data),
-      }
-    );
-    const json = await test.json();
-    console.log(json);
-  };
-
   return (
     <>
-      <button onClick={createUser}>create</button>
-      <button onClick={createDoc}>Docs</button>
       <div className="Admin">
         <div className="Admin-Bar">This is bar</div>
         <div className="Admin-Content">
           This is me
-          <button onClick={execute} style={{ height: "50%", width: "20%" }}>
-            Run Python
-          </button>
+          <button onClick={createUser}>user</button>
+          <button onClick={createDoc}>Docs</button>
         </div>
       </div>
     </>
