@@ -62,7 +62,7 @@ def execute():
         res.headers.add('Access-Control-Allow-Origin', '*')
         return res
 
-# if __name__ == "__main__":
-#     serve(app, host="0.0.0.0", port=8080)
-app.run()
+if __name__ == "__main__":
+    serve(app, host="0.0.0.0", port=8080)
+# app.run()
 
