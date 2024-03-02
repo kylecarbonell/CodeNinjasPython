@@ -255,7 +255,7 @@ function Activity(this: any) {
                 <div className="Instructions-Panel">
                   <iframe
                     className="Instruction-Pdf"
-                    src="public\Instructions\PrintingAndVariables\activity1.pdf#toolbar=0&navpanes=0"
+                    src="/activity1.pdf#toolbar=0&navpanes=0"
                   />
                 </div>
               )}

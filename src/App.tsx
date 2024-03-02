@@ -42,7 +42,7 @@ function App() {
     <div className="App">
       <div className="Login-Wrapper">
         <div className="Login-Image-Wrapper">
-          <img className="Login-Image" src="/public/pythonLogo.png"></img>
+          <img className="Login-Image" src="/pythonLogo.jpg"></img>
         </div>
         <div className="Login-Title-Wrapper">
           <h1 className="Title" style={{ color: "white" }}>
