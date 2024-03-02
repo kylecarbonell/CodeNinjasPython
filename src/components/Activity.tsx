@@ -72,8 +72,8 @@ function Activity(this: any) {
 
   const execute = async () => {
     console.log(code);
-    // const call = "http://127.0.0.1:5000/execute";
-    const call = `https://codeninjaspythonserver.onrender.com/execute`;
+    const call = "http://127.0.0.1:5000/execute";
+    // const call = `https://codeninjaspythonserver.onrender.com/execute`;
 
     // console.log(code);
     const data = { code: code };
@@ -81,13 +81,14 @@ function Activity(this: any) {
     const test = await fetch(call, {
       method: "post",
       body: JSON.stringify(data),
+    }).then(async (res) => {
+      console.log("STTAUTS", res);
+      const json = await res.json();
+      const obj = Object(json);
+      console.log("OBJECT", obj);
+      console.log("code", obj.output);
+      setRun([...run, Object(json)]);
     });
-    const json = await test.json();
-    const obj = Object(json);
-    console.log("OBJECT", obj);
-    console.log("code", obj.output);
-
-    setRun([...run, Object(json)]);
   };
 
   useEffect(() => {

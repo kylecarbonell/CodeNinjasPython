@@ -58,9 +58,11 @@ def execute():
             return res
     except Exception as e:
         print("THIS IS E ", e)
-        res = jsonify("Error: " + str(e))
+        res = jsonify({"output": "Error: " + str(e), "time": date})
         res.headers.add('Access-Control-Allow-Origin', '*')
         return res
 
-if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=8080)
+# if __name__ == "__main__":
+#     serve(app, host="0.0.0.0", port=8080)
+app.run()
+
