@@ -23,58 +23,6 @@ const con = process.env.REACT_APP_MONGO_CON;
 const PORT = process.env.REACT_APP_SERVER_PORT;
 let i = 0;
 
-// app.get("/Create", async (req, res) => {
-//   const myName = "KyleCarbonell";
-
-//   console.log("HERE FIRST");
-//   let browser = await puppeteer.launch({
-//     headless: false,
-//     args: ["--disable-features=site-per-process"],
-//   });
-//   const page = await browser.newPage();
-
-//   await page.goto("https://replit.com/~");
-
-//   //Enters Password
-//   await page.waitForSelector('input[type="password"]');
-//   await page.click('input[type="password"]');
-//   await page.keyboard.type("Lu2nglu2");
-
-//   //Enters Username
-//   await page.type(".css-1ecwrb4", "razorpooandpee@gmail.com").then(async () => {
-//     console.log("here");
-//   });
-
-//   //Clicks Login Button
-
-//   await page.keyboard.press("Enter").then(async () => {
-//     await page.waitForSelector(".css-1dtnej2");
-//     await page.goto("https://replit.com/@razorpooandpee");
-
-//     //Clicks Create
-//     // await page.click(".css-1dtnej2");
-
-//     //Choose python
-//     await page.waitForSelector(".css-12qfl1s");
-//     await page.keyboard.type("python");
-//     await page.click(".css-155h4ok");
-
-//     //Names Activity
-//     await page.waitForSelector(".css-wwxvxh").then(async () => {
-//       await page.keyboard.type("KyleCarbonell-Activity1");
-//       await page.keyboard.press("Enter").then(async () => {
-//         await page.waitForSelector(".css-1loehem");
-//         await page.click(".css-1loehem");
-
-//         await page.waitForSelector(".css-1si1nqs");
-//         await page.click(".css-1si1nqs");
-//       });
-//     });
-//   });
-
-//   //Creates replit
-// });
-
 app.get("/submit", async (req, res) => {});
 
 app.get("/instructions", async (req, res) => {
@@ -89,17 +37,24 @@ app.get("/instructions", async (req, res) => {
 app.post("/login", async (req, res) => {
   const username = req.body.username;
   const names = await act.listCollections().toArray();
-  let found = false;
-  for (let j = 0; j < names.length; j += 1) {
-    console.log(names[j]);
-    if (names[j].name == username) {
-      res.status(200).send("Account Found");
-      found = true;
+  const signedIn = await db
+    .collection("Python")
+    .findOne({ username: username });
+  if (signedIn.signedIn == true) {
+    let found = false;
+    for (let j = 0; j < names.length; j += 1) {
+      console.log(names[j]);
+      if (names[j].name == username) {
+        res.status(200).send("Account Found");
+        found = true;
+      }
+    }
+    if (!found) {
+      res.status(202).send("User not found");
     }
   }
-  if (!found) {
-    res.status(202).send("User not found");
-  }
+
+  res.status(201).send("Please checkin again");
 });
 
 /**
@@ -200,6 +155,28 @@ app.get("/getUser", async (req, res) => {
   res.json(activity);
 });
 
+app.get("/admin", async (req, res) => {
+  const arr = [];
+  const signedIn = [];
+  const users = await db.collection("Python").find({});
+  for await (const doc of users) {
+    // console.log(doc);
+    arr.push(doc);
+  }
+  res.json(arr);
+});
+
+app.post("/checkin", async (req, res) => {
+  const username = req.body.username;
+  const signIn = await db
+    .collection("Python")
+    .updateOne(
+      { username: username, signedIn: false },
+      { $set: { signedIn: true, time: 60 } }
+    );
+  res.sendStatus(200);
+});
+
 app.get("/getStars", async (req, res) => {
   const username = req.query.name;
   const grades = {};
@@ -227,6 +204,27 @@ app.post("/saveCode", async (req, res) => {
   console.log(push);
 
   res.send("");
+});
+
+app.get("/getAllReviews", async (req, res) => {
+  const names = await act.listCollections().toArray();
+  const namesArr = [];
+  const reviews = [];
+  for (const i of names) {
+    if (i.name != "ActivityList") {
+      namesArr.push(i.name);
+      console.log(namesArr);
+    }
+  }
+
+  for (let i = 0; i < namesArr.length; i += 1) {
+    const data = await act.collection(namesArr[i]).find({});
+    for await (const doc of data) {
+      reviews.push(doc);
+    }
+  }
+
+  res.json(reviews);
 });
 
 const start = async () => {

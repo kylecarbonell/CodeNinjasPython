@@ -1,11 +1,22 @@
+import { useState } from "react";
 import "./Admin.css";
+import "./AdminHome"
+import AdminHome from "./AdminHome";
+// import AdminReviews from "./AdminReviews";
 
 function Admin() {
   const name = "shirley.nguyen";
+  const [users, setUsers] = useState<any>([]);
+  const [reviews, setReviews] = useState<any>([]);
+  const [tab, setTab] = useState("")
+
+
 
   const createDoc = async () => {
     console.log("In the admin req");
     const data = { username: name };
+
+
 
     await fetch("https://codeninjaspython.onrender.com/createDoc", {
       method: "post",
@@ -34,24 +45,42 @@ function Admin() {
     });
   };
 
+  const getReviews = async () => {
+    const call = "http://localhost:8000"
+    const data = await fetch(`${call}/getAllReviews`)
+    const json = await data.json();
+    console.log(json)
+    setReviews(json)
+  }
+
+
   return (
     <>
       <div className="Admin">
         <div className="Admin-Bar">
           <div className="Admin-Bar-Content">
             <button className="Admin-Bar-Button">
-              <img className="Bar-Image" src="/home.svg"></img>
+              <img className="Bar-Image" src="/home.svg" onClick={() => {
+                setTab("Home")
+              }}></img>
               Home
             </button>
-            <button className="Admin-Bar-Button">
+            <button className="Admin-Bar-Button" onClick={() => {
+              getReviews()
+              setTab("Reviews")
+            }}>
               <img className="Bar-Image" src="/reviews.svg"></img>
               Reviews
             </button>
-            <button className="Admin-Bar-Button">
+            <button className="Admin-Bar-Button" onClick={() => {
+              setTab("Ninjas")
+            }}>
               <img className="Bar-Image" src="/my-ninja.svg"></img>
               My Ninjas
             </button>
-            <button className="Admin-Bar-Button">
+            <button className="Admin-Bar-Button" onClick={() => {
+              setTab("Support")
+            }}>
               <img className="Bar-Image" src="/support.svg"></img>
               Support
             </button>
@@ -71,20 +100,34 @@ function Admin() {
           <div className="Admin-Content-Bar">
             Hello, Sensei Kyle
           </div>
-          <div className="Admin-Content">
-            <div className="Admin-Checkin-Wrapper">
-              <div className="Admin-Content-Checkin">Checkin</div>
-              <div className="Admin-Content-Checkedin">
-                Checked in
-              </div>
-            </div>
-            <div className="Ninja-Help">
-              Help
-            </div>
-          </div>
+          {
+            tab == "Home" && <AdminHome users={users} setUsers={setUsers} />
+          }
+          {
+            // tab == "Reviews" && <AdminReviews reviews={reviews} setReviews={setReviews}></AdminReviews>
+            tab == "Reviews" && <>
+              <h1>hi</h1>
+              {
+                reviews.map((review: any) => {
+                  console.log(review)
+                  return (
+                    <>
+                      <div>
+                        <h1>{review.author}</h1>
+                        <h1>{review.name}</h1>
+                      </div>
+                    </>
+                  )
+                })
+              }
+            </>
+          }
+
 
         </div>
       </div >
+
+      <button onClick={createUser}></button>
     </>
   );
 }

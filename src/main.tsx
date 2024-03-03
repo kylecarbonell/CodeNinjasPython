@@ -10,7 +10,7 @@ import {
 
 } from "react-router-dom";
 import Home from './components/Home.tsx';
-import Admin from './components/Admin.tsx';
+import Admin from './components/Admin/Admin.tsx';
 
 const router = createBrowserRouter([
   {
