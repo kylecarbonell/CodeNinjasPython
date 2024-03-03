@@ -37,13 +37,54 @@ function Admin() {
   return (
     <>
       <div className="Admin">
-        <div className="Admin-Bar">This is bar</div>
-        <div className="Admin-Content">
-          This is me
-          <button onClick={createUser}>user</button>
-          <button onClick={createDoc}>Docs</button>
+        <div className="Admin-Bar">
+          <div className="Admin-Bar-Content">
+            <button className="Admin-Bar-Button">
+              <img className="Bar-Image" src="/home.svg"></img>
+              Home
+            </button>
+            <button className="Admin-Bar-Button">
+              <img className="Bar-Image" src="/reviews.svg"></img>
+              Reviews
+            </button>
+            <button className="Admin-Bar-Button">
+              <img className="Bar-Image" src="/my-ninja.svg"></img>
+              My Ninjas
+            </button>
+            <button className="Admin-Bar-Button">
+              <img className="Bar-Image" src="/support.svg"></img>
+              Support
+            </button>
+          </div>
+          <div className="Admin-Bar-Account">
+            <button className="Admin-Account-Buttons">
+              <img className="Account-Image" src="/user.jpg" style={{ borderRadius: "30px", width: "40%" }} />
+              Kyle Carbonell
+            </button>
+            <button className="Admin-Account-Buttons">
+              <img className="Account-Image" src="/logout.svg" />
+              Log out
+            </button>
+          </div>
         </div>
-      </div>
+        <div className="Admin-Content-Wrapper">
+          <div className="Admin-Content-Bar">
+            Hello, Sensei Kyle
+          </div>
+          <div className="Admin-Content">
+            <div className="Admin-Checkin-Wrapper">
+              <div className="Admin-Content-Checkin">Checkin</div>
+              <div className="Admin-Content-Checkedin">
+                Checked in
+              </div>
+            </div>
+            <div className="Ninja-Help">
+              Help
+            </div>
+          </div>
+
+        </div>
+      </div >
     </>
   );
 }

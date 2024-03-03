@@ -13,12 +13,131 @@
 
 .Admin-Bar {
   width: 7%;
-  background-color: black;
+  background-color: red;
   height: 100%;
+
+  
 }
 
-.Admin-Content {
+.Admin-Content-Wrapper {
   width: 93%;
   height: 100%;
-  background-color: blue;
+  background-color: var(--lightBlue);
+  
 }
+
+.Admin-Bar-Content{
+  height: 75%;
+  width: 100%;
+
+  background-color: var(--darkBlue);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Admin-Bar-Button, .Admin-Account-Buttons{
+  height: 10%;
+  width: 80%;
+
+  margin-bottom: 20%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--darkBlue);
+  color: white;
+
+  font-size: 0.75rem;
+  border:0;
+}
+
+.Bar-Image, .Account-Image{
+  height: 55%;
+  width: 100%;
+  margin-bottom: 10%;
+}
+
+.Admin-Bar-Account{
+  height: 25%;
+  width: 100%;
+  background-color: var(--darkBlue);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Admin-Account-Buttons{
+  height: 35%;
+  width: 100%;
+}
+
+.Account-Image{
+  height: 50%;
+}
+
+.Admin-Content-Bar{
+  height: 15%;
+  width: 100%;
+
+  padding-left: 2%;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 3rem;
+  color: white;
+}
+
+.Admin-Content{
+  background-color: var(--lightBlue);
+  height: 85%;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Admin-Checkin-Wrapper{
+  width: 70%;
+  height: 85%;
+
+  display: flex;
+  flex-direction: row;
+
+  background-color: black;
+}
+
+.Admin-Content-Checkin{
+  color:white;
+
+  height: 100%;
+  width: 60%;
+  background-color: var(--darkBlue);
+}
+
+.Admin-Content-Checkedin{
+  color:white;
+
+  height: 100;
+  width: 40%;
+
+  background-color: green;
+}
+
+.Ninja-Help{
+  color:white;
+
+  height: 85%;
+  width: 25%;
+  background-color: rebeccapurple;
+}
+
+

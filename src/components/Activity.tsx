@@ -5,7 +5,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
 
 import Editor from "@monaco-editor/react";
-import "monaco-themes/themes/Nord.json";
 
 function Activity(this: any) {
   var { state } = useLocation();
