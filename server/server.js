@@ -67,21 +67,16 @@ app.post("/login", async (req, res) => {
  *
  */
 app.post("/create", async (req, res) => {
-  const username = req.body.username;
+  console.log(req.body);
 
-  const names = await act.listCollections().toArray();
-  let found = false;
-  for (let j = 0; j < names.length; j += 1) {
-    if (names[j].name == username) {
-      found = true;
-    }
-  }
-  if (!found) {
-    await act.createCollection(username, {});
-    res.status(200).send("Account created");
-  } else {
-    res.status(401).send("Username exists already");
-  }
+  const username = req.body.username;
+  const data = req.body;
+
+  console.log(username);
+
+  await db.collection("Python").insertOne(data);
+  await act.createCollection(username, {});
+  res.status(200).send("Account created");
 });
 
 /**
@@ -106,7 +101,7 @@ app.post("/createDoc", async (req, res) => {
         const addDoc = await act
           .collection(username)
           .insertOne(activitySchema(i, username));
-        console.log("ADDING DOC ", i);
+        // console.log("ADDING DOC ", i);
       }
     }
   }

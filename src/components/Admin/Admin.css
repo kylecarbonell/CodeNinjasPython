@@ -188,3 +188,22 @@
   width: 25%;
   background-color: rebeccapurple;
 }
+
+.Ninja-Container {
+  /* background-color: white; */
+  height: 85%;
+
+  display: grid;
+  grid-template-rows: repeat(3, 60%);
+  grid-template-columns: repeat(4, 20%);
+  justify-content: space-evenly;
+
+  overflow-y: scroll;
+}
+
+.Ninja-Item {
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin-bottom: 10%;
+}
