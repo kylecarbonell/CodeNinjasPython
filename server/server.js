@@ -227,6 +227,10 @@ app.get("/getAllReviews", async (req, res) => {
   res.json(reviews);
 });
 
+app.post("/createUser", async (req, res) => {
+  console.log(req.body);
+});
+
 const start = async () => {
   try {
     app.listen(PORT, () => {

@@ -14,7 +14,7 @@ function App() {
 
     const data = { username: name, signIn: signIn };
     // const call = "https://codeninjaspython.onrender.com"
-    const call = "http://localhost:8000"
+    const call = "http://localhost:8000";
     await fetch(`${call}/login`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -30,11 +30,8 @@ function App() {
           nav("/home", { replace: true });
         } else if (res.status == 201) {
           console.log("bad username");
-          setError(
-            "Please check in again"
-          )
-        }
-        else {
+          setError("Please check in again");
+        } else {
           console.log("bad username");
           setError(
             "User not found: Please check if your username has been entered correctly"

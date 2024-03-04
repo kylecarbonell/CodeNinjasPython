@@ -15,18 +15,15 @@
   width: 7%;
   background-color: red;
   height: 100%;
-
-  
 }
 
 .Admin-Content-Wrapper {
   width: 93%;
   height: 100%;
   background-color: var(--lightBlue);
-  
 }
 
-.Admin-Bar-Content{
+.Admin-Bar-Content {
   height: 75%;
   width: 100%;
 
@@ -37,7 +34,8 @@
   align-items: center;
 }
 
-.Admin-Bar-Button, .Admin-Account-Buttons{
+.Admin-Bar-Button,
+.Admin-Account-Buttons {
   height: 10%;
   width: 100%;
 
@@ -52,16 +50,19 @@
   color: white;
 
   font-size: 0.75rem;
-  border:0;
+  border: 0;
 }
 
-.Bar-Image, .Account-Image{
+.Bar-Image,
+.Account-Image {
   height: 55%;
   width: 100%;
   margin-bottom: 10%;
+
+  font-size: 5rem;
 }
 
-.Admin-Bar-Account{
+.Admin-Bar-Account {
   height: 25%;
   width: 100%;
   background-color: var(--darkBlue);
@@ -70,21 +71,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
-.Admin-Account-Buttons{
+.Admin-Account-Buttons {
   height: 35%;
   width: 100%;
 }
 
-.Account-Image{
+.Account-Image {
   height: 50%;
 }
 
-.Admin-Content-Bar{
+.Admin-Content-Bar {
   height: 15%;
-  width: 100%;
+  width: 93%;
 
   padding-left: 2%;
 
@@ -93,18 +93,98 @@
 
   font-size: 3rem;
   color: white;
+
+  /* border-bottom: 2px solid black; */
+
+  /* background-color: black; */
 }
 
+.Admin-Home-Content {
+  width: 100%;
+  height: 85%;
 
-.Ninja-Help{
-  color:white;
+  padding-top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Admin-Home-Form {
+  width: 50%;
+  height: 60%;
+
+  border-radius: 20px;
+  background-color: var(--darkBlue);
+
+  box-sizing: border-box;
+  padding: 1% 2%;
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.Form-Content {
+  height: 90%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 3%;
+
+  /* background-color: black; */
+}
+
+.Form-Input-Wrapper {
+  width: 80%;
+  height: 10%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 3%;
+}
+
+.Form-Label {
+  width: 50%;
+  height: 100%;
+
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding-left: 2%;
+}
+
+.Form-Input {
+  width: 50%;
+  height: 90%;
+  /* background-color: red; */
+
+  border-radius: 8px;
+
+  border: 0;
+}
+
+.Submit-Button {
+  height: 10%;
+  width: 25%;
+
+  border-radius: 10px;
+  border: 0;
+}
+
+.Ninja-Help {
+  color: white;
 
   height: 85%;
   width: 25%;
   background-color: rebeccapurple;
 }
-
-
-
-
-
