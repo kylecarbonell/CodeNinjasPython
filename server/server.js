@@ -219,6 +219,8 @@ app.post("/getUserStats", async (req, res) => {
   console.log(username);
 
   const dict = {};
+  const acts = [];
+  const actTopics = [];
 
   const topics = await act
     .collection("ActivityList")
@@ -235,19 +237,25 @@ app.post("/getUserStats", async (req, res) => {
     dict[topic] = [];
   }
 
+  // console.log(docs);
   for await (let doc of docs) {
-    // console.log(doc);
-    for await (let act of activities) {
-      // console.log(act);
-      let temp = dict[act.group];
-      console.log(doc.link, act.link);
-      if (act.link == doc.link) {
-        dict[act.group] = temp.push(doc);
-        break;
+    acts.push(doc);
+  }
+  // console.log(acts);
+  for await (let act of activities) {
+    actTopics.push(act);
+  }
+
+  // console.log(actTopics);
+  console.log("STARTING DOCS");
+  for (let i = 0; i < acts.length; i++) {
+    for (let j = 0; j < actTopics.length; j++) {
+      if (acts[i].link == actTopics[j].link) {
+        dict[actTopics[j].group].push(acts[i]);
       }
     }
   }
-
+  console.log("ENDING DOCS");
   console.log(dict);
 });
 
