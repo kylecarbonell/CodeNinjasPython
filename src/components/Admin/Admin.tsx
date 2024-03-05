@@ -12,36 +12,54 @@ function Admin() {
   const [users, setUsers] = useState<any>([]);
   const [reviews, setReviews] = useState<any>([]);
   const [tab, setTab] = useState("Home");
+  const [userData, setUserData] = useState()
+
+  const [search, setSearch] = useState("");
+
+
 
   const getReviews = async () => {
     const data = await fetch(`${call}/getAllReviews`);
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     setReviews(json);
   };
 
   const getUsers = async () => {
     const data = await fetch(`${call}/admin`);
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
 
     setUsers(json);
-    console.log(reviews);
+    // console.log(reviews);
   };
 
   const getUserData = async () => {
-    const data = { username: "kyle.carbonell" };
-    console.log(data);
+    console.log("GETTING")
+    // console.log(data);
     await fetch(`${call}/getUserStats`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+    }).then(async (res) => {
+      const json = await res.json()
+      setUserData(json)
+      // console.log(json)
     });
+
+
   };
 
   useEffect(() => {
     getUsers();
+    getReviews();
+    getUserData();
   }, []);
+
+  useEffect(() => {
+    getUsers();
+    getReviews();
+    getUserData();
+  }, [tab]);
 
   return (
     <>
@@ -61,7 +79,6 @@ function Admin() {
             <button
               className="Admin-Bar-Button"
               onClick={() => {
-                getReviews();
                 setTab("Reviews");
               }}
             >
@@ -71,7 +88,6 @@ function Admin() {
             <button
               className="Admin-Bar-Button"
               onClick={() => {
-                getUsers();
                 setTab("Ninjas");
               }}
             >
@@ -96,6 +112,15 @@ function Admin() {
               <IoIosAddCircleOutline className="Bar-Image" />
               Add Ninja
             </button>
+            <button
+              className="Admin-Bar-Button"
+              onClick={() => {
+                setTab("AddActivity");
+              }}
+            >
+              <IoIosAddCircleOutline className="Bar-Image" />
+              Add Activity
+            </button>
           </div>
           <div className="Admin-Bar-Account">
             <button className="Admin-Account-Buttons">
@@ -117,8 +142,18 @@ function Admin() {
         </div>
         <div className="Admin-Content-Wrapper">
           <div className="Admin-Content-Bar">
-            Hello, Sensei Kyle
-            {tab == "Ninjas" && <input />}
+            <div style={{ width: "50%" }}>Hello, Sensei Kyle</div>
+
+            <div className="Ninja-Search-Bar-Container">
+              {tab == "Ninjas" &&
+                <input style={{ width: "75%", height: "35%", fontSize: "1.5rem" }} type="Text"
+                  placeholder="Search Ninja"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                />}
+            </div>
+
           </div>
           {tab == "Home" && (
             <AdminHome users={users} setUsers={setUsers} getUsers={getUsers} />
@@ -130,23 +165,26 @@ function Admin() {
             <>
               <div className="Ninja-Container">
                 {users.map((user: any) => {
-                  return (
-                    <div className="Ninja-Item">
-                      <h1 className="Ninja-Item-Title">{user.name}</h1>
-                      <div className="Ninja-Item-Image" />
-                      <div className="Ninja-Item-Data">
-                        <h1></h1>
+                  if (user.name.toLowerCase().includes(search.toLowerCase())) {
+                    return (
+                      <div className="Ninja-Item">
+                        <h1 className="Ninja-Item-Title">{user.name}</h1>
+                        <div className="Ninja-Item-Image" />
+                        <div className="Ninja-Item-Data">
+                          <h1></h1>
+                        </div>
+                        <button
+                          className="Ninja-Item-Button"
+                          onClick={() => {
+                            getUserData();
+                          }}
+                        >
+                          View Ninja
+                        </button>
                       </div>
-                      <button
-                        className="Ninja-Item-Button"
-                        onClick={() => {
-                          getUserData();
-                        }}
-                      >
-                        View Ninja
-                      </button>
-                    </div>
-                  );
+                    );
+                  }
+
                 })}
               </div>
             </>

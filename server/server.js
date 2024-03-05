@@ -215,12 +215,14 @@ app.get("/getAllReviews", async (req, res) => {
 
 app.post("/getUserStats", async (req, res) => {
   console.log("HEHREH");
-  const username = req.body.username;
-  console.log(username);
+  // const username = req.body.username;
+  // console.log(username);
 
-  const dict = {};
-  const acts = [];
-  const actTopics = [];
+  let dict = {};
+  let acts = [];
+  let actTopics = [];
+  let userData = {};
+  let usernames = [];
 
   const topics = await act
     .collection("ActivityList")
@@ -230,33 +232,50 @@ app.post("/getUserStats", async (req, res) => {
     .collection("ActivityList")
     .find({ topicList: { $exists: false } });
 
-  const docs = await act.collection(username).find({});
+  const getNames = await act.listCollections().toArray();
 
-  console.log(topics.topicList);
-  for (let topic of topics.topicList) {
-    dict[topic] = [];
-  }
-
-  // console.log(docs);
-  for await (let doc of docs) {
-    acts.push(doc);
-  }
-  // console.log(acts);
   for await (let act of activities) {
     actTopics.push(act);
   }
 
-  // console.log(actTopics);
-  console.log("STARTING DOCS");
-  for (let i = 0; i < acts.length; i++) {
-    for (let j = 0; j < actTopics.length; j++) {
-      if (acts[i].link == actTopics[j].link) {
-        dict[actTopics[j].group].push(acts[i]);
+  for await (let name of getNames) {
+    usernames.push(name.name);
+  }
+
+  // console.log("USERS", usernames);
+  for (let username of usernames) {
+    if (username == "ActivityList") {
+      continue;
+    }
+    const docs = await act.collection(username).find({});
+    // console.log(username);
+
+    for (let topic of topics.topicList) {
+      dict[topic] = [];
+    }
+
+    for await (let doc of docs) {
+      acts.push(doc);
+    }
+
+    // console.log("STARTING DOCS");
+    for (let i = 0; i < acts.length; i++) {
+      for (let j = 0; j < actTopics.length; j++) {
+        if (acts[i].link == actTopics[j].link) {
+          dict[actTopics[j].group].push(acts[i]);
+        }
       }
     }
+    // console.log("ENDING DOCS");
+    userData[username] = dict;
+
+    dict = {};
+    acts = [];
+
+    // console.log(userData);
   }
-  console.log("ENDING DOCS");
-  console.log(dict);
+  // console.log("DONEDONE");
+  res.send(userData);
 });
 
 const start = async () => {
