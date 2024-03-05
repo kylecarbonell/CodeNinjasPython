@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { call } from "../../../server/Data/data";
+
 
 interface props {
   users: any;
@@ -43,7 +45,6 @@ function AdminAdd(props: props) {
     console.log(data);
 
     // const call = "https://codeninjaspython.onrender.com";
-    const call = "http://localhost:8000";
 
     console.log("Working on creating user");
     await fetch(`${call}/create`, {

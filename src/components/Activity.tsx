@@ -5,6 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
 
 import Editor from "@monaco-editor/react";
+import { call, pythonCall } from "../../server/Data/data";
 
 function Activity(this: any) {
   var { state } = useLocation();
@@ -21,8 +22,7 @@ function Activity(this: any) {
   const nav = useNavigate();
 
   async function submit() {
-    // console.log(state.activity);
-    const data = await fetch("https://codeninjaspython.onrender.com/submit");
+    const data = await fetch(`${call}/submit`);
     const json = await data.json();
     console.log(json);
     console.log("Inside submit");
@@ -37,7 +37,6 @@ function Activity(this: any) {
     };
 
     // const call = "http://localhost:8000";
-    const call = "https://codeninjaspython.onrender.com";
     console.log(call);
     setLoading(true);
     await fetch(`${call}/saveCode`, {
@@ -56,8 +55,6 @@ function Activity(this: any) {
   }
 
   async function getUser() {
-    // const call = "http://localhost:8000";
-    const call = "https://codeninjaspython.onrender.com";
     const data = await fetch(
       `${call}/getUser?name=${window.sessionStorage.getItem(
         "user"
@@ -71,13 +68,10 @@ function Activity(this: any) {
 
   const execute = async () => {
     console.log(code);
-    // const call = "http://127.0.0.1:5000/execute";
-    const call = `https://codeninjaspythonserver.onrender.com/execute`;
-
     // console.log(code);
     const data = { code: code };
 
-    const test = await fetch(call, {
+    const test = await fetch(`${pythonCall}/execute`, {
       method: "post",
       body: JSON.stringify(data),
     });
@@ -87,10 +81,6 @@ function Activity(this: any) {
     console.log("code", obj.output);
     setRun([...run, Object(json)]);
   };
-
-  useEffect(() => {
-    console.log(run);
-  }, [run]);
 
   useEffect(() => {
     window.localStorage.setItem("code", code);

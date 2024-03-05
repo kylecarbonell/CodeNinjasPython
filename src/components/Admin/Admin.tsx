@@ -6,13 +6,14 @@ import AdminHome from "./AdminHome";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import AdminAdd from "./AdminAdd";
 
+import { call } from "../../../server/Data/data";
+
 function Admin() {
   const [users, setUsers] = useState<any>([]);
   const [reviews, setReviews] = useState<any>([]);
-  const [tab, setTab] = useState("");
+  const [tab, setTab] = useState("Home");
 
   const getReviews = async () => {
-    const call = "http://localhost:8000";
     const data = await fetch(`${call}/getAllReviews`);
     const json = await data.json();
     console.log(json);
@@ -20,11 +21,7 @@ function Admin() {
   };
 
   const getUsers = async () => {
-    console.log("HRE IN CALL");
-    // const call = "https://codeninjaspython.onrender.com"
-    const call = "http://localhost:8000";
     const data = await fetch(`${call}/admin`);
-
     const json = await data.json();
     console.log(json);
 
@@ -125,7 +122,9 @@ function Admin() {
                 {users.map((user: any) => {
                   return (
                     <div className="Ninja-Item">
-                      <h1>{user.username}</h1>
+                      <h1>{user.name}</h1>
+                      have button to click
+                      on click = fetch activities from ninja to look at each one
                     </div>
                   );
                 })}

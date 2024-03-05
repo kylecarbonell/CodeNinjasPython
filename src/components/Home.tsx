@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import "./Home.css";
-import {} from "react-dropdown";
+import { } from "react-dropdown";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 
 import { Link, useNavigate } from "react-router-dom";
 
 import { getData } from "../Data";
+import { call } from "../../server/Data/data";
+
 
 function Home() {
   const [dropdownOn, setOn] = useState(false);
@@ -32,8 +34,6 @@ function Home() {
   };
 
   async function getStars() {
-    // const call = "http://localhost:8000";
-    const call = "https://codeninjaspython.onrender.com";
 
     const data = await fetch(
       `${call}/getStars?name=${window.sessionStorage.getItem("user")}`
@@ -45,6 +45,7 @@ function Home() {
     setStars(Object.entries(json));
   }
 
+  /**FIXME */
   const logout = async (e: any) => {
     e.preventDefault();
     window.sessionStorage.setItem("user", "");
@@ -119,8 +120,8 @@ function Home() {
                     </button>
                   </li>
                   {index == key &&
-                  activities[index].length > 0 &&
-                  dropdownOn ? (
+                    activities[index].length > 0 &&
+                    dropdownOn ? (
                     <div
                       className="Activities-Dropdown-Wrapper"
                       style={{ height: `${115 * activities[index].length}px` }}

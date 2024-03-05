@@ -36,25 +36,16 @@ app.get("/instructions", async (req, res) => {
  */
 app.post("/login", async (req, res) => {
   const username = req.body.username;
-  const names = await act.listCollections().toArray();
-  const signedIn = await db
-    .collection("Python")
-    .findOne({ username: username });
-  if (signedIn.signedIn == true) {
-    let found = false;
-    for (let j = 0; j < names.length; j += 1) {
-      console.log(names[j]);
-      if (names[j].name == username) {
-        res.status(200).send("Account Found");
-        found = true;
-      }
-    }
-    if (!found) {
-      res.status(202).send("User not found");
+  const user = await db.collection("Python").findOne({ username: username });
+  if (user == null) {
+    res.status(202).send("User not found");
+  } else {
+    if (user.signedIn == true) {
+      res.sendStatus(200);
+    } else {
+      res.status(201).send("Please checkin again");
     }
   }
-
-  res.status(201).send("Please checkin again");
 });
 
 /**

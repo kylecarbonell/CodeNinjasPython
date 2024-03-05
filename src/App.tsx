@@ -1,20 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import { useNavigate } from "react-router-dom";
+import { call } from "../server/Data/data";
+
 
 function App() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const nav = useNavigate();
 
+  useEffect(() => {
+    let inter = setInterval(() => {
+      setError("")
+    }, 10000)
+
+    window.addEventListener("beforeunload", () => {
+      clearInterval(inter)
+    })
+  })
+
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
     console.log("SUBMITTING");
 
     const data = { username: name, signIn: signIn };
-    // const call = "https://codeninjaspython.onrender.com"
-    const call = "http://localhost:8000";
     await fetch(`${call}/login`, {
       method: "post",
       headers: { "Content-Type": "application/json" },

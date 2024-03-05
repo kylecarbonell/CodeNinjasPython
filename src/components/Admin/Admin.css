@@ -202,8 +202,12 @@
 }
 
 .Ninja-Item {
-  border: 1px solid black;
-  box-sizing: border-box;
+  background-color: white;
+
   border-radius: 20px;
   margin-bottom: 10%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
