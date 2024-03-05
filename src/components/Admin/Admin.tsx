@@ -32,7 +32,7 @@ function Admin() {
   const getUserData = async () => {
     const data = { username: "kyle.carbonell" };
     console.log(data);
-    const doc = await fetch(`${call}/getUserStats`, {
+    await fetch(`${call}/getUserStats`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
