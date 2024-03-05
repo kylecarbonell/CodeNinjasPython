@@ -211,3 +211,24 @@
   flex-direction: column;
   align-items: center;
 }
+
+.Ninja-Item-Image {
+  height: 30%;
+  width: 100%;
+
+  background-color: black;
+
+  border: 0;
+}
+
+.Ninja-Item-Data {
+  height: 40%;
+  width: 100%;
+  background-color: blue;
+}
+
+.Ninja-Item-Button {
+  height: 10%;
+  width: 50%;
+  margin-top: 1%;
+}

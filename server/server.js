@@ -213,8 +213,42 @@ app.get("/getAllReviews", async (req, res) => {
   res.json(reviews);
 });
 
-app.post("/createUser", async (req, res) => {
-  console.log(req.body);
+app.post("/getUserStats", async (req, res) => {
+  console.log("HEHREH");
+  const username = req.body.username;
+  console.log(username);
+
+  const dict = {};
+
+  const topics = await act
+    .collection("ActivityList")
+    .findOne({ topicList: { $exists: true } });
+
+  const activities = await act
+    .collection("ActivityList")
+    .find({ topicList: { $exists: false } });
+
+  const docs = await act.collection(username).find({});
+
+  console.log(topics.topicList);
+  for (let topic of topics.topicList) {
+    dict[topic] = [];
+  }
+
+  for await (let doc of docs) {
+    // console.log(doc);
+    for await (let act of activities) {
+      // console.log(act);
+      let temp = dict[act.group];
+      console.log(doc.link, act.link);
+      if (act.link == doc.link) {
+        dict[act.group] = temp.push(doc);
+        break;
+      }
+    }
+  }
+
+  console.log(dict);
 });
 
 const start = async () => {

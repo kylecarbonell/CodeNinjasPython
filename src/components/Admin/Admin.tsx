@@ -29,6 +29,16 @@ function Admin() {
     console.log(reviews);
   };
 
+  const getUserData = async () => {
+    const data = { username: "kyle.carbonell" };
+    console.log(data);
+    const doc = await fetch(`${call}/getUserStats`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -122,9 +132,19 @@ function Admin() {
                 {users.map((user: any) => {
                   return (
                     <div className="Ninja-Item">
-                      <h1>{user.name}</h1>
-                      have button to click
-                      on click = fetch activities from ninja to look at each one
+                      <h1 className="Ninja-Item-Title">{user.name}</h1>
+                      <div className="Ninja-Item-Image" />
+                      <div className="Ninja-Item-Data">
+                        <h1></h1>
+                      </div>
+                      <button
+                        className="Ninja-Item-Button"
+                        onClick={() => {
+                          getUserData();
+                        }}
+                      >
+                        View Ninja
+                      </button>
                     </div>
                   );
                 })}
