@@ -7,22 +7,22 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import AdminAdd from "./AdminAdd";
 
 import { call } from "../../../server/Data/data";
+import AdminNinja from "./AdminNinja";
 
 function Admin() {
   const [users, setUsers] = useState<any>([]);
   const [reviews, setReviews] = useState<any>([]);
   const [tab, setTab] = useState("Home");
-  const [userData, setUserData] = useState()
+  const [userData, setUserData] = useState<any>({});
 
   const [search, setSearch] = useState("");
-
-
 
   const getReviews = async () => {
     const data = await fetch(`${call}/getAllReviews`);
     const json = await data.json();
     // console.log(json);
     setReviews(json);
+    console.log(reviews);
   };
 
   const getUsers = async () => {
@@ -35,18 +35,21 @@ function Admin() {
   };
 
   const getUserData = async () => {
-    console.log("GETTING")
+    console.log("GETTING");
     // console.log(data);
     await fetch(`${call}/getUserStats`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
     }).then(async (res) => {
-      const json = await res.json()
-      setUserData(json)
+      const json = await res.json();
+      setUserData(json);
       // console.log(json)
     });
+  };
 
-
+  const getNinja = (link: string) => {
+    const data = userData[link];
+    console.log(data);
   };
 
   useEffect(() => {
@@ -114,8 +117,13 @@ function Admin() {
             </button>
             <button
               className="Admin-Bar-Button"
-              onClick={() => {
+              onClick={async () => {
                 setTab("AddActivity");
+
+                // await fetch(`${call}/createActivities`, {
+                //   method: "post",
+                //   headers: { "Content-Type": "application/json" },
+                // });
               }}
             >
               <IoIosAddCircleOutline className="Bar-Image" />
@@ -145,15 +153,17 @@ function Admin() {
             <div style={{ width: "50%" }}>Hello, Sensei Kyle</div>
 
             <div className="Ninja-Search-Bar-Container">
-              {tab == "Ninjas" &&
-                <input style={{ width: "75%", height: "35%", fontSize: "1.5rem" }} type="Text"
+              {tab == "Ninjas" && (
+                <input
+                  style={{ width: "75%", height: "35%", fontSize: "1.5rem" }}
+                  type="Text"
                   placeholder="Search Ninja"
                   onChange={(e) => {
                     setSearch(e.target.value);
                   }}
-                />}
+                />
+              )}
             </div>
-
           </div>
           {tab == "Home" && (
             <AdminHome users={users} setUsers={setUsers} getUsers={getUsers} />
@@ -162,30 +172,33 @@ function Admin() {
             <AdminAdd users={users} getUsers={getUsers} setTab={setTab} />
           )}
           {tab == "Ninjas" && (
-            <>
-              <div className="Ninja-Container">
-                {users.map((user: any) => {
-                  if (user.name.toLowerCase().includes(search.toLowerCase())) {
-                    return (
-                      <div className="Ninja-Item">
-                        <h1 className="Ninja-Item-Title">{user.name}</h1>
-                        <div className="Ninja-Item-Image" />
-                        <div className="Ninja-Item-Data">
-                          <h1></h1>
-                        </div>
-                        <button
-                          className="Ninja-Item-Button"
-                          onClick={() => {
-                            getUserData();
-                          }}
-                        >
-                          View Ninja
-                        </button>
-                      </div>
-                    );
-                  }
+            <AdminNinja
+              users={users}
+              getNinja={getNinja}
+              search={search}
+              setSearch={setSearch}
+            ></AdminNinja>
+          )}
 
-                })}
+          {tab == "Reviews" && (
+            <>
+              <div className="Review-Container">
+                <div className="Review-Filter-Bar"></div>
+                <div className="Review-Content-Container">
+                  {reviews.map((rev: any) => {
+                    console.log(rev);
+                    if (rev.submitted) {
+                      return (
+                        <>
+                          <div className="Review-Item">
+                            <h1>{rev.author}</h1>
+                            <h2>{rev.name}</h2>
+                          </div>
+                        </>
+                      );
+                    }
+                  })}
+                </div>
               </div>
             </>
           )}

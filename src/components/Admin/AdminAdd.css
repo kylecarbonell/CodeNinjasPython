@@ -1,0 +1,62 @@
+.Form-Content {
+  height: 90%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 3%;
+
+  /* background-color: black; */
+}
+
+.Form-Input-Wrapper {
+  width: 80%;
+  height: 10%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 3%;
+}
+
+.Form-Label {
+  width: 50%;
+  height: 100%;
+
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding-left: 2%;
+}
+
+.Form-Input {
+  width: 50%;
+  height: 90%;
+  /* background-color: red; */
+
+  border-radius: 8px;
+
+  border: 0;
+}
+
+.Submit-Button {
+  height: 10%;
+  width: 25%;
+
+  border-radius: 10px;
+  border: 0;
+}
+
+.Ninja-Help {
+  color: white;
+
+  height: 85%;
+  width: 25%;
+  background-color: rebeccapurple;
+}

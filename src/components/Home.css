@@ -168,7 +168,7 @@
   padding-right: 1.5%;
 }
 
-.Link-Title{
+.Link-Title {
   width: 50%;
   /* background-color: blue; */
   height: 100%;
@@ -177,7 +177,7 @@
   align-items: center;
 }
 
-.Link-Stars{
+.Link-Stars {
   width: 50%;
   /* background-color: rebeccapurple; */
   height: 100%;
@@ -185,11 +185,9 @@
   display: flex;
   justify-content: end;
   align-items: center;
-
-  
 }
 
-.Star{
+.Star {
   rotate: 20deg;
 }
 

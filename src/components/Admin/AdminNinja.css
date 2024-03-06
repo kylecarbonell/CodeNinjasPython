@@ -1,0 +1,61 @@
+.Ninja-Container {
+  /* background-color: white; */
+  height: 85%;
+
+  display: grid;
+  grid-template-rows: repeat(3, 450px);
+
+  grid-template-columns: repeat(auto-fill, 300px);
+  column-gap: 30px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  overflow-y: scroll;
+}
+
+.Ninja-Item {
+  background-color: white;
+
+  border-radius: 20px;
+  margin-bottom: 10%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Ninja-Item-Image {
+  height: 30%;
+  width: 100%;
+
+  background-color: black;
+
+  border: 0;
+}
+
+.Ninja-Item-Data {
+  height: 40%;
+  width: 100%;
+  background-color: blue;
+}
+
+.Ninja-Item-Button {
+  height: 10%;
+  width: 50%;
+  margin-top: 1%;
+  margin-bottom: 1%
+}
+
+.Ninja-Search-Bar-Container{
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  box-sizing: border-box;
+  /* padding: 0 10%; */
+  /* background-color: black ; */
+
+}

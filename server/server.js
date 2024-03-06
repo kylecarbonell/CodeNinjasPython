@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import { db, act } from "./Mongo.mjs";
-import { activitySchema } from "./Data/Schema.mjs";
+import { activitySchema, activityTemplate } from "./Data/Schema.mjs";
 
 const app = express();
 
@@ -23,7 +23,17 @@ const con = process.env.REACT_APP_MONGO_CON;
 const PORT = process.env.REACT_APP_SERVER_PORT;
 let i = 0;
 
-app.get("/submit", async (req, res) => {});
+app.post("/submit", async (req, res) => {
+  const username = req.body.username;
+  console.log(username);
+  const link = req.body.link;
+
+  await act
+    .collection(username)
+    .updateOne({ link: link }, { $set: { submitted: true } });
+
+  res.sendStatus(200);
+});
 
 app.get("/instructions", async (req, res) => {
   res.send("instructions");
@@ -82,16 +92,17 @@ app.post("/create", async (req, res) => {
  */
 app.post("/createDoc", async (req, res) => {
   const username = req.body.username;
+  const name = req.body.name;
 
   const names = await act.listCollections().toArray();
   let found = false;
   for (let j = 0; j < names.length; j += 1) {
     found = true;
     if (names[j].name == username) {
-      for (let i = 1; i <= 32; i += 1) {
+      for (let i = 1; i <= 38; i += 1) {
         const addDoc = await act
           .collection(username)
-          .insertOne(activitySchema(i, username));
+          .insertOne(activitySchema(i, username, name));
         // console.log("ADDING DOC ", i);
       }
     }
@@ -107,12 +118,10 @@ app.post("/createDoc", async (req, res) => {
 app.get("/getActivities", async (req, res) => {
   console.log("HERE IN ACT");
   const topics = await act
-    .collection("ActivityList")
+    .collection("Topics")
     .findOne({ topicList: { $exists: true } });
 
-  const docs = act
-    .collection("ActivityList")
-    .find({ topicList: { $exists: false } });
+  const docs = act.collection("ActivityList").find({});
 
   const topicList = {};
 
@@ -197,7 +206,7 @@ app.get("/getAllReviews", async (req, res) => {
   const namesArr = [];
   const reviews = [];
   for (const i of names) {
-    if (i.name != "ActivityList") {
+    if (i.name != "ActivityList" && i.name != "Topics") {
       namesArr.push(i.name);
       console.log(namesArr);
     }
@@ -225,12 +234,10 @@ app.post("/getUserStats", async (req, res) => {
   let usernames = [];
 
   const topics = await act
-    .collection("ActivityList")
+    .collection("Topics")
     .findOne({ topicList: { $exists: true } });
 
-  const activities = await act
-    .collection("ActivityList")
-    .find({ topicList: { $exists: false } });
+  const activities = await act.collection("ActivityList").find({});
 
   const getNames = await act.listCollections().toArray();
 
@@ -276,6 +283,15 @@ app.post("/getUserStats", async (req, res) => {
   }
   // console.log("DONEDONE");
   res.send(userData);
+});
+
+app.post("/createActivities", async (req, res) => {
+  for (let i = 1; i <= 38; i += 1) {
+    const addDoc = await act
+      .collection("ActivityList")
+      .insertOne(activityTemplate(i));
+    // console.log("ADDING DOC ", i);
+  }
 });
 
 const start = async () => {

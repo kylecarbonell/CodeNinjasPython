@@ -1,10 +1,8 @@
+import { call } from "../server/Data/data";
+
 let topics: any = null;
 let activities: any = null;
 async function getActivity() {
-  console.log("In Activity");
-  // const call = "http://localhost:8000";
-  const call = "https://codeninjaspython.onrender.com";
-  console.log(call);
   const data = await fetch(`${call}/getActivities`);
   const json = await data.json().then((res) => {
     return {

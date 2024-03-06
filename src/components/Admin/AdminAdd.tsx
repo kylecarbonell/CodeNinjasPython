@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { call } from "../../../server/Data/data";
-
+import "./AdminAdd.css";
 
 interface props {
   users: any;
@@ -56,14 +56,14 @@ function AdminAdd(props: props) {
       if (status == 200) {
         const text = await res.text();
         console.log(text);
-        createDoc(data.username);
+        createDoc(data.username, data.name);
       }
     });
   };
 
-  const createDoc = async (username: string) => {
+  const createDoc = async (username: string, name: string) => {
     console.log("In the admin req");
-    const data = { username: username };
+    const data = { username: username, name: name };
 
     // const call = "https://codeninjaspython.onrender.com";
     const call = "http://localhost:8000";

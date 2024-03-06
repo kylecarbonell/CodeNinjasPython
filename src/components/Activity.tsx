@@ -22,9 +22,15 @@ function Activity(this: any) {
   const nav = useNavigate();
 
   async function submit() {
-    const data = await fetch(`${call}/submit`);
-    const json = await data.json();
-    console.log(json);
+    const data = {
+      username: window.sessionStorage.getItem("user"),
+      link: window.sessionStorage.getItem("link"),
+    };
+    await fetch(`${call}/submit`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
     console.log("Inside submit");
   }
 
