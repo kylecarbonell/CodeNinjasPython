@@ -9,8 +9,6 @@ interface props {
 }
 
 function AdminAdd(props: props) {
-  const [pythonCheck, setPythonCheck] = useState(false);
-  const [jsCheck, setJsCheck] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const submitAddForm = async (e: any) => {
@@ -44,7 +42,6 @@ function AdminAdd(props: props) {
 
     console.log(data);
 
-    // const call = "https://codeninjaspython.onrender.com";
 
     console.log("Working on creating user");
     await fetch(`${call}/create`, {
@@ -64,9 +61,6 @@ function AdminAdd(props: props) {
   const createDoc = async (username: string, name: string) => {
     console.log("In the admin req");
     const data = { username: username, name: name };
-
-    // const call = "https://codeninjaspython.onrender.com";
-    const call = "http://localhost:8000";
 
     await fetch(`${call}/createDoc`, {
       method: "post",
@@ -116,35 +110,6 @@ function AdminAdd(props: props) {
                 className="Form-Input"
                 placeholder="Parent"
                 type="text"
-              />
-            </div>
-            <div className="Form-Input-Wrapper">
-              <h1 className="Form-Label" style={{ marginRight: "10%" }}>
-                Class:{" "}
-              </h1>
-              <h1 style={{ fontSize: "1.5rem" }}>Python</h1>
-              <input
-                name="Python-Button"
-                className="Form-Input"
-                placeholder="John Doe"
-                type="checkbox"
-                style={{ marginLeft: "-10%" }}
-                defaultValue={"false"}
-                onClick={() => {
-                  setPythonCheck(!pythonCheck);
-                }}
-              />
-              <h1 style={{ fontSize: "1.5rem" }}>Javascript</h1>
-              <input
-                name="Javascript-Button"
-                className="Form-Input"
-                placeholder="John Doe"
-                type="checkbox"
-                defaultValue={"false"}
-                style={{ marginLeft: "-10%" }}
-                onClick={() => {
-                  setJsCheck(!jsCheck);
-                }}
               />
             </div>
             {!loading && <button className="Submit-Button">Submit</button>}

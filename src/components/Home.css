@@ -5,6 +5,7 @@
   justify-content: start;
 
   position: absolute;
+  overflow-y: hidden;
 
   left: 0px;
   right: 0px;
@@ -79,35 +80,48 @@
   margin-left: 0;
   padding-left: 0;
 
+  background-color: white;
   overflow-y: scroll;
 
-  background-color: white;
 }
 
 .Activities-List {
-  height: 800px;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
 
-  background-color: white;
-}
-
-.Activities-List {
   margin-left: 0;
   padding-left: 0;
 
   padding-top: 1%;
+
+
+  display: grid;
+  grid-template-columns: 100%;
+  /* grid-template-rows: 15%; */
+  row-gap: 0.5%;
+  justify-items: center; 
+
+
+}
+
+.Activity-Dropdown-Container{
+  height: 100px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Activity-Dropdown {
   background-color: white;
-  height: 12%;
+  height: 100px;
   width: 80%;
 
   padding: 0;
-  margin-bottom: 0.5%;
+  margin-bottom: 10px;
 
   display: flex;
   flex-direction: row;
@@ -119,6 +133,8 @@
 
   border: 1px solid black;
   box-shadow: 0px 0px 3px 1.5px grey;
+
+  
 }
 
 .Activity-Name {
@@ -132,22 +148,28 @@
   height: 50%;
   width: 5%;
   border: 0;
+
+  background-color: transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Activities-Dropdown-Wrapper {
-  /* height: px; */
+  height: 150px;
+  max-height: 150px;
   width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: space-around;
+  
 }
 
 .Activity-Link {
+  height: 75px;
   width: 90%;
   border-radius: 20px;
   border: 0;
-  margin-bottom: 1%;
+  margin-bottom: 10px;
+  margin-left: 7%;
 
   font-size: 2rem;
   display: flex;
