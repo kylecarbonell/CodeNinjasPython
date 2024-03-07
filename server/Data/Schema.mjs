@@ -9,6 +9,8 @@ const activitySchema = (i, username, author) => {
     name: `Activity ${i}`,
     link: `activity${i}`,
 
+    // group: getGroup(i),
+
     grade: new Double(-1.0),
     sensei: "",
     comments: "",
@@ -18,7 +20,7 @@ const activitySchema = (i, username, author) => {
   return temp;
 };
 
-const activityTemplate = (i) => {
+const getGroup = (i) => {
   let topicName = "";
   const topicArr = Object.keys(activityTopics);
   for (let num = 0; num <= topicArr.length; num++) {
@@ -30,9 +32,13 @@ const activityTemplate = (i) => {
     }
   }
 
+  return topicName;
+};
+
+const activityTemplate = (i) => {
   const temp = {
     link: `activity${i}`,
-    group: topicName,
+    group: getGroup(i),
     activity: `Activity ${i}`,
   };
 

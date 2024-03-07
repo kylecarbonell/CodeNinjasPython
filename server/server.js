@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import { db, act } from "./Mongo.mjs";
-import { activitySchema, activityTemplate } from "./Data/Schema.mjs";
+import { activitySchema } from "./Data/Schema.mjs";
 
 const app = express();
 
@@ -249,11 +249,11 @@ app.post("/getUserStats", async (req, res) => {
     usernames.push(name.name);
   }
 
-  // console.log("USERS", usernames);
   for (let username of usernames) {
-    if (username == "ActivityList") {
+    if (username == "ActivityList" || username == "Topics") {
       continue;
     }
+
     const docs = await act.collection(username).find({});
     // console.log(username);
 
@@ -290,7 +290,6 @@ app.post("/createActivities", async (req, res) => {
     const addDoc = await act
       .collection("ActivityList")
       .insertOne(activityTemplate(i));
-    // console.log("ADDING DOC ", i);
   }
 });
 

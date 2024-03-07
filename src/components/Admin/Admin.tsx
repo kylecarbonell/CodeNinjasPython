@@ -82,6 +82,7 @@ function Admin() {
             <button
               className="Admin-Bar-Button"
               onClick={() => {
+                console.log("USERSGUY:", userData)
                 setTab("Reviews");
               }}
             >
@@ -186,7 +187,7 @@ function Admin() {
                 <div className="Review-Filter-Bar"></div>
                 <div className="Review-Content-Container">
                   {reviews.map((rev: any) => {
-                    console.log(rev);
+                    // console.log(rev);
                     if (rev.submitted) {
                       return (
                         <>
