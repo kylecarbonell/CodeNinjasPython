@@ -3,6 +3,8 @@ import "./Home.css";
 import { } from "react-dropdown";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
+import { CiLock } from "react-icons/ci";
+
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,10 +16,11 @@ function Home() {
   const [index, setIndex] = useState(-1);
 
   const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState<any>({})
 
   const [topics, setTopics] = useState<any>([]);
   const [stars, setStars] = useState<any>([]);
-  // const [topics, setTopics] = useState<String[]>([]);
+
   const [activities, setActivities] = useState<String[][]>([[]]);
 
   const nav = useNavigate();
@@ -57,8 +60,10 @@ function Home() {
   useEffect(() => {
     console.log("GETTING ALL DATA");
     getData().then((data) => {
+      console.log("THIS IS DATA", data)
       setTopics(data.topics);
       setActivities(data.activities);
+      setUserData(data.userData)
     });
 
     getStars();
@@ -92,7 +97,7 @@ function Home() {
             className="Activities-List"
           >
             {topics.map((topic: any, key: number) => {
-              console.log(activities)
+              // console.log(activities)
               return (
                 <>
                   <div className="Activity-Dropdown-Container"
@@ -100,22 +105,32 @@ function Home() {
                   // style={key == index ? { height: "auto" } : {}}
                   >
                     <li className="Activity-Dropdown" key={key}>
+
+
                       <div className="Activity-Name" key={topic}>
                         {topic}
                       </div>
-                      <button
-                        className="Dropdown-Button"
-                        key={key}
-                        onClick={() => {
-                          openDrop(key);
-                        }}
-                      >
-                        {key == index ? (
-                          <TiArrowSortedUp style={{ fontSize: "3rem" }} />
-                        ) : (
-                          <TiArrowSortedDown style={{ fontSize: "3rem" }} />
-                        )}
-                      </button>
+                      {
+                        key + 1 > userData.level ?
+                          <CiLock className="Dropdown-Button  " />
+                          : <button
+                            className="Dropdown-Button"
+                            key={key}
+                            onClick={() => {
+                              if (key + 1 <= userData.level) {
+                                openDrop(key);
+                              }
+
+                            }}
+                          >
+                            {key == index ? (
+                              <TiArrowSortedUp style={{ fontSize: "3rem" }} />
+                            ) : (
+                              <TiArrowSortedDown style={{ fontSize: "3rem" }} />
+                            )}
+                          </button>
+
+                      }
                     </li>
                     {index == key &&
                       activities[index].length > 0 &&

@@ -116,28 +116,27 @@ app.post("/createDoc", async (req, res) => {
 });
 
 app.get("/getActivities", async (req, res) => {
-  console.log("HERE IN ACT");
+  const username = req.query.name;
+
   const topics = await act
     .collection("Topics")
     .findOne({ topicList: { $exists: true } });
 
   const docs = act.collection("ActivityList").find({});
 
+  const user = await db.collection("Python").findOne({ username: username });
+  console.log(user);
   const topicList = {};
 
   for (const i of topics.topicList) {
     topicList[i] = [];
   }
 
-  // console.log(topicList);
-
   for await (const doc of docs) {
     topicList[doc.group].push(doc);
-    // console.log("THIS IS DICT");
-    // console.log(topicList);
   }
 
-  res.json({ topics: topicList });
+  res.json({ topics: topicList, userData: user });
 });
 
 app.get("/getUser", async (req, res) => {

@@ -258,7 +258,7 @@ function Activity(this: any) {
               {/* Grading */}
               {tabIndex == 2 && (
                 <div className="Grade-Panel">
-                  <h1>Grade</h1>
+                  <h1>Have test cases here, send if all tests complete to be graded</h1>
                 </div>
               )}
             </div>

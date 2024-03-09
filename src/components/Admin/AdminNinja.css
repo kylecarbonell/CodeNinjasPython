@@ -1,5 +1,5 @@
 .Ninja-Container {
-  /* background-color: white; */
+  background-color: gray;
   height: 85%;
 
   display: grid;
@@ -11,39 +11,52 @@
   justify-content: space-evenly;
 
   overflow-y: scroll;
+
+  box-sizing: border-box;
+  padding: 20px
 }
 
 .Ninja-Item {
+  height: 100%;
+  width: 100%;
   background-color: white;
 
   border-radius: 20px;
   margin-bottom: 10%;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 20% 40% 20% 20%;
 }
 
-.Ninja-Item-Image {
-  height: 30%;
+.Ninja-Item-Title{
+  align-self: center;
+  justify-self: center;
+}
+
+.Ninja-Item-Graph {
+  height: 100%;
   width: 100%;
 
-  background-color: black;
 
   border: 0;
+
+  background-color: black;
 }
 
 .Ninja-Item-Data {
-  height: 40%;
+  height: 100%;
   width: 100%;
   background-color: blue;
 }
 
 .Ninja-Item-Button {
-  height: 10%;
+  height: 75%;
   width: 50%;
   margin-top: 1%;
-  margin-bottom: 1%
+  margin-bottom: 1%;
+  align-self: center;
+  justify-self: center;
 }
 
 .Ninja-Search-Bar-Container{

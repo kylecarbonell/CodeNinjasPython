@@ -16,7 +16,7 @@ function AdminNinja(props: props) {
             return (
               <div className="Ninja-Item">
                 <h1 className="Ninja-Item-Title">{user.name}</h1>
-                <div className="Ninja-Item-Image" />
+                <div className="Ninja-Item-Graph"></div>
                 <div className="Ninja-Item-Data">
                   <h1></h1>
                 </div>

@@ -57,6 +57,8 @@
   background-color: var(--lightBlue);
 }
 
+
+
 .Signout-Button {
   height: 40%;
   width: 15%;
@@ -116,16 +118,18 @@
 }
 
 .Activity-Dropdown {
-  background-color: white;
+  /* background-color: black; */
   height: 100px;
   width: 80%;
 
   padding: 0;
   margin-bottom: 10px;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display:grid; 
+  grid-template-columns: 90% 5%;
+  grid-template-rows: 100%;
+
+  justify-content: center;
   align-items: center;
 
   list-style: none;
@@ -133,20 +137,28 @@
 
   border: 1px solid black;
   box-shadow: 0px 0px 3px 1.5px grey;
+}
 
-  
+.Lock-Image{
+  background-color: gray;
+  width: 5%;
+  height: 50%;
+
+  font-size: 0.5rem;
 }
 
 .Activity-Name {
-  width: 50%;
+  width: 95%;
   font-size: 1.5rem;
   margin-left: 2%;
+
+
 }
 
 .Dropdown-Button {
   margin-right: 2%;
-  height: 50%;
-  width: 5%;
+  height: 100%;
+  width: 100%;
   border: 0;
 
   background-color: transparent;
