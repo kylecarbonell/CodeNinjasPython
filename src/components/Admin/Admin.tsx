@@ -8,12 +8,17 @@ import AdminAdd from "./AdminAdd";
 
 import { call } from "../../../server/Data/data";
 import AdminNinja from "./AdminNinja";
+import { getData } from "../../Data";
+
+import Draggable from "react-draggable";
 
 function Admin() {
   const [users, setUsers] = useState<any>([]);
   const [reviews, setReviews] = useState<any>([]);
   const [tab, setTab] = useState("Home");
   const [userData, setUserData] = useState<any>({});
+
+  const [topics, setTopics] = useState<any>([]);
 
   const [search, setSearch] = useState("");
 
@@ -56,6 +61,9 @@ function Admin() {
     getUsers();
     getReviews();
     getUserData();
+    getData().then((data) => {
+      setTopics(data.topics);
+    });
   }, []);
 
   useEffect(() => {
@@ -82,7 +90,7 @@ function Admin() {
             <button
               className="Admin-Bar-Button"
               onClick={() => {
-                console.log("USERSGUY:", userData)
+                console.log("USERSGUY:", userData);
                 setTab("Reviews");
               }}
             >
@@ -201,6 +209,44 @@ function Admin() {
                   })}
                 </div>
               </div>
+            </>
+          )}
+
+          {tab == "AddActivity" && (
+            <>
+              <Draggable
+                axis="y"
+                onStop={(e: any, ui) => {
+                  console.log("x:", ui.x);
+                  console.log("y:", ui.y);
+                }}
+              >
+                <div className="Activity-Item">
+                  <h1>HI</h1>
+                </div>
+              </Draggable>
+              <Draggable
+                axis="y"
+                onStop={(e: any, ui) => {
+                  console.log("x:", ui);
+                  console.log("y:", ui.y);
+                }}
+              >
+                <div className="Activity-Item">
+                  <h1>HI</h1>
+                </div>
+              </Draggable>
+              <Draggable
+                axis="y"
+                onStop={(e: any, ui) => {
+                  console.log("x:", ui.x);
+                  console.log("y:", ui.y);
+                }}
+              >
+                <div className="Activity-Item">
+                  <h1>HI</h1>
+                </div>
+              </Draggable>
             </>
           )}
         </div>
