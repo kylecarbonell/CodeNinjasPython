@@ -7,7 +7,7 @@
     "dev": "concurrently --kill-others \"npm run app\" \"npm run start\" \"npm run python\"",
     "app": "vite",
     "build": "tsc && vite build",
-    "python": "python python/app.py",
+    "python": "python3 python/app.py",
     "start": "nodemon server/server.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

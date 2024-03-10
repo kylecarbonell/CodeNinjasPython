@@ -149,7 +149,7 @@
   border: 0;
 }
 
-.Error-Message {
+.Login-Error-Message {
   height: 35%;
   width: 50%;
   background-color: white;
@@ -157,6 +157,9 @@
 
   margin-bottom: 3%;
   font-size: 0.75rem;
-
+/* 
+  display: flex;
+  justify-content: center;
+  align-items: center; */
   text-align: center;
 }

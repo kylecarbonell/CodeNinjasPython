@@ -77,11 +77,11 @@ function App() {
                 setName(e.target.value);
               }}
             />
-            {error != "" ? (
-              <div className="Error-Message">
+            {error != "" && (
+              <div className="Login-Error-Message">
                 <h1>{error}</h1>
               </div>
-            ) : null}
+            )}
 
             <button className="Login-Button">
               <h1>Log in</h1>
