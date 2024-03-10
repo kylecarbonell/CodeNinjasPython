@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 
 import puppeteer from "puppeteer-extra";
 import { db, act } from "./Mongo.mjs";
-import { activitySchema } from "./Data/Schema.mjs";
+import { activitySchema, activityTemplate } from "./Data/Schema.mjs";
 
 const app = express();
 
@@ -122,7 +122,7 @@ app.get("/getActivities", async (req, res) => {
     .collection("Topics")
     .findOne({ topicList: { $exists: true } });
 
-  const docs = act.collection("ActivityList").find({});
+  const docs = act.collection("ActivityList").find({}).sort({ position: 1 });
 
   const user = await db.collection("Python").findOne({ username: username });
   console.log(user);

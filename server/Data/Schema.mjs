@@ -22,24 +22,29 @@ const activitySchema = (i, username, author) => {
 
 const getGroup = (i) => {
   let topicName = "";
+  let position = -1;
   const topicArr = Object.keys(activityTopics);
   for (let num = 0; num <= topicArr.length; num++) {
     const val = activityTopics[topicArr[num]];
     console.log("KEY", val);
     if (i <= val["end"] && i >= val["start"]) {
       topicName = topicArr[num];
+      const length = val["end"] - val["start"] + 1;
+      position = length - (val["end"] - i) - 1;
       break;
     }
   }
 
-  return topicName;
+  return { topicName, position };
 };
 
 const activityTemplate = (i) => {
+  const val = getGroup(i);
   const temp = {
     link: `activity${i}`,
-    group: getGroup(i),
+    group: val.topicName,
     activity: `Activity ${i}`,
+    position: val.position,
   };
 
   return temp;
