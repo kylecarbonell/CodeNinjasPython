@@ -214,7 +214,7 @@ function Admin() {
           )}
 
           {tab == "AddActivity" && (
-            <Draggable />
+            
           )}
         </div>
       </div >
