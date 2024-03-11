@@ -8,10 +8,9 @@ import AdminAdd from "./AdminAdd";
 
 import { call } from "../../../server/Data/data";
 import AdminNinja from "./AdminNinja";
-import { getData } from "../../Data";
+import { getData, topics } from "../../Data";
 
-import Draggable from "react-draggable";
-import { act } from "react-dom/test-utils";
+import Dropdown from "react-dropdown";
 
 function Admin() {
   const [users, setUsers] = useState<any>([]);
@@ -19,7 +18,11 @@ function Admin() {
   const [tab, setTab] = useState("Home");
   const [userData, setUserData] = useState<any>({});
 
+  const [topics, setTopics] = useState<any>([]);
   const [activities, setActivities] = useState<any>([]);
+  const [index, setIndex] = useState(0);
+
+  const [openAdd, setOpenAdd] = useState(false);
 
   const [search, setSearch] = useState("");
 
@@ -41,13 +44,17 @@ function Admin() {
       return;
     }
 
-    const copyListItems = [...activities];
+    const fullList = [...activities];
+    const copyListItems = [...activities[index]];
     const dragItemContent = copyListItems[draggedItem.current];
     copyListItems.splice(draggedItem.current, 1);
     copyListItems.splice(draggedEnter.current, 0, dragItemContent);
+    fullList[index] = copyListItems;
+
     draggedItem.current = null;
     draggedEnter.current = null;
-    setActivities(copyListItems);
+
+    setActivities(fullList);
   };
 
   useEffect(() => {
@@ -80,6 +87,7 @@ function Admin() {
     }).then(async (res) => {
       const json = await res.json();
       setUserData(json);
+
       // console.log(json)
     });
   };
@@ -93,8 +101,9 @@ function Admin() {
     getUsers();
     getReviews();
     getUserData();
-    getData().then((data) => {
+    getData().then((data: any) => {
       setActivities(data.activities);
+      setTopics(data.topics);
     });
   }, []);
 
@@ -204,6 +213,34 @@ function Admin() {
                   }}
                 />
               )}
+              {tab == "AddActivity" && (
+                <>
+                  <Dropdown
+                    className="Add-Dropdown"
+                    options={topics}
+                    menuClassName="Open-Dropdown"
+                    onChange={(e) => {
+                      for (let i = 0; i < topics.length; i++) {
+                        if (topics[i] == e.value) {
+                          setIndex(i);
+                          break;
+                        }
+                      }
+                    }}
+                    // value={}
+                    placeholder="Select an option"
+                  />
+                  <button
+                    className="Submit-Adds"
+                    onClick={() => {
+                      setOpenAdd(true);
+                    }}
+                  >
+                    Add
+                  </button>
+                  <button className="Submit-Adds">Submit</button>
+                </>
+              )}
             </div>
           </div>
           {tab == "Home" && (
@@ -244,26 +281,29 @@ function Admin() {
             </>
           )}
 
-          {tab == "AddActivity" &&
-            activities[0].map((val: any, index: number) => {
-              return (
-                <>
-                  <div
-                    className="Activity-Item"
-                    draggable={true}
-                    onDragStart={() => {
-                      dragStart(index);
-                    }}
-                    onDragEnter={() => {
-                      dragEnter(index);
-                    }}
-                    onDragEnd={dragEnd}
-                  >
-                    <h1>{val.activity}</h1>
-                  </div>
-                </>
-              );
-            })}
+          {tab == "AddActivity" && (
+            <>
+              <div className="Add-Activity-Container">
+                {activities[index].map((val: any, index: number) => {
+                  return (
+                    <div
+                      className="Activity-Item"
+                      draggable={true}
+                      onDragStart={() => {
+                        dragStart(index);
+                      }}
+                      onDragEnter={() => {
+                        dragEnter(index);
+                      }}
+                      onDragEnd={dragEnd}
+                    >
+                      <h1>{val.activity}</h1>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
