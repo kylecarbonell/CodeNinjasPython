@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Admin.css";
 import "./AdminHome";
 import AdminHome from "./AdminHome";
@@ -11,7 +11,7 @@ import AdminNinja from "./AdminNinja";
 import { getData } from "../../Data";
 
 import Draggable from "react-draggable";
-
+import { act } from "react-dom/test-utils";
 
 function Admin() {
   const [users, setUsers] = useState<any>([]);
@@ -19,9 +19,40 @@ function Admin() {
   const [tab, setTab] = useState("Home");
   const [userData, setUserData] = useState<any>({});
 
-  const [topics, setTopics] = useState<any>([]);
+  const [activities, setActivities] = useState<any>([]);
 
   const [search, setSearch] = useState("");
+
+  const draggedItem = useRef<any>();
+  const draggedEnter = useRef<any>();
+
+  const dragStart = (index: number) => {
+    draggedItem.current = index;
+    console.log(draggedItem);
+  };
+
+  const dragEnter = (index: number) => {
+    draggedEnter.current = index;
+    console.log("ENTERD", draggedEnter);
+  };
+
+  const dragEnd = () => {
+    if (draggedItem.current == draggedEnter.current) {
+      return;
+    }
+
+    const copyListItems = [...activities];
+    const dragItemContent = copyListItems[draggedItem.current];
+    copyListItems.splice(draggedItem.current, 1);
+    copyListItems.splice(draggedEnter.current, 0, dragItemContent);
+    draggedItem.current = null;
+    draggedEnter.current = null;
+    setActivities(copyListItems);
+  };
+
+  useEffect(() => {
+    console.log(activities);
+  }, [activities]);
 
   const getReviews = async () => {
     const data = await fetch(`${call}/getAllReviews`);
@@ -63,7 +94,7 @@ function Admin() {
     getReviews();
     getUserData();
     getData().then((data) => {
-      setTopics(data.topics);
+      setActivities(data.activities);
     });
   }, []);
 
@@ -213,11 +244,28 @@ function Admin() {
             </>
           )}
 
-          {tab == "AddActivity" && (
-            
-          )}
+          {tab == "AddActivity" &&
+            activities[0].map((val: any, index: number) => {
+              return (
+                <>
+                  <div
+                    className="Activity-Item"
+                    draggable={true}
+                    onDragStart={() => {
+                      dragStart(index);
+                    }}
+                    onDragEnter={() => {
+                      dragEnter(index);
+                    }}
+                    onDragEnd={dragEnd}
+                  >
+                    <h1>{val.activity}</h1>
+                  </div>
+                </>
+              );
+            })}
         </div>
-      </div >
+      </div>
     </>
   );
 }
