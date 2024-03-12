@@ -29,17 +29,43 @@ function Admin() {
   const draggedItem = useRef<any>();
   const draggedEnter = useRef<any>();
 
+  const submitAdds = async () => {
+    await fetch(`${call}/submitAdds`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ acts: activities })
+    }).then(async (res) => {
+      const text = await res.text();
+      alert(text)
+    })
+  }
+
+
   const dragStart = (index: number) => {
     draggedItem.current = index;
-    console.log(draggedItem);
   };
 
-  const dragEnter = (index: number) => {
+  const dragEnter = (e: any, index: number) => {
+    e.preventDefault()
     draggedEnter.current = index;
-    console.log("ENTERD", draggedEnter);
+
+
+    if (draggedEnter.current != draggedItem.current) {
+      // if (e.currentTarget.className == "Activity-Item-Container") {
+      e.currentTarget.style.borderTop = "2px solid white"
+      // }
+
+    }
   };
 
-  const dragEnd = () => {
+  const dragExit = (e: any) => {
+    console.log("here")
+    e.currentTarget.style.borderTop = ""
+  }
+
+  const dragEnd = (e: any) => {
+    dragExit(e)
+    e.preventDefault()
     if (draggedItem.current == draggedEnter.current) {
       return;
     }
@@ -53,6 +79,7 @@ function Admin() {
 
     draggedItem.current = null;
     draggedEnter.current = null;
+
 
     setActivities(fullList);
   };
@@ -200,7 +227,7 @@ function Admin() {
         </div>
         <div className="Admin-Content-Wrapper">
           <div className="Admin-Content-Bar">
-            <div style={{ width: "50%" }}>Hello, Sensei Kyle</div>
+            <div style={{ width: "100%", boxSizing: "border-box", paddingLeft: "5%" }}>Hello, Sensei Kyle</div>
 
             <div className="Ninja-Search-Bar-Container">
               {tab == "Ninjas" && (
@@ -238,7 +265,7 @@ function Admin() {
                   >
                     Add
                   </button>
-                  <button className="Submit-Adds">Submit</button>
+                  <button className="Submit-Adds" onClick={submitAdds}>Submit</button>
                 </>
               )}
             </div>
@@ -286,20 +313,26 @@ function Admin() {
               <div className="Add-Activity-Container">
                 {activities[index].map((val: any, index: number) => {
                   return (
-                    <div
-                      className="Activity-Item"
-                      draggable={true}
-                      onDragStart={() => {
-                        dragStart(index);
+                    <div className="Activity-Item-Container"
+                      onDragOver={(e) => {
+                        dragEnter(e, index);
                       }}
-                      onDragEnter={() => {
-                        dragEnter(index);
-                      }}
-                      onDragEnd={dragEnd}
+                      onDragLeave={(e: any) => { dragExit(e) }}
+                      onDrop={(e) => { dragEnd(e) }}
                     >
-                      <h1>{val.activity}</h1>
+                      <div
+                        className="Activity-Item"
+                        draggable={true}
+                        onDragStart={() => {
+                          dragStart(index);
+                        }}
+
+                      >
+                        <h1>{val.activity}</h1>
+                      </div>
                     </div>
                   );
+
                 })}
               </div>
             </>

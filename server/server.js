@@ -292,6 +292,26 @@ app.post("/createActivities", async (req, res) => {
   }
 });
 
+app.post("/submitAdds", async (req, res) => {
+  const acts = req.body.acts;
+  console.log("FJSDKLLLLLLLLLLLLLLLLLLl");
+  console.log(acts[0]);
+
+  for (let i = 0; i < acts.length; i++) {
+    for (let j = 0; j < acts[i].length; j++) {
+      acts[i][j]["position"] = j;
+      await act
+        .collection("ActivityList")
+        .updateOne(
+          { link: acts[i][j]["link"] },
+          { $set: { position: acts[i][j]["position"] } }
+        );
+    }
+  }
+
+  res.send("New activities completed").status(200);
+});
+
 const start = async () => {
   try {
     app.listen(PORT, () => {
