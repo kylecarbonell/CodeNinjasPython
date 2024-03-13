@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Admin.css";
-import "./AdminHome";
-import AdminHome from "./AdminHome";
-// import AdminReviews from "./AdminReviews";
+// import "./AdminHome";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import AdminAdd from "./AdminAdd";
 
 import { call } from "../../../server/Data/data";
-import AdminNinja from "./AdminNinja";
-import { getData, topics } from "../../Data";
+import { getData } from "../../Data";
 
 import Dropdown from "react-dropdown";
+
+import AdminHome from "./Home Tab/AdminHome";
+import AdminAdd from "./Add Ninja Tab/AdminAdd";
+import AdminAddActivity from "./Add Activity Tab/AdminAddActivity";
+import AdminNinja from "./Ninja Tab/AdminNinja";
 
 function Admin() {
   const [users, setUsers] = useState<any>([]);
@@ -26,8 +27,7 @@ function Admin() {
 
   const [search, setSearch] = useState("");
 
-  const draggedItem = useRef<any>();
-  const draggedEnter = useRef<any>();
+
 
   const submitAdds = async () => {
     await fetch(`${call}/submitAdds`, {
@@ -41,48 +41,7 @@ function Admin() {
   }
 
 
-  const dragStart = (index: number) => {
-    draggedItem.current = index;
-  };
 
-  const dragEnter = (e: any, index: number) => {
-    e.preventDefault()
-    draggedEnter.current = index;
-
-
-    if (draggedEnter.current != draggedItem.current) {
-      // if (e.currentTarget.className == "Activity-Item-Container") {
-      e.currentTarget.style.borderTop = "2px solid white"
-      // }
-
-    }
-  };
-
-  const dragExit = (e: any) => {
-    console.log("here")
-    e.currentTarget.style.borderTop = ""
-  }
-
-  const dragEnd = (e: any) => {
-    dragExit(e)
-    e.preventDefault()
-    if (draggedItem.current == draggedEnter.current) {
-      return;
-    }
-
-    const fullList = [...activities];
-    const copyListItems = [...activities[index]];
-    const dragItemContent = copyListItems[draggedItem.current];
-    copyListItems.splice(draggedItem.current, 1);
-    copyListItems.splice(draggedEnter.current, 0, dragItemContent);
-    fullList[index] = copyListItems;
-
-    draggedItem.current = null;
-    draggedEnter.current = null;
-
-
-    setActivities(fullList);
-  };
 
   useEffect(() => {
     console.log(activities);
@@ -254,13 +213,12 @@ function Admin() {
                         }
                       }
                     }}
-                    // value={}
-                    placeholder="Select an option"
+                    placeholder={topics[index]}
                   />
                   <button
                     className="Submit-Adds"
                     onClick={() => {
-                      setOpenAdd(true);
+                      setOpenAdd(!openAdd);
                     }}
                   >
                     Add
@@ -309,36 +267,36 @@ function Admin() {
           )}
 
           {tab == "AddActivity" && (
-            <>
-              <div className="Add-Activity-Container">
-                {activities[index].map((val: any, index: number) => {
-                  return (
-                    <div className="Activity-Item-Container"
-                      onDragOver={(e) => {
-                        dragEnter(e, index);
-                      }}
-                      onDragLeave={(e: any) => { dragExit(e) }}
-                      onDrop={(e) => { dragEnd(e) }}
-                    >
-                      <div
-                        className="Activity-Item"
-                        draggable={true}
-                        onDragStart={() => {
-                          dragStart(index);
-                        }}
-
-                      >
-                        <h1>{val.activity}</h1>
-                      </div>
-                    </div>
-                  );
-
-                })}
-              </div>
-            </>
+            <AdminAddActivity activities={activities} index={index} setActivities={setActivities} />
           )}
         </div>
       </div>
+
+      {
+        openAdd &&
+        <div className="Add-Modal-Container" onClick={(e: any) => {
+          console.log(e.target.className)
+          if (e.target.className == "Add-Modal-Container") {
+            setOpenAdd(false)
+          }
+
+        }}>
+          <form className="Add-Modal">
+            <div className="Modal-Input-Container">
+              <h1>Title</h1>
+            </div>
+            <div className="Modal-Input-Container">
+              <h1>Activity Name</h1>
+            </div>
+            <div className="Modal-Input-Container">
+              <h1>Groupings</h1>
+            </div>
+            <div className="Modal-Input-Container">
+              <h1>File</h1>
+            </div>
+          </form>
+        </div>
+      }
     </>
   );
 }

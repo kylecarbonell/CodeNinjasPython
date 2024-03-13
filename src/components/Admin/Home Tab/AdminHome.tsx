@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./AdminHome.css";
-import { call } from "../../../server/Data/data";
+import { call } from "../../../../server/Data/data";
 
 
 interface props {
