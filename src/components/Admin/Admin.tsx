@@ -27,21 +27,16 @@ function Admin() {
 
   const [search, setSearch] = useState("");
 
-
-
   const submitAdds = async () => {
     await fetch(`${call}/submitAdds`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ acts: activities })
+      body: JSON.stringify({ acts: activities }),
     }).then(async (res) => {
       const text = await res.text();
-      alert(text)
-    })
-  }
-
-
-
+      alert(text);
+    });
+  };
 
   useEffect(() => {
     console.log(activities);
@@ -186,7 +181,15 @@ function Admin() {
         </div>
         <div className="Admin-Content-Wrapper">
           <div className="Admin-Content-Bar">
-            <div style={{ width: "100%", boxSizing: "border-box", paddingLeft: "5%" }}>Hello, Sensei Kyle</div>
+            <div
+              style={{
+                width: "100%",
+                boxSizing: "border-box",
+                paddingLeft: "5%",
+              }}
+            >
+              Hello, Sensei Kyle
+            </div>
 
             <div className="Ninja-Search-Bar-Container">
               {tab == "Ninjas" && (
@@ -223,7 +226,9 @@ function Admin() {
                   >
                     Add
                   </button>
-                  <button className="Submit-Adds" onClick={submitAdds}>Submit</button>
+                  <button className="Submit-Adds" onClick={submitAdds}>
+                    Submit
+                  </button>
                 </>
               )}
             </div>
@@ -267,36 +272,51 @@ function Admin() {
           )}
 
           {tab == "AddActivity" && (
-            <AdminAddActivity activities={activities} index={index} setActivities={setActivities} />
+            <AdminAddActivity
+              activities={activities}
+              index={index}
+              setActivities={setActivities}
+            />
           )}
         </div>
       </div>
 
-      {
-        openAdd &&
-        <div className="Add-Modal-Container" onClick={(e: any) => {
-          console.log(e.target.className)
-          if (e.target.className == "Add-Modal-Container") {
-            setOpenAdd(false)
-          }
+      {openAdd && (
+        <div
+          className="Add-Modal-Container"
+          onClick={(e: any) => {
+            console.log(e.target.className);
+            if (e.target.className == "Add-Modal-Container") {
+              setOpenAdd(false);
+            }
+          }}
+        >
+          <form className="Modal-Form">
+            <div className="Modal-Input">
+              <div className="Modal-Input-Container">
+                <h1>Title</h1>
+              </div>
+              <div className="Modal-Input-Container">
+                <h1>Activity Name</h1>
+              </div>
+              <div className="Modal-Input-Container">
+                <h1>Groupings</h1>
+              </div>
+              <div className="Modal-Input-Container">
+                <h1>File</h1>
+              </div>
+            </div>
 
-        }}>
-          <form className="Add-Modal">
-            <div className="Modal-Input-Container">
-              <h1>Title</h1>
-            </div>
-            <div className="Modal-Input-Container">
-              <h1>Activity Name</h1>
-            </div>
-            <div className="Modal-Input-Container">
-              <h1>Groupings</h1>
-            </div>
-            <div className="Modal-Input-Container">
-              <h1>File</h1>
+            <div className="Modal-Button">
+              <button
+                style={{ backgroundColor: "var(--lightBlue)", border: 0 }}
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
-      }
+      )}
     </>
   );
 }

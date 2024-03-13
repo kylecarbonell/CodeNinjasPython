@@ -168,8 +168,6 @@
   padding-left: 2%;
 }
 
-
-
 .Add-Dropdown {
   width: 100%;
   height: 100%;
@@ -179,7 +177,7 @@
 
   z-index: 1;
   border-radius: 10px;
-  
+
   /* display: flex;
   align-items: center; */
 
@@ -207,7 +205,7 @@
   /* border-top-left-radius: ; */
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  
+
   box-sizing: border-box;
   padding-left: 2%;
 }
@@ -223,7 +221,7 @@
   font-size: 1rem;
 }
 
-.Ninja-Search-Bar-Container{
+.Ninja-Search-Bar-Container {
   width: 100%;
   height: 100%;
 
@@ -237,10 +235,9 @@
 
   box-sizing: border-box;
   padding-right: 5%;
-
 }
 
-.Add-Modal-Container{
+.Add-Modal-Container {
   top: 0;
   left: 0;
 
@@ -251,18 +248,17 @@
 
   width: 100%;
   height: 100%;
-  
+
   position: absolute;
   background-color: transparent;
   backdrop-filter: blur(20px);
-
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Add-Modal{
+.Modal-Form {
   z-index: 1;
 
   position: absolute;
@@ -273,19 +269,48 @@
   border-radius: 20px;
 
   background-color: white;
-  
+
   box-sizing: border-box;
   padding: 2%;
 
   display: grid;
-  grid-template-rows: repeat(auto-fill, 75px);
+  grid-template-rows: 80% 20%;
   grid-template-columns: 100%;
 
   row-gap: 2%;
 }
 
-.Modal-Input-Container{
+.Modal-Input {
   height: 100%;
   width: 100%;
-  background-color: green;
+
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(auto-fill, 100px);
+  row-gap: 2%;
+
+  /* background-color: black; */
+}
+
+.Modal-Button {
+  /* background-color: blue; */
+
+  height: 100px;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 45%;
+  grid-template-rows: 75%;
+
+  justify-content: center;
+  align-content: center;
+}
+
+.Modal-Input-Container {
+  height: 100%;
+  width: 100%;
+  background-color: var(--lightBlue);
+
+  display: grid;
+  grid-template-columns: 30% 70%;
 }
