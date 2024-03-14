@@ -294,16 +294,19 @@ function Admin() {
           <form className="Modal-Form">
             <div className="Modal-Input">
               <div className="Modal-Input-Container">
-                <h1>Title</h1>
+                <h1 className="Modal-Input-Text">Add Activity</h1>
               </div>
               <div className="Modal-Input-Container">
-                <h1>Activity Name</h1>
+                <h1 className="Modal-Input-Text">Activity Name</h1>
+                <input className="Modal-Input-Item"></input>
               </div>
               <div className="Modal-Input-Container">
-                <h1>Groupings</h1>
+                <h1 className="Modal-Input-Text">Groupings</h1>
+                <input className="Modal-Input-Item"></input>
               </div>
               <div className="Modal-Input-Container">
-                <h1>File</h1>
+                <h1 className="Modal-Input-Text">File</h1>
+                <input className="Modal-Input-Item"></input>
               </div>
             </div>
 

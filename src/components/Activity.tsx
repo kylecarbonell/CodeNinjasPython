@@ -6,8 +6,11 @@ import { FaRegTrashCan } from "react-icons/fa6";
 
 import Editor from "@monaco-editor/react";
 import { call, pythonCall } from "../../server/Data/data";
+import { createDependencyProposals } from "../../monaco_settings/monaco_settings"
+
 
 function Activity(this: any) {
+
   var { state } = useLocation();
   // var [params, setParams] = useSearchParams();
   // var [instructOpen, setInstructOpen] = useState(false);
@@ -120,6 +123,30 @@ function Activity(this: any) {
     }
   };
 
+  const onMount = (monaco: any) => {
+    monaco.languages.registerCompletionItemProvider('python', {
+      triggerCharacters: ["d", "w"],
+      provideCompletionItems: function (model: any, pos: any) {
+        const word = model.getWordUntilPosition(pos)
+        console.log(word)
+        var range = {
+          startLineNumber: pos.lineNumber,
+          endLineNumber: pos.lineNumber,
+          startColumn: word.startColumn,
+          endColumn: word.endColumn,
+        };
+
+        console.log(createDependencyProposals(range, monaco))
+
+        return {
+          suggestions: createDependencyProposals(range, monaco),
+        };
+      }
+    })
+  }
+
+
+
   return (
     <>
       <div className="Activity">
@@ -147,6 +174,31 @@ function Activity(this: any) {
               theme="vs-dark"
               onChange={(e: any) => {
                 setCode(e);
+              }}
+              onMount={(editor, monaco) => {
+                // console.log("THIS IS MONACO", monaco)
+                console.log(editor)
+                onMount(monaco)
+
+                // monaco.languages.registerCompletionItemProvider('python', {
+                //   triggerCharacters: ["d", "w"],
+                //   provideCompletionItems: function (model: any, pos: any) {
+                //     const word = model.getWordUntilPosition(pos)
+                //     console.log("WORDNESS", word)
+                //     var range = {
+                //       startLineNumber: pos.lineNumber,
+                //       endLineNumber: pos.lineNumber,
+                //       startColumn: word.startColumn,
+                //       endColumn: word.endColumn,
+                //     };
+
+                //     // console.log(createDependencyProposals(range, monaco))
+
+                //     return {
+                //       suggestions: createDependencyProposals(range, monaco),
+                //     };
+                //   }
+                // })
               }}
               value={activity.code}
               options={{ minimap: { enabled: false } }}
