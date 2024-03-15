@@ -1,5 +1,6 @@
+
 function createDependencyProposals(range: any, monaco: any) {
-    return [{
+    const temp = [{
         label: 'def',
         kind: monaco.languages.CompletionItemKind.Keyword,
         // documentation: "Describe your library here",
@@ -45,10 +46,44 @@ function createDependencyProposals(range: any, monaco: any) {
         range: range,
     },
     ]
+
+    const vars = generateVariables()
+    vars.map((v) => {
+        temp.push({
+            label: v,
+            kind: monaco.languages.CompletionItemKind.Function,
+            // documentation: "Describe your library here",
+            insertText: v,
+            insertTextRules:
+                monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+            range: range,
+        })
+    })
+
+    // temp.push(labels)
+    return temp
 }
 
-function generateVariables(range: any, monaco: any) {
+let vars: string[] = []
+
+function addVar(arr: any) {
+    vars = []
+    for (let i = 0; i < arr.length; i++) {
+        if (vars.includes(arr[i])) {
+            return
+        }
+
+        vars.push(arr[i])
+    }
 
 }
 
-export { createDependencyProposals }
+function generateVariables() {
+    const temp = vars.map((x) => {
+        return x
+    })
+
+    return temp
+}
+
+export { createDependencyProposals, generateVariables, addVar }

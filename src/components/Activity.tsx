@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { /*useLocation,*/ useNavigate } from "react-router-dom";
 import "./Activity.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-import Editor from "@monaco-editor/react";
 import { call, pythonCall } from "../../server/Data/data";
-import { createDependencyProposals } from "../../monaco_settings/monaco_settings"
+import EditorComp from "./Editor/EditorComp";
 
 
 function Activity(this: any) {
 
-  var { state } = useLocation();
+  // var { state } = useLocation();
   // var [params, setParams] = useSearchParams();
   // var [instructOpen, setInstructOpen] = useState(false);
   var [activity, setActivities] = useState<any>({});
@@ -71,23 +70,21 @@ function Activity(this: any) {
     );
 
     const json = await data.json();
-    console.log("HERE IN JSON", json);
+    // console.log("HERE IN JSON", json);
     setActivities(json);
   }
 
   const execute = async () => {
     console.log(code);
-    // console.log(code);
     const data = { code: code };
 
+    saveCode()
     const test = await fetch(`${pythonCall}/execute`, {
       method: "post",
       body: JSON.stringify(data),
     });
     const json = await test.json();
-    const obj = Object(json);
-    console.log("OBJECT", obj);
-    console.log("code", obj.output);
+
     setRun([...run, Object(json)]);
   };
 
@@ -96,16 +93,13 @@ function Activity(this: any) {
   }, [code]);
 
   useEffect(() => {
-    console.log("HERE IN ACTIVITY", activity);
+    // console.log("HERE IN ACTIVITY", activity);
     setCode(activity.code);
   }, [activity]);
 
   useEffect(() => {
-    console.log(state);
     getUser();
-  }, []);
 
-  useEffect(() => {
     window.addEventListener("beforeunload", (e) => {
       e.preventDefault();
       saveCode();
@@ -117,34 +111,11 @@ function Activity(this: any) {
   }, []);
 
   onkeydown = async (e: any) => {
-    if (e.ctrlKey && e.keyCode == "S".charCodeAt(0)) {
+    if ((e.ctrlKey || e.metaKey) && e.keyCode == "S".charCodeAt(0)) {
       e.preventDefault();
       saveCode();
     }
   };
-
-  const onMount = (monaco: any) => {
-    monaco.languages.registerCompletionItemProvider('python', {
-      triggerCharacters: ["d", "w"],
-      provideCompletionItems: function (model: any, pos: any) {
-        const word = model.getWordUntilPosition(pos)
-        console.log(word)
-        var range = {
-          startLineNumber: pos.lineNumber,
-          endLineNumber: pos.lineNumber,
-          startColumn: word.startColumn,
-          endColumn: word.endColumn,
-        };
-
-        console.log(createDependencyProposals(range, monaco))
-
-        return {
-          suggestions: createDependencyProposals(range, monaco),
-        };
-      }
-    })
-  }
-
 
 
   return (
@@ -168,41 +139,7 @@ function Activity(this: any) {
         </div>
         <div className="Activity-Content">
           <div className="Activity-Code">
-            <Editor
-              height="90vh"
-              language="python"
-              theme="vs-dark"
-              onChange={(e: any) => {
-                setCode(e);
-              }}
-              onMount={(editor, monaco) => {
-                // console.log("THIS IS MONACO", monaco)
-                console.log(editor)
-                onMount(monaco)
-
-                // monaco.languages.registerCompletionItemProvider('python', {
-                //   triggerCharacters: ["d", "w"],
-                //   provideCompletionItems: function (model: any, pos: any) {
-                //     const word = model.getWordUntilPosition(pos)
-                //     console.log("WORDNESS", word)
-                //     var range = {
-                //       startLineNumber: pos.lineNumber,
-                //       endLineNumber: pos.lineNumber,
-                //       startColumn: word.startColumn,
-                //       endColumn: word.endColumn,
-                //     };
-
-                //     // console.log(createDependencyProposals(range, monaco))
-
-                //     return {
-                //       suggestions: createDependencyProposals(range, monaco),
-                //     };
-                //   }
-                // })
-              }}
-              value={activity.code}
-              options={{ minimap: { enabled: false } }}
-            />
+            <EditorComp setCode={setCode} activity={activity} />
           </div>
           <div className="Activity-Tabs">
             <ul className="Activity-Tabs-List">
