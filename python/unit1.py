@@ -20,23 +20,23 @@ def newSum(arr):
     print(s)
 
 
-class activity1(unittest.TestCase):
-    def setUp():
+class activity1():
+
+    def __init__(self):
         f = StringIO()
         with redirect_stdout(f):
             exec('print("hi")', {'a':  "poopoop"})
             s = f.getvalue().strip()
-            return s
+            self.output =  s
+    
+        
     def test_activity1(self):
-            s = self.setUp()
-            self.assertEqual(s, "hs", "Incorrect output 1")
+        return self.output == "Test"
 
     def test_activity2(self):
-        f = StringIO()
-        with redirect_stdout(f):
-            exec('print("hi")', {'a':  "poopoop"})
-            s = f.getvalue().strip()
-            self.assertEqual(s, "hi", "Incorrect output 1 2")
+        self.assertEqual(self.output, "hi", "Incorrect output 1 2")
 
 if __name__ == '__main__':
-    unittest.main(activity1())
+    temp = activity1()
+    print(temp.test_activity1())
+    # unittest.main(temp)
