@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Home from './components/Home.tsx';
 import Admin from './components/Admin/Admin.tsx';
+import AdminReviews from './components/Admin/Review Tab/AdminReviews.tsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />
+  },
+  {
+    path: "/admin/reviews",
+    element: <AdminReviews />
   }
 ])
 

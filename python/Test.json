@@ -1,0 +1,12 @@
+{
+  "activity1": {
+    "Output": "",
+    "Code": "print",
+    "Parameter": ""
+  },
+  "activity2": {
+    "Output": "\n* * * * *",
+    "Code": "print",
+    "Parameter": ""
+  }
+}

@@ -4,7 +4,7 @@ import "./Activity.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-import { call, pythonCall } from "../../server/Data/data";
+import { call, pythonCall, getActivity } from "../../server/Data/data";
 import EditorComp from "./Editor/EditorComp";
 
 
@@ -18,6 +18,12 @@ function Activity(this: any) {
   var [code, setCode] = useState("");
   var [run, setRun] = useState<any>([]);
 
+  var [tests, setTests] = useState<any>({
+    "Test 1": false,
+    "Test 2": false,
+    "Test 3": false
+  })
+
   var [tabIndex, setTabIndex] = useState<number>(0);
   var [loading, setLoading] = useState<boolean>(false);
 
@@ -25,15 +31,28 @@ function Activity(this: any) {
 
   async function submit() {
     const data = {
-      username: window.sessionStorage.getItem("user"),
       link: window.sessionStorage.getItem("link"),
+      code: code
     };
-    await fetch(`${call}/submit`, {
+    setTabIndex(2)
+
+    await fetch(`${pythonCall}/submit`, {
       method: "post",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    });
-    console.log("Inside submit");
+    }).then(async (res) => {
+      console.log("Inside ");
+      const t = await res.json()
+      console.log("HERES", t)
+      setTests(t)
+    }).catch(() => {
+      console.log("SDFJLKSDJFK")
+    })
+    // await fetch(`${call}/submit`, {
+    //   method: "post",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(data),
+    // });
+
   }
 
   async function saveCode() {
@@ -70,7 +89,7 @@ function Activity(this: any) {
     );
 
     const json = await data.json();
-    // console.log("HERE IN JSON", json);
+    console.log("HERE IN JSON", json);
     setActivities(json);
   }
 
@@ -109,6 +128,8 @@ function Activity(this: any) {
       window.sessionStorage.setItem("code", "");
     });
   }, []);
+
+  useEffect(() => { console.log(tests) }, tests)
 
   onkeydown = async (e: any) => {
     if ((e.ctrlKey || e.metaKey) && e.keyCode == "S".charCodeAt(0)) {
@@ -239,7 +260,7 @@ function Activity(this: any) {
                 <div className="Instructions-Panel">
                   <iframe
                     className="Instruction-Pdf"
-                    src={`/${activity.link}.pdf#toolbar=0&navpanes=0`}
+                    src={getActivity(activity.link)}
                   />
                 </div>
               )}
@@ -247,7 +268,19 @@ function Activity(this: any) {
               {/* Grading */}
               {tabIndex == 2 && (
                 <div className="Grade-Panel">
-                  <h1>Have test cases here, send if all tests complete to be graded</h1>
+                  {
+
+                    Object.keys(tests).map((val) => {
+                      return (
+                        <>
+                          <div className="Test-Case">
+                            <span className="Square" style={!tests[val] ? { backgroundColor: "red" } : { backgroundColor: "green" }} />
+                            <div className="Test-Name">{val}</div>
+                          </div>
+                        </>
+                      )
+                    })
+                  }
                 </div>
               )}
             </div>

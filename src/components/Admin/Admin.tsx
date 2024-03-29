@@ -6,12 +6,15 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { call } from "../../../server/Data/data";
 import { getData } from "../../Data";
 
+import { getImage } from "../../../server/Data/data";
+
 import Dropdown from "react-dropdown";
 
 import AdminHome from "./Home Tab/AdminHome";
 import AdminAdd from "./Add Ninja Tab/AdminAdd";
 import AdminAddActivity from "./Add Activity Tab/AdminAddActivity";
 import AdminNinja from "./Ninja Tab/AdminNinja";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [users, setUsers] = useState<any>([]);
@@ -26,6 +29,11 @@ function Admin() {
   const [openAdd, setOpenAdd] = useState(false);
 
   const [search, setSearch] = useState("");
+  const nav = useNavigate()
+
+  const openReview = (author: string, link: string) => {
+    nav(`/admin/reviews?activity=${link}&author=${author}`, { replace: true })
+  }
 
   const submitAdds = async () => {
     await fetch(`${call}/submitAdds`, {
@@ -102,7 +110,7 @@ function Admin() {
             <button className="Admin-Bar-Button">
               <img
                 className="Bar-Image"
-                src="/home.svg"
+                src={getImage("home.svg")}
                 onClick={() => {
                   setTab("Home");
                 }}
@@ -116,7 +124,7 @@ function Admin() {
                 setTab("Reviews");
               }}
             >
-              <img className="Bar-Image" src="/reviews.svg"></img>
+              <img className="Bar-Image" src={getImage("reviews.svg")}></img>
               Reviews
             </button>
             <button
@@ -125,7 +133,7 @@ function Admin() {
                 setTab("Ninjas");
               }}
             >
-              <img className="Bar-Image" src="/my-ninja.svg"></img>
+              <img className="Bar-Image" src={getImage("my-ninja.svg")}></img>
               My Ninjas
             </button>
             <button
@@ -134,7 +142,7 @@ function Admin() {
                 setTab("Support");
               }}
             >
-              <img className="Bar-Image" src="/support.svg"></img>
+              <img className="Bar-Image" src={getImage("support.svg")}></img>
               Support
             </button>
             <button
@@ -165,7 +173,7 @@ function Admin() {
             <button className="Admin-Account-Buttons">
               <img
                 className="Account-Image"
-                src="/user.jpg"
+                src={getImage("user.jpg")}
                 style={{
                   borderRadius: "30px",
                   width: "40%",
@@ -174,7 +182,7 @@ function Admin() {
               Kyle Carbonell
             </button>
             <button className="Admin-Account-Buttons">
-              <img className="Account-Image" src="/logout.svg" />
+              <img className="Account-Image" src={getImage("logout.svg")} />
               Log out
             </button>
           </div>
@@ -258,7 +266,7 @@ function Admin() {
                     if (rev.submitted) {
                       return (
                         <>
-                          <div className="Review-Item">
+                          <div className="Review-Item" onClick={() => { openReview(rev.author, rev.link) }}>
                             <h1>{rev.author}</h1>
                             <h2>{rev.name}</h2>
                           </div>

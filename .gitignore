@@ -24,6 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 
-
+public
 
 .env   
