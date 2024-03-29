@@ -9,7 +9,7 @@ import { CiLock } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 
 import { getData } from "../Data";
-import { call } from "../../server/Data/data";
+import { call, getImage } from "../../server/Data/data";
 
 function Home() {
   const [dropdownOn, setOn] = useState(false);
@@ -74,7 +74,7 @@ function Home() {
       <div className="Home">
         <div className="Bar">
           <div className="Bar-Left">
-            <img className="Python-Image" src="/pythonLogo.jpg"></img>
+            <img className="Python-Image" src={getImage("pythonLogo.jpg")}></img>
           </div>
           <div className="Bar-Middle"></div>
 

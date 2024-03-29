@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 import { useNavigate } from "react-router-dom";
-import { call } from "../server/Data/data";
+import { call, getImage } from "../server/Data/data";
 
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
     <div className="App">
       <div className="Login-Wrapper">
         <div className="Login-Image-Wrapper">
-          <img className="Login-Image" src="/pythonLogo.jpg"></img>
+          <img className="Login-Image" src={getImage("pythonLogo.jpg")}></img>
         </div>
         <div className="Login-Title-Wrapper">
           <h1 className="Title" style={{ color: "white" }}>

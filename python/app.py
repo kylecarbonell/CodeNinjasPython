@@ -12,6 +12,10 @@ import contextlib
 from contextlib import redirect_stdout
 from waitress import serve
 
+from unit1 import Activity
+import json
+
+import asyncio
 
 
 app = Flask(__name__)
@@ -36,16 +40,9 @@ def stdoutIO(stdout=None):
     yield stdout
     sys.stdout = old
 
-@app.route('/execute', methods=["GET", "POST"])
-def execute():
-    data = json.loads(request.data)
-    code = data['code']
-    # print(data)
-    # print(code)
+def runCode(code):
+    # print("POOOOOOOOOOOOo")
 
-    response = {}
-    print("before")
-    print('in')
     try:
         f = StringIO()
         with redirect_stdout(f):
@@ -53,14 +50,46 @@ def execute():
             date = now.strftime("%m/%d/%Y %H:%M:%S")
             exec(code, {'a':  "poopoop"})
             s = f.getvalue()
-            res = jsonify({"output": s, "time": date})
-            res.headers.add('Access-Control-Allow-Origin', '*')
-            return res
+            return {"output": s, "time": date}
     except Exception as e:
         print("THIS IS E ", e)
-        res = jsonify({"output": "Error: " + str(e), "time": date})
-        res.headers.add('Access-Control-Allow-Origin', '*')
+        res = {"output": "Error: " + str(e), "time": date}
         return res
+
+@app.route('/execute', methods=["GET", "POST"])
+def execute():
+    data = json.loads(request.data)
+    code = data['code']
+
+
+    res = jsonify(runCode(code))
+    res.headers.add('Access-Control-Allow-Origin', '*')
+    
+    return res
+   
+
+@app.route('/submit', methods=["GET", "POST"])
+def submit():
+    data = json.loads(request.data)
+    code = data['code']
+    link = data['link']
+
+    print(code)
+
+
+    res = runCode(code)['output']
+    f = open("python/Test.json")
+    tests = json.load(f)[link]
+
+    t = Activity(code=code, output=res, tests=tests, link=link)
+    temp = jsonify(t.serialize())
+    temp.headers.add('Access-Control-Allow-Origin', '*')
+
+
+    f.close()
+    return temp
+    
+
 
 if __name__ == "__main__":
     # serve(app, host="0.0.0.0", port=8080)
