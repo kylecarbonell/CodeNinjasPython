@@ -1,10 +1,12 @@
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 
 function AdminReviews() {
   const queryParameters = new URLSearchParams(window.location.search)
   const activity = queryParameters.get("activity")
   const author = queryParameters.get("author")
+
+
 
   return (
     <>
