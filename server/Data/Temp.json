@@ -1,0 +1,313 @@
+{
+  "userData": {
+    "_id": "65e828b347b3af7da93c35dc",
+    "name": "Admin",
+    "level": 1000
+  },
+  "topics": [
+    "Printing and Variables",
+    "Conditionals (I)",
+    "Conditionals (II)",
+    "Functions",
+    "Projects (I)",
+    "Operators",
+    "Loops (I)",
+    "Projects (II)",
+    "Loops (II)",
+    "Return Functions",
+    "List and Dictionaries",
+    "Projects (III)"
+  ],
+  "activities": [
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94a2",
+        "link": "activity1",
+        "group": "Printing and Variables",
+        "activity": "Activity 1",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94a3",
+        "link": "activity2",
+        "group": "Printing and Variables",
+        "activity": "Activity 2",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94a4",
+        "link": "activity3",
+        "group": "Printing and Variables",
+        "activity": "Activity 3",
+        "position": 2
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94a5",
+        "link": "activity4",
+        "group": "Printing and Variables",
+        "activity": "Activity 4",
+        "position": 3
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94a6",
+        "link": "activity5",
+        "group": "Conditionals (I)",
+        "activity": "Activity 5",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94a7",
+        "link": "activity6",
+        "group": "Conditionals (I)",
+        "activity": "Activity 6",
+        "position": 1
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94a8",
+        "link": "activity7",
+        "group": "Conditionals (II)",
+        "activity": "Activity 7",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94a9",
+        "link": "activity8",
+        "group": "Conditionals (II)",
+        "activity": "Activity 8",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94aa",
+        "link": "activity9",
+        "group": "Conditionals (II)",
+        "activity": "Activity 9",
+        "position": 2
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94ab",
+        "link": "activity10",
+        "group": "Functions",
+        "activity": "Activity 10",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94ac",
+        "link": "activity11",
+        "group": "Functions",
+        "activity": "Activity 11",
+        "position": 1
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94ad",
+        "link": "activity12",
+        "group": "Projects (I)",
+        "activity": "Activity 12",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94ae",
+        "link": "activity13",
+        "group": "Projects (I)",
+        "activity": "Activity 13",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94af",
+        "link": "activity14",
+        "group": "Projects (I)",
+        "activity": "Activity 14",
+        "position": 2
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94b0",
+        "link": "activity15",
+        "group": "Operators",
+        "activity": "Activity 15",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94b1",
+        "link": "activity16",
+        "group": "Operators",
+        "activity": "Activity 16",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94b2",
+        "link": "activity17",
+        "group": "Operators",
+        "activity": "Activity 17",
+        "position": 2
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94b3",
+        "link": "activity18",
+        "group": "Loops (I)",
+        "activity": "Activity 18",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94b4",
+        "link": "activity19",
+        "group": "Loops (I)",
+        "activity": "Activity 19",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94b5",
+        "link": "activity20",
+        "group": "Loops (I)",
+        "activity": "Activity 20",
+        "position": 2
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94b6",
+        "link": "activity21",
+        "group": "Projects (II)",
+        "activity": "Activity 21",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94b7",
+        "link": "activity22",
+        "group": "Projects (II)",
+        "activity": "Activity 22",
+        "position": 1
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94b8",
+        "link": "activity23",
+        "group": "Loops (II)",
+        "activity": "Activity 23",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94b9",
+        "link": "activity24",
+        "group": "Loops (II)",
+        "activity": "Activity 24",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94ba",
+        "link": "activity25",
+        "group": "Loops (II)",
+        "activity": "Activity 25",
+        "position": 2
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94bb",
+        "link": "activity26",
+        "group": "Loops (II)",
+        "activity": "Activity 26",
+        "position": 3
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94bc",
+        "link": "activity27",
+        "group": "Return Functions",
+        "activity": "Activity 27",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94bd",
+        "link": "activity28",
+        "group": "Return Functions",
+        "activity": "Activity 28",
+        "position": 1
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94be",
+        "link": "activity29",
+        "group": "List and Dictionaries",
+        "activity": "Activity 29",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94bf",
+        "link": "activity30",
+        "group": "List and Dictionaries",
+        "activity": "Activity 30",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94c0",
+        "link": "activity31",
+        "group": "List and Dictionaries",
+        "activity": "Activity 31",
+        "position": 2
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94c1",
+        "link": "activity32",
+        "group": "List and Dictionaries",
+        "activity": "Activity 32",
+        "position": 3
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94c2",
+        "link": "activity33",
+        "group": "List and Dictionaries",
+        "activity": "Activity 33",
+        "position": 4
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94c3",
+        "link": "activity34",
+        "group": "List and Dictionaries",
+        "activity": "Activity 34",
+        "position": 5
+      }
+    ],
+    [
+      {
+        "_id": "65ee2c59c33d720ffe7d94c4",
+        "link": "activity35",
+        "group": "Projects (III)",
+        "activity": "Activity 35",
+        "position": 0
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94c5",
+        "link": "activity36",
+        "group": "Projects (III)",
+        "activity": "Activity 36",
+        "position": 1
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94c6",
+        "link": "activity37",
+        "group": "Projects (III)",
+        "activity": "Activity 37",
+        "position": 2
+      },
+      {
+        "_id": "65ee2c59c33d720ffe7d94c7",
+        "link": "activity38",
+        "group": "Projects (III)",
+        "activity": "Activity 38",
+        "position": 3
+      }
+    ]
+  ]
+}

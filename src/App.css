@@ -86,7 +86,7 @@
 }
 
 .Login-Content {
-  height: 50%;
+  height: 60%;
   width: 100%;
   /* background-color: blue; */
 
@@ -134,8 +134,8 @@
 }
 
 .Login-Button {
-  width: 25%;
-  height: 25%;
+  width: 30%;
+  height: 30%;
 
   border-radius: 15px;
 
@@ -144,10 +144,14 @@
 
   font-size: 1rem;
   text-align: center;
+  justify-self: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   box-shadow: 3px 3px 5px black;
   border: 0;
-  
 }
 
 .Login-Error-Message {

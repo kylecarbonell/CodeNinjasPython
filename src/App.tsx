@@ -4,7 +4,6 @@ import "./App.css";
 import { useNavigate } from "react-router-dom";
 import { call, getImage } from "../server/Data/data";
 
-
 function App() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
@@ -12,13 +11,13 @@ function App() {
 
   useEffect(() => {
     let inter = setInterval(() => {
-      setError("")
-    }, 10000)
+      setError("");
+    }, 10000);
 
     window.addEventListener("beforeunload", () => {
-      clearInterval(inter)
-    })
-  })
+      clearInterval(inter);
+    });
+  });
 
   const onSubmit = async (e: any, signIn: boolean) => {
     e.preventDefault();
@@ -87,6 +86,15 @@ function App() {
               <h1>Log in</h1>
             </button>
           </form>
+          <button
+            className="Login-Button"
+            style={{ marginTop: "10px" }}
+            onClick={() => {
+              nav("/preview", { replace: true });
+            }}
+          >
+            <h1 style={{ fontSize: "large" }}>Click here for preview!</h1>
+          </button>
         </div>
       </div>
     </div>
