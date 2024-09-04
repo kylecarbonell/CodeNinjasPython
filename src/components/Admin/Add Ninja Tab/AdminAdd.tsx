@@ -38,6 +38,7 @@ function AdminAdd(props: props) {
       username: username,
       signedIn: false,
       time: 0,
+      level: 1,
     };
 
     console.log(data);
