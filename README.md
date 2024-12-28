@@ -4,7 +4,7 @@
 A fully functional online Integrated Development Environment (IDE) designed to help students learn Python programming by writing, running, and testing their code directly from the web.
 
 ## Link
-[Visit Python Tracker](https://codeninjas.vercel.app/) *(Replace `#` with the actual link to your app)*
+[Visit Python Tracker](https://codeninjas.vercel.app/) 
 
 ---
 
