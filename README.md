@@ -4,15 +4,14 @@
 A fully functional online Integrated Development Environment (IDE) designed to help students learn Python programming by writing, running, and testing their code directly from the web.
 
 ## Link
-[Visit Python Tracker](#) *(Replace `#` with the actual link to your app)*
+[Visit Python Tracker](https://codeninjas.vercel.app/) *(Replace `#` with the actual link to your app)*
 
 ---
 
 ## Technologies Used
 
 - **React.js**: Used for designing and developing the frontend of the application to create a dynamic, responsive user interface.
-- **Express.js**: Utilized for building the backend of the app to handle user requests and facilitate interaction with the Python compiler.
-- **Python API**: Designed and implemented a custom Python API to act as the Python compiler for running code in real-time.
+- **Flask**: Designed and implemented a custom Python API to act as the Python compiler for running code in real-time.
 - **Node.js**: Backend server environment running Express.js.
 - **Vercel**: Deployed the application for public access.
 
@@ -32,12 +31,12 @@ A fully functional online Integrated Development Environment (IDE) designed to h
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/python-tracker-app.git
+   git clone https://github.com/kylecarbonell/CodeNinjasPython.git
    ```
 
 2. **Navigate into the project directory**:
    ```bash
-   cd python-tracker-app
+   cd CodeNinjasPython
    ```
 
 3. **Install the dependencies for both frontend and backend**:
@@ -89,29 +88,3 @@ Click the "Run" button, and you will see the output below:
 ```
 Hello, World!
 ```
-
----
-
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-3. Make your changes.
-4. Commit your changes:
-   ```bash
-   git commit -am 'Add new feature'
-   ```
-5. Push to the branch:
-   ```bash
-   git push origin feature/your-feature
-   ```
-6. Open a pull request.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
